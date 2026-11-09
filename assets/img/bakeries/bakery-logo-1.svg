@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="blogo1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1B4332" />
+      <stop offset="100%" stop-color="#2D6A4F" />
+    </linearGradient>
+    <linearGradient id="gold1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F3C68F" />
+      <stop offset="100%" stop-color="#D4A373" />
+    </linearGradient>
+  </defs>
+  <!-- Background Badge -->
+  <circle cx="80" cy="80" r="76" fill="#FAF7F2" stroke="url(#blogo1)" stroke-width="4"/>
+  <circle cx="80" cy="80" r="69" fill="none" stroke="url(#gold1)" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <!-- Crescent Moon and Pastry / Croissant -->
+  <path d="M80 32 C65 32 54 44 54 60 C54 75 66 84 80 84 C72 78 68 70 68 60 C68 48 74 38 80 32 Z" fill="#D4A373"/>
+  <path d="M72 58 Q82 48 94 54 Q106 60 102 70 Q92 78 80 72 Z" fill="#E29578"/>
+  <!-- Sparkles -->
+  <polygon points="98,38 100,43 105,45 100,47 98,52 96,47 91,45 96,43" fill="#D4A373"/>
+  <!-- Typography -->
+  <text x="80" y="104" fill="#1B4332" font-family="'Playfair Display', Georgia, serif" font-size="14.5" font-weight="700" text-anchor="middle">MƠ MÀNG</text>
+  <text x="80" y="118" fill="#D4A373" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle" letter-spacing="1.5">DREAMY BAKES</text>
+  <text x="80" y="132" fill="#718096" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">EST. 2021 • Q.1</text>
+</svg>

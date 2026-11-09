@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1B4332" />
+      <stop offset="100%" stop-color="#40916C" />
+    </linearGradient>
+    <linearGradient id="skin1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE0B2" />
+      <stop offset="100%" stop-color="#FFCC80" />
+    </linearGradient>
+  </defs>
+  <!-- Background circle with subtle glow -->
+  <circle cx="100" cy="100" r="95" fill="#FAF7F2" stroke="url(#grad1)" stroke-width="4"/>
+  <circle cx="100" cy="100" r="88" fill="#F4EFE6"/>
+  <!-- Torso & Blazer -->
+  <path d="M42 186 C42 142 70 126 100 126 C130 126 158 142 158 186 Z" fill="url(#grad1)"/>
+  <!-- Shirt collar -->
+  <polygon points="100,146 84,126 116,126" fill="#FFFFFF"/>
+  <!-- Neck -->
+  <rect x="90" y="104" width="20" height="26" rx="4" fill="url(#skin1)"/>
+  <!-- Head -->
+  <circle cx="100" cy="78" r="32" fill="url(#skin1)"/>
+  <!-- Sleek Hair -->
+  <path d="M68 76 C68 46 82 38 100 38 C120 38 132 46 132 76 C132 80 130 82 126 74 C120 62 114 58 100 58 C86 58 78 64 74 74 C70 82 68 80 68 76 Z" fill="#212529"/>
+  <!-- Designer Glasses -->
+  <rect x="76" y="70" width="18" height="13" rx="3" fill="none" stroke="#2D6A4F" stroke-width="2.5"/>
+  <rect x="106" y="70" width="18" height="13" rx="3" fill="none" stroke="#2D6A4F" stroke-width="2.5"/>
+  <line x1="94" y1="76" x2="106" y2="76" stroke="#2D6A4F" stroke-width="2.5"/>
+  <!-- Friendly Smile -->
+  <path d="M92 93 Q100 99 108 93" stroke="#8D6E63" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <!-- Role Badge -->
+  <rect x="45" y="166" width="110" height="22" rx="11" fill="#1B4332"/>
+  <text x="100" y="181" fill="#FFFFFF" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" letter-spacing="0.5">LEAD & UI/UX</text>
+</svg>

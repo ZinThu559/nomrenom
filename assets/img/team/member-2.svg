@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A373" />
+      <stop offset="100%" stop-color="#BC6C25" />
+    </linearGradient>
+    <linearGradient id="skin2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFDFC4" />
+      <stop offset="100%" stop-color="#F0C29E" />
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="#FAF7F2" stroke="url(#grad2)" stroke-width="4"/>
+  <circle cx="100" cy="100" r="88" fill="#FBF6EE"/>
+  <!-- Torso & Hoodie -->
+  <path d="M42 186 C42 144 72 128 100 128 C128 128 158 144 158 186 Z" fill="url(#grad2)"/>
+  <!-- Hoodie Strings & Center -->
+  <path d="M92 136 Q92 154 88 160" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M108 136 Q108 154 112 160" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Neck -->
+  <rect x="90" y="106" width="20" height="24" rx="4" fill="url(#skin2)"/>
+  <!-- Head -->
+  <circle cx="100" cy="78" r="31" fill="url(#skin2)"/>
+  <!-- Modern Hair with side part -->
+  <path d="M70 72 C68 44 86 36 106 36 C124 36 132 46 130 68 C126 56 116 52 100 52 C84 52 74 60 70 72 Z" fill="#3D2B1F"/>
+  <!-- Eyes -->
+  <circle cx="88" cy="76" r="3" fill="#2E2319"/>
+  <circle cx="112" cy="76" r="3" fill="#2E2319"/>
+  <!-- Headphones on neck / head -->
+  <path d="M66 70 C66 48 82 42 100 42 C118 42 134 48 134 70" fill="none" stroke="#2D6A4F" stroke-width="4"/>
+  <rect x="62" y="66" width="9" height="18" rx="4" fill="#1B4332"/>
+  <rect x="129" y="66" width="9" height="18" rx="4" fill="#1B4332"/>
+  <!-- Warm Smile -->
+  <path d="M92 92 Q100 98 108 92" stroke="#A75D28" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <!-- Role Badge -->
+  <rect x="42" y="166" width="116" height="22" rx="11" fill="#BC6C25"/>
+  <text x="100" y="181" fill="#FFFFFF" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="10" font-weight="700" text-anchor="middle" letter-spacing="0.5">FRONTEND & AUTH</text>
+</svg>

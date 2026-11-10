@@ -12,8 +12,9 @@
     <!-- Custom Theme Stylesheet (with cache-buster) -->
     <link rel="stylesheet" href="assets/css/style.css?v=2.2">
     
-    <!-- Critical Inline Styles to Guarantee Pristine UI on All Devices & Network Caches -->
+    <!-- Critical Responsive Category Styles (Mobile App Touch Scroller + Laptop 100% Full-Width Grid) -->
     <style>
+        /* Mobile (Phones): Smooth Touch Swipe Carousel */
         .category-strip-container {
             display: flex !important;
             gap: 12px !important;
@@ -30,51 +31,104 @@
             flex-direction: column !important;
             align-items: center !important;
             justify-content: center !important;
-            min-width: 80px !important;
-            padding: 10px 8px !important;
+            min-width: 78px !important;
+            padding: 10px 6px !important;
             background: #ffffff !important;
             border: 1.5px solid #E2E8F0 !important;
             border-radius: 16px !important;
             text-decoration: none !important;
             color: #1E293B !important;
             box-shadow: 0 2px 6px rgba(15,23,42,0.04) !important;
-            transition: all 0.2s ease !important;
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
             flex-shrink: 0 !important;
+            cursor: pointer;
         }
         .category-card-pill:hover,
         .category-card-pill.active {
             border-color: #0F4C3A !important;
             background: #F0FDF4 !important;
             color: #0F4C3A !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 4px 12px rgba(15, 76, 58, 0.12) !important;
+            transform: translateY(-3px) !important;
+            box-shadow: 0 8px 18px rgba(15, 76, 58, 0.12) !important;
             text-decoration: none !important;
         }
         .category-card-icon {
-            width: 46px !important;
-            height: 46px !important;
+            width: 48px !important;
+            height: 48px !important;
             border-radius: 50% !important;
             background: #F8FAFC !important;
             border: 1px solid #EEF2F6 !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-            font-size: 1.35rem !important;
-            margin-bottom: 5px !important;
+            font-size: 1.4rem !important;
+            margin-bottom: 6px !important;
             transition: all 0.2s ease !important;
         }
         .category-card-pill:hover .category-card-icon {
             background: #DCFCE7 !important;
-            transform: scale(1.05) !important;
+            transform: scale(1.06) !important;
         }
         .category-card-label {
-            font-size: 0.75rem !important;
+            font-size: 0.78rem !important;
             font-weight: 700 !important;
             color: inherit !important;
             text-decoration: none !important;
             text-align: center !important;
             white-space: nowrap !important;
             line-height: 1.2 !important;
+        }
+        .category-card-subtitle {
+            display: none !important;
+        }
+
+        /* Laptop & Desktop (md screens and up): Full Width 7-Card Grid with zero empty gaps! */
+        @media (min-width: 768px) {
+            .category-strip-container {
+                display: grid !important;
+                grid-template-columns: repeat(7, 1fr) !important;
+                gap: 14px !important;
+                overflow-x: visible !important;
+                padding: 4px 0 16px !important;
+                width: 100% !important;
+            }
+            .category-card-pill {
+                min-width: 0 !important;
+                width: 100% !important;
+                padding: 18px 10px 16px !important;
+                flex-shrink: 1 !important;
+                border-radius: 18px !important;
+                box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04) !important;
+                border: 1.5px solid #E2E8F0 !important;
+            }
+            .category-card-pill:hover,
+            .category-card-pill.active {
+                transform: translateY(-4px) !important;
+                box-shadow: 0 12px 24px rgba(15, 76, 58, 0.12) !important;
+                border-color: #0F4C3A !important;
+            }
+            .category-card-icon {
+                width: 52px !important;
+                height: 52px !important;
+                font-size: 1.6rem !important;
+                margin-bottom: 10px !important;
+            }
+            .category-card-label {
+                font-size: 0.85rem !important;
+                font-weight: 700 !important;
+                margin-bottom: 2px !important;
+            }
+            .category-card-subtitle {
+                display: inline-block !important;
+                font-size: 0.70rem !important;
+                font-weight: 600 !important;
+                color: #64748B !important;
+                margin-top: 2px !important;
+                white-space: nowrap !important;
+            }
+            .category-card-pill:hover .category-card-subtitle {
+                color: #0F4C3A !important;
+            }
         }
     </style>
 </head>
@@ -356,34 +410,41 @@
                             See All <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
-                    <div class="category-strip-container" style="display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 14px; scrollbar-width: none; -webkit-overflow-scrolling: touch;">
-                        <a href="boxes.html" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
-                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #F0FDF4; border: 1px solid #DCFCE7; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🏷️</div>
-                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">All Deals</span>
+                    <div class="category-strip-container">
+                        <a href="boxes.html" class="category-card-pill">
+                            <div class="category-card-icon" style="background: #F0FDF4; border: 1px solid #DCFCE7;">🏷️</div>
+                            <span class="category-card-label">All Deals</span>
+                            <span class="category-card-subtitle badge rounded-pill bg-success bg-opacity-10 text-success">Up to 70% Off</span>
                         </a>
-                        <a href="boxes.html?cat=1" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
-                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #FFFBEB; border: 1px solid #FEF3C7; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🍪</div>
-                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">Biscuits</span>
+                        <a href="boxes.html?cat=1" class="category-card-pill">
+                            <div class="category-card-icon" style="background: #FFFBEB; border: 1px solid #FEF3C7;">🍪</div>
+                            <span class="category-card-label">Biscuits</span>
+                            <span class="category-card-subtitle text-muted">From 12.000 ₫</span>
                         </a>
-                        <a href="boxes.html?cat=2" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
-                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #FDF2F8; border: 1px solid #FCE7F3; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🍫</div>
-                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">Chocolates</span>
+                        <a href="boxes.html?cat=2" class="category-card-pill">
+                            <div class="category-card-icon" style="background: #FDF2F8; border: 1px solid #FCE7F3;">🍫</div>
+                            <span class="category-card-label">Chocolates</span>
+                            <span class="category-card-subtitle text-muted">Melted &amp; Reset</span>
                         </a>
-                        <a href="boxes.html?cat=3" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
-                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #EFF6FF; border: 1px solid #DBEAFE; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🥨</div>
-                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">Chips</span>
+                        <a href="boxes.html?cat=3" class="category-card-pill">
+                            <div class="category-card-icon" style="background: #EFF6FF; border: 1px solid #DBEAFE;">🥨</div>
+                            <span class="category-card-label">Chips</span>
+                            <span class="category-card-subtitle text-muted">Dented Box</span>
                         </a>
-                        <a href="boxes.html?q=ramyun" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
-                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #FFF1F2; border: 1px solid #FFE4E6; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🍜</div>
-                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">Ramyun</span>
+                        <a href="boxes.html?q=ramyun" class="category-card-pill">
+                            <div class="category-card-icon" style="background: #FFF1F2; border: 1px solid #FFE4E6;">🍜</div>
+                            <span class="category-card-label">Ramyun</span>
+                            <span class="category-card-subtitle text-muted">Near Expiry</span>
                         </a>
-                        <a href="boxes.html?q=seaweed" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
-                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #F0FDF4; border: 1px solid #DCFCE7; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🍙</div>
-                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">Seaweed</span>
+                        <a href="boxes.html?q=seaweed" class="category-card-pill">
+                            <div class="category-card-icon" style="background: #F0FDF4; border: 1px solid #DCFCE7;">🍙</div>
+                            <span class="category-card-label">Seaweed</span>
+                            <span class="category-card-subtitle text-muted">Crispy Sheets</span>
                         </a>
-                        <a href="boxes.html?cat=5" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
-                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #FEF3C7; border: 1px solid #FDE68A; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🍞</div>
-                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">Breads</span>
+                        <a href="boxes.html?cat=5" class="category-card-pill">
+                            <div class="category-card-icon" style="background: #FEF3C7; border: 1px solid #FDE68A;">🍞</div>
+                            <span class="category-card-label">Breads</span>
+                            <span class="category-card-subtitle text-muted">Bakery Items</span>
                         </a>
                     </div>
                 </div>

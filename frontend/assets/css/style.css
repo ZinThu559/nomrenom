@@ -1239,3 +1239,299 @@ h1 { font-weight: 800; }
     color: var(--nrn-dark);
     letter-spacing: -0.03em;
 }
+
+/* ==========================================================================
+   IPHONE & MOBILE APP REFINEMENTS (iPhone SE, 12, 13, 14, 15, 16, Pro Max)
+   Delivers a Clean, Elegant, Native App Feel matching iOS Design Guidelines
+   ========================================================================== */
+
+/* 1. Global Viewport & Reset */
+html, body {
+    max-width: 100vw !important;
+    overflow-x: clip !important;
+    -webkit-text-size-adjust: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 991.98px) {
+    .offcanvas, .offcanvas-lg {
+        max-width: 85vw !important;
+        width: 320px !important;
+    }
+    .offcanvas:not(.show),
+    .offcanvas-lg:not(.show) {
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+}
+
+/* 2. iOS Safari 16px Input Auto-Zoom Prevention */
+@media (max-width: 767.98px) {
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+    
+    .container, .container-xl, .container-lg {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+}
+
+/* 3. Sleek Mobile App Navigation Header */
+@media (max-width: 767.98px) {
+    .navbar-nomrenom {
+        padding: 0.45rem 0.75rem !important;
+        min-height: 52px;
+        background: #FFFFFF !important;
+        border-bottom: 1px solid #E2E8F0;
+    }
+    
+    .navbar-brand {
+        font-size: 1.15rem !important;
+    }
+    
+    .navbar-brand .brand-icon {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 1rem !important;
+    }
+}
+
+/* 4. Hero Section iPhone Typography & Badges */
+@media (max-width: 767.98px) {
+    .hero-section, section.py-5 {
+        padding-top: 1.25rem !important;
+        padding-bottom: 1.75rem !important;
+    }
+    
+    h1.display-4 {
+        font-size: clamp(1.65rem, 6.8vw, 2.2rem) !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .hero-badges-wrap {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 0.4rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .badge {
+        font-size: 0.68rem !important;
+        padding: 0.35rem 0.65rem !important;
+        white-space: normal !important;
+    }
+}
+
+/* 5. Mobile Horizontal Category Scroll (iOS Food App Style) */
+.mobile-category-scroll {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding: 0.5rem 0.25rem 0.85rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.mobile-category-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.mobile-cat-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 66px;
+    text-decoration: none;
+    color: #475569;
+    transition: transform 0.15s ease;
+}
+
+.mobile-cat-pill:hover,
+.mobile-cat-pill.active {
+    color: #0F4C3A;
+    transform: translateY(-2px);
+}
+
+.mobile-cat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    margin-bottom: 0.35rem;
+    transition: all 0.2s ease;
+}
+
+.mobile-cat-pill.active .mobile-cat-icon {
+    background: #E8F5E9;
+    border-color: #0F4C3A;
+    box-shadow: 0 4px 12px rgba(15, 76, 58, 0.15);
+}
+
+.mobile-cat-lbl {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.15;
+}
+
+/* 6. Mobile 2-Column Product Grid (iPhone Optimized) */
+@media (max-width: 767.98px) {
+    #marketplaceGrid, .mobile-snack-grid {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        margin-left: -5px !important;
+        margin-right: -5px !important;
+    }
+    
+    #marketplaceGrid > [class*="col-"],
+    .mobile-snack-col {
+        width: 50% !important;
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+        margin-bottom: 12px !important;
+    }
+    
+    #marketplaceGrid .card {
+        border-radius: 16px !important;
+        border: 1px solid #F1F5F9 !important;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06) !important;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    #marketplaceGrid .card > div:first-child {
+        height: 125px !important;
+    }
+    
+    #marketplaceGrid .card .p-3 {
+        padding: 0.65rem !important;
+        flex-grow: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    #marketplaceGrid .card h6 {
+        font-size: 0.8rem !important;
+        line-height: 1.25 !important;
+        margin-bottom: 0.25rem !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        height: 2.5em !important;
+    }
+    
+    #marketplaceGrid .card p.small {
+        display: none !important;
+    }
+    
+    #marketplaceGrid .card .badge {
+        font-size: 0.62rem !important;
+        padding: 0.2em 0.45em !important;
+    }
+    
+    #marketplaceGrid .card .fs-5 {
+        font-size: 0.92rem !important;
+        line-height: 1 !important;
+    }
+    
+    #marketplaceGrid .card .text-decoration-line-through {
+        font-size: 0.68rem !important;
+    }
+    
+    #marketplaceGrid .card .btn-quick-add {
+        padding: 0.22rem 0.6rem !important;
+        font-size: 0.72rem !important;
+    }
+    
+    #marketplaceGrid .card a.btn-nrn-primary {
+        display: none !important; /* On mobile 2-col, clicking card navigates to detail, Add button adds directly */
+    }
+}
+
+/* 7. Mobile Promo Banner Card (Like Reference Image "Offer for You") */
+.mobile-promo-banner {
+    background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+    border: 1px solid #A7F3D0;
+    border-radius: 16px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.mobile-promo-badge {
+    background: #0F4C3A;
+    color: #FFFFFF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.3rem 0.7rem;
+    border-radius: 9999px;
+    white-space: nowrap;
+}
+
+/* 8. iOS Bottom Navigation Bar with Safe Area Bottom Padding */
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(56px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid #E2E8F0;
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1040;
+    box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.06);
+}
+
+@media (max-width: 767.98px) {
+    body {
+        padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+    }
+    .mobile-bottom-nav {
+        display: flex;
+    }
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #64748B;
+    text-decoration: none;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    position: relative;
+    transition: color 0.15s ease;
+}
+
+.mobile-nav-item i {
+    font-size: 1.25rem;
+    margin-bottom: 0.1rem;
+}
+
+.mobile-nav-item.active {
+    color: #0F4C3A;
+    font-weight: 700;
+}

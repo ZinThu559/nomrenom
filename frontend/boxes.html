@@ -137,6 +137,40 @@
                 </div>
             </div>
 
+            <!-- Mobile & Tablet Category Quick-Pills (iOS Food App Style) -->
+            <div class="mb-3">
+                <div class="mobile-category-scroll">
+                    <button type="button" onclick="filterByCat('all')" class="mobile-cat-pill border-0 bg-transparent active cat-pill-btn" data-cat="all">
+                        <div class="mobile-cat-icon">🏷️</div>
+                        <span class="mobile-cat-lbl">All Deals</span>
+                    </button>
+                    <button type="button" onclick="filterByCat(1)" class="mobile-cat-pill border-0 bg-transparent cat-pill-btn" data-cat="1">
+                        <div class="mobile-cat-icon">🍪</div>
+                        <span class="mobile-cat-lbl">Biscuits</span>
+                    </button>
+                    <button type="button" onclick="filterByCat(2)" class="mobile-cat-pill border-0 bg-transparent cat-pill-btn" data-cat="2">
+                        <div class="mobile-cat-icon">🍫</div>
+                        <span class="mobile-cat-lbl">Chocolates</span>
+                    </button>
+                    <button type="button" onclick="filterByCat(3)" class="mobile-cat-pill border-0 bg-transparent cat-pill-btn" data-cat="3">
+                        <div class="mobile-cat-icon">🥨</div>
+                        <span class="mobile-cat-lbl">Chips</span>
+                    </button>
+                    <button type="button" onclick="filterByQuery('ramyun')" class="mobile-cat-pill border-0 bg-transparent">
+                        <div class="mobile-cat-icon">🍜</div>
+                        <span class="mobile-cat-lbl">Ramyun</span>
+                    </button>
+                    <button type="button" onclick="filterByQuery('seaweed')" class="mobile-cat-pill border-0 bg-transparent">
+                        <div class="mobile-cat-icon">🍙</div>
+                        <span class="mobile-cat-lbl">Seaweed</span>
+                    </button>
+                    <button type="button" onclick="filterByCat(5)" class="mobile-cat-pill border-0 bg-transparent cat-pill-btn" data-cat="5">
+                        <div class="mobile-cat-icon">🍞</div>
+                        <span class="mobile-cat-lbl">Breads</span>
+                    </button>
+                </div>
+            </div>
+
             <!-- Filter Controls -->
             <div class="card border-0 shadow-sm rounded-4 p-3 bg-white mb-4">
                 <!-- Condition Filters Row -->
@@ -199,27 +233,28 @@
     </main>
 
     <!-- Mobile Bottom Navigation Bar -->
+    <!-- Mobile Bottom Navigation Bar (iOS Native Style) -->
     <nav class="mobile-bottom-nav">
         <a href="index.html" class="mobile-nav-item">
             <i class="bi bi-house-door"></i>
             <span>Home</span>
         </a>
         <a href="boxes.html" class="mobile-nav-item active">
-            <i class="bi bi-grid-fill"></i>
+            <i class="bi bi-search"></i>
             <span>Browse</span>
         </a>
         <a href="cart.html" class="mobile-nav-item position-relative">
-            <i class="bi bi-cart"></i>
+            <i class="bi bi-cart3"></i>
             <span>Cart</span>
-            <span class="position-absolute top-0 end-0 badge rounded-pill bg-danger mobile-cart-badge" style="font-size: 0.65rem; transform: translate(-30%, 20%); display:none;">0</span>
+            <span class="position-absolute top-0 end-0 badge rounded-pill bg-danger nav-cart-badge" style="font-size: 0.62rem; transform: translate(-20%, 15%); display:none;">0</span>
         </a>
         <a href="track.html" class="mobile-nav-item">
-            <i class="bi bi-geo-alt"></i>
+            <i class="bi bi-receipt"></i>
             <span>Track</span>
         </a>
-        <a href="how_it_works.html" class="mobile-nav-item">
-            <i class="bi bi-info-circle"></i>
-            <span>Guide</span>
+        <a href="login.html" class="mobile-nav-item">
+            <i class="bi bi-person-circle"></i>
+            <span>Account</span>
         </a>
     </nav>
 
@@ -472,6 +507,32 @@
         searchInput.addEventListener('input', renderSnacks);
         storeSelect.addEventListener('change', renderSnacks);
         sortSelect.addEventListener('change', renderSnacks);
+
+        window.filterByCat = function(catId) {
+            currentCategory = catId.toString();
+            document.querySelectorAll('.cat-pill-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === currentCategory) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            document.querySelectorAll('.cat-btn').forEach(b => {
+                if (b.getAttribute('data-cat') === currentCategory) {
+                    b.classList.remove('btn-outline-success');
+                    b.classList.add('btn-success');
+                } else {
+                    b.classList.remove('btn-success');
+                    b.classList.add('btn-outline-success');
+                }
+            });
+            renderSnacks();
+        };
+
+        window.filterByQuery = function(q) {
+            searchInput.value = q;
+            renderSnacks();
+        };
 
         // Initial render
         renderSnacks();

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In – NomReNom</title>
+    
+    <!-- Bootstrap 5 CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Custom Theme Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+    <!-- Clean Modern Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-nomrenom sticky-top">
+        <div class="container-xl">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-icon">
+                    <i class="bi bi-basket2-fill"></i>
+                </span>
+                <span class="brand-text">NomReNom</span>
+            </a>
+
+            <div class="ms-auto d-flex align-items-center gap-2">
+                <a href="boxes.html" class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Snacks
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow-1 d-flex align-items-center py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-5 col-xl-4">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+                        
+                        <!-- Header -->
+                        <div class="text-center mb-4">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success bg-opacity-10 p-3 mb-3 text-success">
+                                <i class="bi bi-shield-lock-fill fs-2"></i>
+                            </div>
+                            <h3 class="fw-bold text-dark mb-1">Welcome Back</h3>
+                            <p class="text-muted small">Sign in with your real email to manage your snack reservations &amp; campus pickups.</p>
+                        </div>
+
+                        <!-- Feedback Alert -->
+                        <div id="loginAlert" class="alert alert-danger d-none py-2 px-3 small rounded-3" role="alert"></div>
+
+                        <!-- Form -->
+                        <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+                            <div class="mb-3">
+                                <label for="loginEmail" class="form-label small fw-bold text-dark">Real Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-envelope"></i></span>
+                                    <input type="email" class="form-control border-start-0 ps-0" id="loginEmail" placeholder="e.g. student@gmail.com" required autocomplete="email">
+                                </div>
+                                <div class="form-text text-muted small" style="font-size:0.75rem;">Use your real personal or university email.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <label for="loginPassword" class="form-label small fw-bold text-dark mb-0">Password</label>
+                                    <a href="#" onclick="alert('Password reset link will be sent to your real email address.'); return false;" class="text-decoration-none small text-success">Forgot?</a>
+                                </div>
+                                <div class="input-group mt-1">
+                                    <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-key"></i></span>
+                                    <input type="password" class="form-control border-start-0 ps-0" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+                                </div>
+                            </div>
+
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" id="rememberMe" checked>
+                                <label class="form-check-label small text-muted" for="rememberMe">
+                                    Keep me signed in on this device
+                                </label>
+                            </div>
+
+                            <button type="submit" id="btnSubmitLogin" class="btn btn-nrn-primary w-100 py-2 rounded-pill fw-bold mb-3 shadow-sm">
+                                <i class="bi bi-box-arrow-in-right me-2"></i> Sign In to NomReNom
+                            </button>
+
+                            <!-- Quick Demo Account Fill Button -->
+                            <button type="button" onclick="fillDemoStudent()" class="btn btn-sm btn-outline-secondary w-100 py-2 rounded-pill mb-3">
+                                <i class="bi bi-lightning-charge me-1"></i> Quick Test: Demo Student Account
+                            </button>
+
+                            <div class="text-center my-3 position-relative">
+                                <hr class="my-0">
+                                <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small" style="font-size:0.8rem;">or</span>
+                            </div>
+
+                            <!-- Google Sign-in Mockup -->
+                            <button type="button" onclick="loginWithGoogle()" class="btn btn-outline-secondary w-100 py-2 rounded-pill fw-semibold mb-4 d-flex align-items-center justify-content-center gap-2">
+                                <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+                                Continue with Google
+                            </button>
+                        </form>
+
+                        <div class="text-center pt-2 border-top">
+                            <p class="text-muted small mb-0">Don't have an account yet? 
+                                <a href="register.html" class="fw-bold text-success text-decoration-none">Create an Account</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-3 bg-white border-top text-center text-muted small">
+        <div class="container">
+            NomReNom &copy; 2026 • Near-Expiry &amp; Imperfect Snacks Marketplace • Store Pickup Only
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+        function fillDemoStudent() {
+            document.getElementById('loginEmail').value = 'student@university.edu.vn';
+            document.getElementById('loginPassword').value = 'Student2026!';
+        }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const alertBox = document.getElementById('loginAlert');
+            const submitBtn = document.getElementById('btnSubmitLogin');
+
+            if (!email || !password) {
+                alertBox.textContent = 'Please enter both your email and password.';
+                alertBox.classList.remove('d-none');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Signing In...';
+
+            setTimeout(() => {
+                const namePart = email.split('@')[0];
+                const capitalized = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+
+                const user = {
+                    name: capitalized,
+                    email: email,
+                    phone: '0901 234 567',
+                    role: 'student',
+                    signedInAt: new Date().toISOString()
+                };
+
+                NomReNom.saveUser(user);
+                NomReNom.showToast('Signed In!', `Welcome back, ${user.name}! You are signed in with ${user.email}.`, 'success');
+
+                setTimeout(() => {
+                    const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || 'boxes.html';
+                    window.location.href = redirectUrl;
+                }, 800);
+            }, 600);
+        }
+
+        function loginWithGoogle() {
+            const user = {
+                name: 'Google Student',
+                email: 'student.google@gmail.com',
+                phone: '0988 776 655',
+                role: 'student',
+                provider: 'google',
+                signedInAt: new Date().toISOString()
+            };
+            NomReNom.saveUser(user);
+            NomReNom.showToast('Google Sign-In', 'Signed in successfully via Google Account!', 'success');
+            setTimeout(() => {
+                window.location.href = 'boxes.html';
+            }, 700);
+        }
+    </script>
+</body>
+</html>

@@ -271,7 +271,15 @@ const NomReNom = {
         const emailDisplays = document.querySelectorAll('.nav-user-email');
 
         if (user && user.email) {
-            const shortName = (user.name || user.email.split('@')[0]);
+            let rawName = user.name || user.email.split('@')[0];
+            // If the name has dots (like zthh.mlm), take the first part
+            let shortName = rawName.includes('.') ? rawName.split('.')[0] : rawName;
+            if (shortName.length > 7) {
+                shortName = shortName.substring(0, 6) + '…';
+            }
+            // Capitalize first letter
+            shortName = shortName.charAt(0).toUpperCase() + shortName.slice(1);
+
             nameDisplays.forEach(el => el.textContent = shortName);
             emailDisplays.forEach(el => el.textContent = user.email);
             loginContainers.forEach(btn => btn.style.setProperty('display', 'none', 'important'));

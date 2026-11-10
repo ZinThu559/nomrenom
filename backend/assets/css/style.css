@@ -316,32 +316,63 @@ h1 { font-weight: 800; }
     transform: translateY(-1px);
 }
 
+/* Compact Sleek User Profile Button */
 .user-profile-btn {
     border-radius: 9999px !important;
     border: 1px solid #E2E8F0 !important;
     background: #FFFFFF !important;
     color: #0F172A !important;
-    padding: 0.45rem 0.85rem !important;
-    max-width: 140px !important;
+    padding: 0.2rem 0.55rem !important;
+    font-size: 0.76rem !important;
+    font-weight: 600 !important;
+    height: 30px !important;
+    max-width: 115px !important;
     white-space: nowrap !important;
     display: inline-flex !important;
     align-items: center !important;
-    gap: 0.4rem !important;
+    gap: 0.25rem !important;
+    box-shadow: none !important;
+    line-height: 1 !important;
+    flex-shrink: 0 !important;
+    transition: all 0.2s ease !important;
+}
+
+.user-profile-btn:hover,
+.user-profile-btn:focus,
+.user-profile-btn.show {
+    background: #F8FAFC !important;
+    border-color: #0F4C3A !important;
+    color: #0F4C3A !important;
+}
+
+.user-profile-btn .bi-person-circle {
+    font-size: 0.85rem !important;
+    color: #0F4C3A !important;
+    line-height: 1 !important;
     flex-shrink: 0 !important;
 }
 
-.user-profile-btn:hover {
-    background: #F8FAFC !important;
-    border-color: #CBD5E1 !important;
+.nav-user-displayname,
+.user-short-name {
+    max-width: 65px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    font-size: 0.76rem !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+    color: #0F172A !important;
 }
 
-.user-short-name {
-    max-width: 80px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: inline-block;
-    vertical-align: middle;
+.user-profile-btn::after {
+    margin-left: 0.15rem !important;
+    vertical-align: 0.12em !important;
+    font-size: 0.58rem !important;
+    border-top-width: 0.24em !important;
+    border-right-width: 0.2em !important;
+    border-left-width: 0.2em !important;
 }
 
 @media (max-width: 991.98px) {

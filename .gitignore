@@ -1,0 +1,20 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backend logs and sessions
+backend/storage/logs/*.log
+backend/storage/sessions/*
+!backend/storage/sessions/.gitkeep
+!backend/storage/logs/.gitkeep
+
+# Editor & IDE settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary and scratch files
+*.tmp
+*.log

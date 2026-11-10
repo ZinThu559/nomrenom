@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Snack Cart – NomReNom</title>
+    
+    <!-- Bootstrap 5 CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Custom Theme Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- Clean Modern Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-nomrenom sticky-top">
+        <div class="container-xl">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-icon">
+                    <i class="bi bi-basket2-fill"></i>
+                </span>
+                <span class="brand-text">NomReNom</span>
+            </a>
+
+            <button class="navbar-toggler border-0 p-2 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNomReNom" aria-controls="navbarNomReNom" aria-label="Toggle navigation">
+                <i class="bi bi-list fs-2 text-dark"></i>
+            </button>
+
+            <!-- Responsive Navigation Drawer -->
+            <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="navbarNomReNom" aria-labelledby="navbarNomReNomLabel">
+                <div class="offcanvas-header border-bottom bg-white">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="brand-icon">
+                            <i class="bi bi-basket2-fill"></i>
+                        </span>
+                        <h5 class="offcanvas-title text-dark fw-bold m-0" id="navbarNomReNomLabel">NomReNom</h5>
+                    </div>
+                    <button type="button" class="btn-close text-reset shadow-none" data-bs-dismiss="offcanvas" data-bs-target="#navbarNomReNom" aria-label="Close"></button>
+                </div>
+                
+                <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between p-4 p-lg-0">
+                    <ul class="navbar-nav mx-lg-auto mb-3 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="boxes.html">Browse Snacks</a></li>
+                        <li class="nav-item"><a class="nav-link" href="track.html">Track Pickup</a></li>
+                        <li class="nav-item"><a class="nav-link" href="how_it_works.html">How It Works</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+
+                    <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2 pt-3 pt-lg-0 border-top border-lg-0 flex-shrink-0">
+                        <a href="cart.html" class="btn-nrn-nav-cart active position-relative" title="Shopping Cart">
+                            <i class="bi bi-cart3 cart-icon"></i>
+                            <span class="cart-label d-none d-sm-inline">Cart</span>
+                            <span id="nav-cart-badge" class="badge rounded-pill bg-danger nav-cart-badge" style="display:none;">0</span>
+                        </a>
+
+                        <a href="boxes.html" class="btn btn-nrn-nav-cta">
+                            <i class="bi bi-bag-check"></i> <span>Reserve Snacks</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="py-4">
+        <div class="container-xl">
+
+            <!-- Title & Clear Cart Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-1">
+                            <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted">Home</a></li>
+                            <li class="breadcrumb-item active text-dark" aria-current="page">Snack Cart</li>
+                        </ol>
+                    </nav>
+                    <h1 class="h3 fw-bold text-dark m-0 d-flex align-items-center gap-2">
+                        <i class="bi bi-cart3 text-success"></i> Your Snack Cart
+                        <span class="badge bg-light text-dark border fs-6 fw-normal ms-2" id="cartHeaderBadge">0 items</span>
+                    </h1>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3" id="btnClearCart" style="display:none;">
+                    <i class="bi bi-trash3 me-1"></i> Clear Cart
+                </button>
+            </div>
+
+            <!-- Empty Cart State -->
+            <div id="emptyCartView" class="card border-0 shadow-sm rounded-4 p-5 text-center my-4 bg-white" style="display:none;">
+                <div class="py-4">
+                    <div class="d-inline-flex p-4 rounded-circle bg-light text-success mb-3">
+                        <i class="bi bi-cart-x fs-1"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark mb-2">Your Snack Cart is Empty</h3>
+                    <p class="text-muted max-w-500 mx-auto mb-4">
+                        Browse rescued near-expiry and imperfect snacks at 40%–70% off with real photo inspection at the store counter!
+                    </p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="boxes.html" class="btn btn-nrn-primary rounded-pill px-4 py-2">
+                            <i class="bi bi-grid me-2"></i> Browse Snacks Marketplace
+                        </a>
+                        <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 py-2">
+                            Back to Homepage
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filled Cart View -->
+            <div id="filledCartView" class="row g-4" style="display:none;">
+                <!-- Left: Items List -->
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white mb-4">
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0">
+                                <thead class="bg-light text-muted small text-uppercase">
+                                    <tr>
+                                        <th class="ps-4 py-3" style="min-width: 260px;">Snack Item</th>
+                                        <th class="py-3 text-center" style="width: 140px;">Quantity</th>
+                                        <th class="py-3 text-end" style="width: 130px;">Price</th>
+                                        <th class="py-3 text-end" style="width: 140px;">Subtotal</th>
+                                        <th class="pe-4 py-3 text-center" style="width: 60px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cartTableBody">
+                                    <!-- Injected via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="boxes.html" class="btn btn-outline-secondary rounded-pill px-4">
+                            <i class="bi bi-arrow-left me-1"></i> Add More Snacks
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Order Summary -->
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 bg-white sticky-top" style="top: 90px;">
+                        <h5 class="fw-bold text-dark mb-3">Reservation Summary</h5>
+                        
+                        <div class="d-flex justify-content-between text-muted mb-2">
+                            <span>Items Subtotal (<span id="summaryCount">0</span> items)</span>
+                            <span class="fw-semibold text-dark" id="summarySubtotal">0 ₫</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between text-muted mb-2">
+                            <span>Store Pickup Fee</span>
+                            <span class="text-success fw-semibold">FREE (0 ₫)</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between text-muted mb-3">
+                            <span>Shipping</span>
+                            <span class="text-success fw-semibold">Zero (Counter Pickup)</span>
+                        </div>
+
+                        <hr class="my-3">
+
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <span class="fw-bold text-dark fs-5">Total To Pay</span>
+                            <span class="fw-bold text-green-dark fs-3" id="summaryTotal">0 ₫</span>
+                        </div>
+
+                        <a href="checkout.html" class="btn btn-nrn-primary w-100 py-3 fs-5 fw-bold d-flex justify-content-center align-items-center gap-2 rounded-pill shadow">
+                            Proceed to Reserve <i class="bi bi-arrow-right"></i>
+                        </a>
+
+                        <!-- Safe Ordering Badges -->
+                        <div class="mt-4 pt-3 border-top text-muted small">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i class="bi bi-patch-check-fill text-success fs-5"></i>
+                                <span>Inspect at store counter before taking home</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i class="bi bi-qr-code-scan text-primary fs-5"></i>
+                                <span>Pay by VietQR with 6-digit pickup code</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-shield-x text-warning fs-5"></i>
+                                <span>Instant refund if item doesn't match photo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <i class="bi bi-house-door"></i>
+            <span>Home</span>
+        </a>
+        <a href="boxes.html" class="mobile-nav-item">
+            <i class="bi bi-grid"></i>
+            <span>Browse</span>
+        </a>
+        <a href="cart.html" class="mobile-nav-item active position-relative">
+            <i class="bi bi-cart-fill"></i>
+            <span>Cart</span>
+            <span class="position-absolute top-0 end-0 badge rounded-pill bg-danger mobile-cart-badge" style="font-size: 0.65rem; transform: translate(-30%, 20%); display:none;">0</span>
+        </a>
+        <a href="track.html" class="mobile-nav-item">
+            <i class="bi bi-geo-alt"></i>
+            <span>Track</span>
+        </a>
+        <a href="how_it_works.html" class="mobile-nav-item">
+            <i class="bi bi-info-circle"></i>
+            <span>Guide</span>
+        </a>
+    </nav>
+
+    <!-- Standard NomReNom Footer -->
+    <footer class="footer-nomrenom">
+        <div class="container text-center">
+            <p class="text-light-50 small mb-0">© 2026 NomReNom. Built for GitHub Pages.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Static Catalog & Reactive Engine -->
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <!-- Cart Page Controller -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const emptyView = document.getElementById('emptyCartView');
+        const filledView = document.getElementById('filledCartView');
+        const tableBody = document.getElementById('cartTableBody');
+        const headerBadge = document.getElementById('cartHeaderBadge');
+        const btnClear = document.getElementById('btnClearCart');
+        const summaryCount = document.getElementById('summaryCount');
+        const summarySubtotal = document.getElementById('summarySubtotal');
+        const summaryTotal = document.getElementById('summaryTotal');
+
+        function renderCart() {
+            const cart = NomReNom.getCart();
+            const count = NomReNom.getCartCount();
+            const total = NomReNom.getCartTotal();
+
+            headerBadge.textContent = `${count} item${count === 1 ? '' : 's'}`;
+            summaryCount.textContent = count;
+            summarySubtotal.textContent = NomReNom.formatVnd(total);
+            summaryTotal.textContent = NomReNom.formatVnd(total);
+
+            if (cart.length === 0) {
+                emptyView.style.display = 'block';
+                filledView.style.display = 'none';
+                btnClear.style.display = 'none';
+                return;
+            }
+
+            emptyView.style.display = 'none';
+            filledView.style.display = 'flex';
+            btnClear.style.display = 'inline-block';
+
+            tableBody.innerHTML = cart.map(item => {
+                const subtotal = item.price * (item.qty || 1);
+                return `
+                    <tr id="cartRow-${item.id}">
+                        <td class="ps-4 py-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="${item.image_url}" alt="${item.name}" class="rounded-3 object-fit-cover shadow-xs" style="width: 68px; height: 68px;">
+                                <div>
+                                    <h6 class="mb-1 fw-bold text-dark">
+                                        <a href="box_details.html?id=${item.id}" class="text-decoration-none text-dark hover-green">
+                                            ${item.name}
+                                        </a>
+                                    </h6>
+                                    <div class="small text-muted">
+                                        <i class="bi bi-shop text-success me-1"></i>${item.store_name} • ${item.district}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-3 text-center">
+                            <div class="input-group input-group-sm justify-content-center" style="max-width: 110px; margin: 0 auto;">
+                                <button class="btn btn-outline-secondary btn-cart-minus" type="button" data-id="${item.id}">-</button>
+                                <input type="number" class="form-control text-center fw-bold input-cart-qty" value="${item.qty}" min="1" max="10" readonly style="max-width: 50px;">
+                                <button class="btn btn-outline-secondary btn-cart-plus" type="button" data-id="${item.id}">+</button>
+                            </div>
+                        </td>
+                        <td class="py-3 text-end fw-semibold text-muted">
+                            ${NomReNom.formatVnd(item.price)}
+                        </td>
+                        <td class="py-3 text-end fw-bold text-green-dark fs-6">
+                            ${NomReNom.formatVnd(subtotal)}
+                        </td>
+                        <td class="pe-4 py-3 text-center">
+                            <button type="button" class="btn btn-link text-danger p-0 btn-remove-item" data-id="${item.id}" title="Remove snack">
+                                <i class="bi bi-trash3 fs-5"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Attach listeners to table row buttons
+            document.querySelectorAll('.btn-cart-minus').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const id = Number(this.getAttribute('data-id'));
+                    const item = cart.find(i => i.id === id);
+                    if (item) {
+                        NomReNom.updateCartQty(id, item.qty - 1);
+                        renderCart();
+                    }
+                });
+            });
+
+            document.querySelectorAll('.btn-cart-plus').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const id = Number(this.getAttribute('data-id'));
+                    const item = cart.find(i => i.id === id);
+                    if (item) {
+                        NomReNom.updateCartQty(id, item.qty + 1);
+                        renderCart();
+                    }
+                });
+            });
+
+            document.querySelectorAll('.btn-remove-item').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const id = Number(this.getAttribute('data-id'));
+                    NomReNom.removeFromCart(id);
+                    renderCart();
+                });
+            });
+        }
+
+        btnClear.addEventListener('click', () => {
+            if (confirm('Clear all items from your snack cart?')) {
+                NomReNom.clearCart();
+                renderCart();
+            }
+        });
+
+        renderCart();
+    });
+    </script>
+</body>
+</html>

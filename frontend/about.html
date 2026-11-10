@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us – NomReNom Snack Marketplace</title>
+    
+    <!-- Bootstrap 5 CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Custom Theme Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- Clean Modern Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-nomrenom sticky-top">
+        <div class="container-xl">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-icon"><i class="bi bi-basket2-fill"></i></span>
+                <span class="brand-text">NomReNom</span>
+            </a>
+
+            <button class="navbar-toggler border-0 p-2 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNomReNom" aria-controls="navbarNomReNom" aria-label="Toggle navigation">
+                <i class="bi bi-list fs-2 text-dark"></i>
+            </button>
+
+            <!-- Responsive Navigation Drawer -->
+            <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="navbarNomReNom" aria-labelledby="navbarNomReNomLabel">
+                <div class="offcanvas-header border-bottom bg-white">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="brand-icon"><i class="bi bi-basket2-fill"></i></span>
+                        <h5 class="offcanvas-title text-dark fw-bold m-0" id="navbarNomReNomLabel">NomReNom</h5>
+                    </div>
+                    <button type="button" class="btn-close text-reset shadow-none" data-bs-dismiss="offcanvas" data-bs-target="#navbarNomReNom" aria-label="Close"></button>
+                </div>
+                
+                <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between p-4 p-lg-0">
+                    <ul class="navbar-nav mx-lg-auto mb-3 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="boxes.html">Browse Snacks</a></li>
+                        <li class="nav-item"><a class="nav-link" href="track.html">Track Pickup</a></li>
+                        <li class="nav-item"><a class="nav-link" href="how_it_works.html">How It Works</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="about.html">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+
+                    <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2 pt-3 pt-lg-0 border-top border-lg-0 flex-shrink-0">
+                        <a href="cart.html" class="btn-nrn-nav-cart position-relative" title="Shopping Cart">
+                            <i class="bi bi-cart3 cart-icon"></i>
+                            <span class="cart-label d-none d-sm-inline">Cart</span>
+                            <span id="nav-cart-badge" class="badge rounded-pill bg-danger nav-cart-badge" style="display:none;">0</span>
+                        </a>
+
+                        <a href="boxes.html" class="btn btn-nrn-nav-cta">
+                            <i class="bi bi-bag-check"></i> <span>Reserve Snacks</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="py-4">
+        <!-- Brand Hero -->
+        <div class="py-5 mb-5 border-bottom text-center" style="background: linear-gradient(180deg, #FAF7F2 0%, #FFFFFF 100%);">
+            <div class="container-xl">
+                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2 text-uppercase fw-bold mb-3">
+                    <i class="bi bi-box-seam me-1"></i> About NomReNom
+                </span>
+                <h1 class="display-4 fw-bold text-dark mb-3">Rescue Imperfect Snacks, Save Money, Zero Waste</h1>
+                <p class="fs-5 text-muted max-w-700 mx-auto">
+                    A pickup marketplace for near-expiry and damaged snacks (dented boxes, crumbled biscuits, melted-and-set chocolate). Partner stores list their stock, students reserve with VietQR, inspect at the store counter, and take it home — with zero shipping fees!
+                </p>
+            </div>
+        </div>
+
+        <div class="container-xl pb-5">
+            <!-- 1. OUR STORY & PURPOSE -->
+            <div class="row g-5 align-items-center mb-5">
+                <div class="col-lg-6">
+                    <span class="text-uppercase fw-bold text-success small letter-spacing-1">Our Story &amp; Purpose</span>
+                    <h2 class="fw-bold text-dark mb-3">Eliminating Retail Snack Waste Across Campus Hubs</h2>
+                    <p class="text-muted">
+                        Every month, convenience stores and import snack retailers discard crates of perfectly edible snacks because of a crushed outer carton, crumbled biscuits, or a best-before date approaching in 2–4 weeks. These items are still factory-sealed, delicious, and safe — yet traditional retail systems cannot sell them at full price.
+                    </p>
+                    <p class="text-muted">
+                        <strong>NomReNom</strong> bridges this gap. We created a transparent, student-centric marketplace where partner stores list their imperfect snacks at <strong>40% to 70% off</strong>. Students reserve and pay securely via VietQR, visit the store counter near their university campus, inspect the item in person, and take it home.
+                    </p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-6">
+                            <div class="p-3 bg-light rounded-4 border">
+                                <strong class="d-block text-dark fs-5">50%–70% Off</strong>
+                                <small class="text-muted">Student discounts on premium branded snacks</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 bg-light rounded-4 border">
+                                <strong class="d-block text-dark fs-5">100% Pickup</strong>
+                                <small class="text-muted">Zero shipping fees &amp; zero courier delays</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white p-3">
+                        <img src="assets/img/bakery_pastries_1793872097849.jpg" alt="Snacks Marketplace" class="img-fluid rounded-3">
+                        <div class="p-3 text-center text-muted small fst-italic">
+                            "Every snack has a real photo, condition grade, and counter inspection guarantee."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. CORE VALUES / OPERATING PILLARS -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white mb-5">
+                <div class="text-center max-w-700 mx-auto mb-4">
+                    <h3 class="fw-bold text-dark mb-2">Our Operating Pillars</h3>
+                    <p class="text-muted small">Built on radical transparency, food safety standards, and counter inspection trust.</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="p-3 bg-light rounded-4 h-100 border-start border-4 border-success text-center">
+                            <div class="d-inline-flex p-3 rounded-circle bg-white text-success shadow-xs mb-3">
+                                <i class="bi bi-camera-fill fs-3"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-2">Real Stock Photos</h6>
+                            <p class="small text-muted m-0">No generic marketing renders. Every listing features actual photos of the specific item and packaging condition.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="p-3 bg-light rounded-4 h-100 border-start border-4 border-warning text-center">
+                            <div class="d-inline-flex p-3 rounded-circle bg-white text-warning shadow-xs mb-3">
+                                <i class="bi bi-calendar-check fs-3"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-2">7 to 30 Days Left</h6>
+                            <p class="small text-muted m-0">Strict policy: nothing with fewer than 7 days left, and absolutely nothing expired. Inner seals must be 100% intact.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="p-3 bg-light rounded-4 h-100 border-start border-4 border-primary text-center">
+                            <div class="d-inline-flex p-3 rounded-circle bg-white text-primary shadow-xs mb-3">
+                                <i class="bi bi-shop fs-3"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-2">Zero Shipping</h6>
+                            <p class="small text-muted m-0">100% store pickup at convenience counters next to campus dorms. Collect in under 60 seconds with no delivery fees.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="p-3 bg-light rounded-4 h-100 border-start border-4 border-danger text-center">
+                            <div class="d-inline-flex p-3 rounded-circle bg-white text-danger shadow-xs mb-3">
+                                <i class="bi bi-shield-check fs-3"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-2">Inspect &amp; Refund</h6>
+                            <p class="small text-muted m-0">Inspect at the counter before taking it home. If it doesn't match the photo, refuse it on your phone for a full refund.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. MEET OUR TEAM -->
+            <div class="mt-5 pt-3">
+                <div class="text-center max-w-700 mx-auto mb-5">
+                    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2 text-uppercase fw-bold mb-2">Leadership &amp; Team</span>
+                    <h2 class="fw-bold text-dark mb-2">Meet Our Team</h2>
+                    <p class="text-muted small">
+                        The four founders driving technology, operations, and convenience store partnerships at NomReNom.
+                    </p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- MEMBER 1 -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card border-0 shadow-sm text-center bg-white p-4 h-100 rounded-4">
+                            <div class="position-relative d-inline-block mx-auto mb-3">
+                                <img src="assets/img/team/member-1.png" alt="Nguyen Hoang Huyen Tram" class="rounded-circle shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
+                                <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-success p-1" style="font-size: 0.65rem;" title="Active Founder"><i class="bi bi-check-lg"></i></span>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1">Nguyen Hoang Huyen Tram</h6>
+                            <span class="badge bg-light text-success border mb-2">Founder &amp; CEO</span>
+                            <p class="text-muted small mb-3">
+                                Leads overall company strategy, brand vision, and partner store acquisition across university campus hubs.
+                            </p>
+                            <div class="mt-auto pt-2 border-top d-flex justify-content-center gap-3 text-muted">
+                                <a href="#" class="text-muted hover-green"><i class="bi bi-linkedin fs-6"></i></a>
+                                <a href="#" class="text-muted hover-green"><i class="bi bi-envelope-fill fs-6"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MEMBER 2 -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card border-0 shadow-sm text-center bg-white p-4 h-100 rounded-4">
+                            <div class="position-relative d-inline-block mx-auto mb-3">
+                                <img src="assets/img/team/member-2.png" alt="Nguyen Duc Tan Loc" class="rounded-circle shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
+                                <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-success p-1" style="font-size: 0.65rem;" title="Active Founder"><i class="bi bi-check-lg"></i></span>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1">Nguyen Duc Tan Loc</h6>
+                            <span class="badge bg-light text-success border mb-2">Co-Founder &amp; Operations</span>
+                            <p class="text-muted small mb-3">
+                                Manages store pickup logistics, cashier counter integration, and customer support. Ensures seamless 60-second pickups.
+                            </p>
+                            <div class="mt-auto pt-2 border-top d-flex justify-content-center gap-3 text-muted">
+                                <a href="#" class="text-muted hover-green"><i class="bi bi-linkedin fs-6"></i></a>
+                                <a href="#" class="text-muted hover-green"><i class="bi bi-envelope-fill fs-6"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MEMBER 3 -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card border-0 shadow-sm text-center bg-white p-4 h-100 rounded-4">
+                            <div class="position-relative d-inline-block mx-auto mb-3">
+                                <img src="assets/img/team/member-3.png" alt="Thet Htar San" class="rounded-circle shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
+                                <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-success p-1" style="font-size: 0.65rem;" title="Active Founder"><i class="bi bi-check-lg"></i></span>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1">Thet Htar San</h6>
+                            <span class="badge bg-light text-success border mb-2">Store Partnerships &amp; Safety</span>
+                            <p class="text-muted small mb-3">
+                                Partners with convenience store networks. Enforces strict 7–30 day expiry rules, inner seal integrity, and condition verification.
+                            </p>
+                            <div class="mt-auto pt-2 border-top d-flex justify-content-center gap-3 text-muted">
+                                <a href="#" class="text-muted hover-green"><i class="bi bi-linkedin fs-6"></i></a>
+                                <a href="#" class="text-muted hover-green"><i class="bi bi-envelope-fill fs-6"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MEMBER 4 -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card border-0 shadow-sm text-center bg-white p-4 h-100 rounded-4">
+                            <div class="position-relative d-inline-block mx-auto mb-3">
+                                <img src="assets/img/team/member-4.png" alt="Zin Thu Hein Htet" class="rounded-circle shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
+                                <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-success p-1" style="font-size: 0.65rem;" title="Active Founder"><i class="bi bi-check-lg"></i></span>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1">Zin Thu Hein Htet</h6>
+                            <span class="badge bg-light text-success border mb-2">Lead Platform &amp; UI/UX</span>
+                            <p class="text-muted small mb-3">
+                                Engineered the VietQR reservation engine, digital counter voucher system, instant inspection refund flow, and mobile UI.
+                            </p>
+                            <div class="mt-auto pt-2 border-top d-flex justify-content-center gap-3 text-muted">
+                                <a href="#" class="text-muted hover-green"><i class="bi bi-linkedin fs-6"></i></a>
+                                <a href="#" class="text-muted hover-green"><i class="bi bi-envelope-fill fs-6"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item"><i class="bi bi-house-door"></i><span>Home</span></a>
+        <a href="boxes.html" class="mobile-nav-item"><i class="bi bi-grid"></i><span>Browse</span></a>
+        <a href="cart.html" class="mobile-nav-item"><i class="bi bi-cart"></i><span>Cart</span></a>
+        <a href="track.html" class="mobile-nav-item"><i class="bi bi-geo-alt"></i><span>Track</span></a>
+        <a href="how_it_works.html" class="mobile-nav-item"><i class="bi bi-info-circle"></i><span>Guide</span></a>
+    </nav>
+
+    <!-- Standard NomReNom Footer -->
+    <footer class="footer-nomrenom">
+        <div class="container text-center">
+            <p class="text-light-50 small mb-0">© 2026 NomReNom. Built for GitHub Pages.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="blogo2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D6A4F" />
+      <stop offset="100%" stop-color="#1B4332" />
+    </linearGradient>
+    <linearGradient id="amber2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A373" />
+      <stop offset="100%" stop-color="#BC6C25" />
+    </linearGradient>
+  </defs>
+  <!-- Background Badge -->
+  <circle cx="80" cy="80" r="76" fill="#FAF7F2" stroke="url(#blogo2)" stroke-width="4"/>
+  <circle cx="80" cy="80" r="69" fill="none" stroke="url(#amber2)" stroke-width="1.5"/>
+  <!-- Wheat Stalks Emblem -->
+  <path d="M80 34 V74" stroke="#BC6C25" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Wheat ears -->
+  <ellipse cx="74" cy="42" rx="4" ry="7" transform="rotate(-30 74 42)" fill="#D4A373"/>
+  <ellipse cx="86" cy="42" rx="4" ry="7" transform="rotate(30 86 42)" fill="#D4A373"/>
+  <ellipse cx="73" cy="54" rx="4" ry="7" transform="rotate(-30 73 54)" fill="#D4A373"/>
+  <ellipse cx="87" cy="54" rx="4" ry="7" transform="rotate(30 87 54)" fill="#D4A373"/>
+  <ellipse cx="75" cy="65" rx="3.5" ry="6" transform="rotate(-30 75 65)" fill="#D4A373"/>
+  <ellipse cx="85" cy="65" rx="3.5" ry="6" transform="rotate(30 85 65)" fill="#D4A373"/>
+  <!-- Typography -->
+  <text x="80" y="98" fill="#1B4332" font-family="'Playfair Display', Georgia, serif" font-size="14" font-weight="700" text-anchor="middle">SÀI GÒN</text>
+  <text x="80" y="112" fill="#BC6C25" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle" letter-spacing="2">ARTISAN</text>
+  <text x="80" y="126" fill="#718096" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="7.5" font-weight="600" text-anchor="middle">SOURDOUGH &amp; BAKE</text>
+</svg>

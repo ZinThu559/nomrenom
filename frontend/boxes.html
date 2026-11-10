@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snacks Marketplace – NomReNom</title>
+    
+    <!-- Bootstrap 5 CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Custom Theme Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- Clean Modern Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-nomrenom sticky-top">
+        <div class="container-xl">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-icon">
+                    <i class="bi bi-basket2-fill"></i>
+                </span>
+                <span class="brand-text">NomReNom</span>
+            </a>
+
+            <button class="navbar-toggler border-0 p-2 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNomReNom" aria-controls="navbarNomReNom" aria-label="Toggle navigation">
+                <i class="bi bi-list fs-2 text-dark"></i>
+            </button>
+
+            <!-- Responsive Navigation Drawer -->
+            <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="navbarNomReNom" aria-labelledby="navbarNomReNomLabel">
+                <div class="offcanvas-header border-bottom bg-white">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="brand-icon">
+                            <i class="bi bi-basket2-fill"></i>
+                        </span>
+                        <h5 class="offcanvas-title text-dark fw-bold m-0" id="navbarNomReNomLabel">NomReNom</h5>
+                    </div>
+                    <button type="button" class="btn-close text-reset shadow-none" data-bs-dismiss="offcanvas" data-bs-target="#navbarNomReNom" aria-label="Close"></button>
+                </div>
+                
+                <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between p-4 p-lg-0">
+                    <ul class="navbar-nav mx-lg-auto mb-3 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="boxes.html">Browse Snacks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="track.html">Track Pickup</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="how_it_works.html">How It Works</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="reviews.html">Reviews</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2 pt-3 pt-lg-0 border-top border-lg-0 flex-shrink-0">
+                        <!-- Shopping Cart Button with Live Counter Badge -->
+                        <a href="cart.html" class="btn-nrn-nav-cart position-relative" title="Shopping Cart">
+                            <i class="bi bi-cart3 cart-icon"></i>
+                            <span class="cart-label d-none d-sm-inline">Cart</span>
+                            <span id="nav-cart-badge" class="badge rounded-pill bg-danger nav-cart-badge" style="display:none;">0</span>
+                        </a>
+
+                        <a href="boxes.html" class="btn btn-nrn-nav-cta">
+                            <i class="bi bi-bag-check"></i> <span>Reserve Snacks</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="py-4">
+        <div class="container-xl">
+
+            <!-- Marketplace Header Banner -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                    <div>
+                        <div class="d-flex gap-2 mb-2">
+                            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-1 fw-bold">
+                                <i class="bi bi-shield-check me-1"></i> Store Pickup Only • Zero Shipping
+                            </span>
+                            <span class="badge bg-warning bg-opacity-10 text-dark border border-warning px-3 py-1 fw-bold">
+                                Real Photo Guarantee
+                            </span>
+                        </div>
+                        <h1 class="h2 fw-bold text-dark m-0">Near–Expiry &amp; Imperfect Snacks</h1>
+                        <p class="text-muted small mb-0 mt-1">
+                            Dented boxes, crumbled biscuits, and melted-and-set chocolates at 50% to 70% off. Inspect your items in person at the store counter before taking them home. <strong>If anything does not look like the photo, you get an instant refund.</strong>
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 text-muted small bg-light p-2 rounded-3 border">
+                        <i class="bi bi-clock-history text-success fs-5"></i>
+                        <div>
+                            <strong class="d-block text-dark">7 to 30 Days Left</strong>
+                            <span>Nothing expired, ever.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white mb-4">
+                <!-- Condition Filters Row -->
+                <div class="d-flex flex-wrap gap-2 mb-3 align-items-center">
+                    <span class="fw-bold small text-muted text-uppercase me-2">Condition:</span>
+                    <button class="btn btn-sm btn-dark rounded-pill px-3 condition-btn active" data-condition="all">All Conditions</button>
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 condition-btn" data-condition="dented_box">📦 Dented Packaging</button>
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 condition-btn" data-condition="crumbled_biscuits">🍪 Crumbled / Broken</button>
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 condition-btn" data-condition="melted_reset">🍫 Melted &amp; Re-set</button>
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 condition-btn" data-condition="near_expiry">⏳ Near-Expiry (7–30d)</button>
+                </div>
+
+                <!-- Category Filters Row -->
+                <div class="d-flex flex-wrap gap-2 mb-3 align-items-center border-top pt-3">
+                    <span class="fw-bold small text-muted text-uppercase me-2">Category:</span>
+                    <button class="btn btn-sm btn-success rounded-pill px-3 cat-btn active" data-cat="all">All Categories</button>
+                    <button class="btn btn-sm btn-outline-success rounded-pill px-3 cat-btn" data-cat="1"><i class="bi bi-cookie me-1"></i>Biscuits &amp; Cookies</button>
+                    <button class="btn btn-sm btn-outline-success rounded-pill px-3 cat-btn" data-cat="2"><i class="bi bi-heart-fill me-1"></i>Chocolates &amp; Sweets</button>
+                    <button class="btn btn-sm btn-outline-success rounded-pill px-3 cat-btn" data-cat="3"><i class="bi bi-cup-straw me-1"></i>Chips &amp; Savory</button>
+                    <button class="btn btn-sm btn-outline-success rounded-pill px-3 cat-btn" data-cat="5"><i class="bi bi-basket2-fill me-1"></i>Packaged Breads</button>
+                </div>
+
+                <!-- Search & Dropdown Filters -->
+                <div class="row g-2 align-items-center pt-2 border-top">
+                    <div class="col-lg-5 col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+                            <input type="text" id="searchInput" class="form-control border-start-0 bg-light" placeholder="Search Pocky, Oreo, KitKat, chips...">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <select id="storeSelect" class="form-select bg-light">
+                            <option value="all">All Partner Stores</option>
+                            <option value="1">Circle K – University Campus Hub (Thu Duc)</option>
+                            <option value="2">FamilyMart – Student District 1</option>
+                            <option value="3">Tokyo Snack Corner – Binh Thanh Hub</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-4">
+                        <select id="sortSelect" class="form-select bg-light">
+                            <option value="savings">Highest Savings %</option>
+                            <option value="price_asc">Price: Low to High</option>
+                            <option value="price_desc">Price: High to Low</option>
+                            <option value="expiry">Expiry: Soonest</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Snacks Grid -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted small" id="resultsCount">Showing 10 snacks available for counter pickup</span>
+            </div>
+
+            <div class="row g-4" id="marketplaceGrid">
+                <!-- Injected via JavaScript -->
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <i class="bi bi-house-door"></i>
+            <span>Home</span>
+        </a>
+        <a href="boxes.html" class="mobile-nav-item active">
+            <i class="bi bi-grid-fill"></i>
+            <span>Browse</span>
+        </a>
+        <a href="cart.html" class="mobile-nav-item position-relative">
+            <i class="bi bi-cart"></i>
+            <span>Cart</span>
+            <span class="position-absolute top-0 end-0 badge rounded-pill bg-danger mobile-cart-badge" style="font-size: 0.65rem; transform: translate(-30%, 20%); display:none;">0</span>
+        </a>
+        <a href="track.html" class="mobile-nav-item">
+            <i class="bi bi-geo-alt"></i>
+            <span>Track</span>
+        </a>
+        <a href="how_it_works.html" class="mobile-nav-item">
+            <i class="bi bi-info-circle"></i>
+            <span>Guide</span>
+        </a>
+    </nav>
+
+    <!-- Standard NomReNom Footer -->
+    <footer class="footer-nomrenom">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bi bi-basket2-fill text-warning fs-3"></i>
+                        <h4 class="text-white m-0 fw-bold">NomReNom</h4>
+                    </div>
+                    <p class="text-light-50 small mb-3">
+                        A pickup marketplace for near-expiry and damaged snacks (dented packs, crumbled biscuits, melted-and-set chocolate). Reserve by VietQR, inspect at partner store counters, and take home with zero shipping!
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-6 col-6">
+                    <h5>Quick Menu</h5>
+                    <ul class="list-unstyled d-flex flex-column gap-2 small">
+                        <li><a href="boxes.html"><i class="bi bi-chevron-right me-1"></i> Snacks Marketplace</a></li>
+                        <li><a href="cart.html"><i class="bi bi-chevron-right me-1"></i> Shopping Cart</a></li>
+                        <li><a href="track.html"><i class="bi bi-chevron-right me-1"></i> Live Order Tracking</a></li>
+                        <li><a href="how_it_works.html"><i class="bi bi-chevron-right me-1"></i> How It Works</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 col-6">
+                    <h5>Policies &amp; Trust</h5>
+                    <ul class="list-unstyled d-flex flex-column gap-2 small">
+                        <li><a href="how_it_works.html#safety"><i class="bi bi-shield-check me-1"></i> Food Safety Standards</a></li>
+                        <li><a href="how_it_works.html#refunds"><i class="bi bi-arrow-repeat me-1"></i> Instant Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5>Customer Support</h5>
+                    <p class="small text-light-50 mb-2">
+                        <i class="bi bi-geo-alt-fill text-warning me-2"></i> Ho Chi Minh City, Vietnam
+                    </p>
+                    <p class="small text-light-50 mb-0">
+                        <i class="bi bi-telephone-fill text-warning me-2"></i> 0901 234 567
+                    </p>
+                </div>
+            </div>
+            <div class="border-top border-secondary pt-4 mt-4 text-center text-light-50 small">
+                <p class="mb-0">© 2026 NomReNom. Built for GitHub Pages.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Static Catalog & Reactive Engine -->
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <!-- Marketplace Filter & Search Controller -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const grid = document.getElementById('marketplaceGrid');
+        const countEl = document.getElementById('resultsCount');
+        const searchInput = document.getElementById('searchInput');
+        const storeSelect = document.getElementById('storeSelect');
+        const sortSelect = document.getElementById('sortSelect');
+
+        let currentCondition = 'all';
+        let currentCategory = 'all';
+
+        // Read URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('grade')) {
+            currentCondition = urlParams.get('grade');
+            document.querySelectorAll('.condition-btn').forEach(btn => {
+                if (btn.getAttribute('data-condition') === currentCondition) {
+                    btn.classList.add('btn-dark');
+                    btn.classList.remove('btn-outline-secondary');
+                } else {
+                    btn.classList.remove('btn-dark');
+                    btn.classList.add('btn-outline-secondary');
+                }
+            });
+        }
+        if (urlParams.get('q')) {
+            searchInput.value = urlParams.get('q');
+        }
+        if (urlParams.get('cat')) {
+            currentCategory = urlParams.get('cat');
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === currentCategory) {
+                    btn.classList.add('btn-success');
+                    btn.classList.remove('btn-outline-success');
+                } else {
+                    btn.classList.remove('btn-success');
+                    btn.classList.add('btn-outline-success');
+                }
+            });
+        }
+
+        // Render function
+        function renderSnacks() {
+            let list = [...NOMRENOM_DATA.snacks];
+
+            // 1. Filter condition
+            if (currentCondition !== 'all') {
+                list = list.filter(s => s.condition_grade === currentCondition);
+            }
+
+            // 2. Filter category
+            if (currentCategory !== 'all') {
+                list = list.filter(s => s.category_id === Number(currentCategory));
+            }
+
+            // 3. Filter store
+            const storeVal = storeSelect.value;
+            if (storeVal !== 'all') {
+                list = list.filter(s => s.bakery_id === Number(storeVal));
+            }
+
+            // 4. Search query
+            const q = searchInput.value.trim().toLowerCase();
+            if (q) {
+                list = list.filter(s => s.name.toLowerCase().includes(q) || s.description.toLowerCase().includes(q) || s.defect_notes.toLowerCase().includes(q));
+            }
+
+            // 5. Sorting
+            const sortVal = sortSelect.value;
+            if (sortVal === 'savings') {
+                list.sort((a, b) => {
+                    const saveA = NomReNom.calculateSavings(a.original_value, a.price);
+                    const saveB = NomReNom.calculateSavings(b.original_value, b.price);
+                    return saveB - saveA;
+                });
+            } else if (sortVal === 'price_asc') {
+                list.sort((a, b) => a.price - b.price);
+            } else if (sortVal === 'price_desc') {
+                list.sort((a, b) => b.price - a.price);
+            } else if (sortVal === 'expiry') {
+                list.sort((a, b) => new Date(a.expiry_date) - new Date(b.expiry_date));
+            }
+
+            // Update count
+            countEl.textContent = `Showing ${list.length} snack${list.length === 1 ? '' : 's'} available for counter pickup`;
+
+            if (list.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-12 py-5 text-center">
+                        <div class="d-inline-flex p-4 rounded-circle bg-light text-muted mb-3 fs-1">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <h4 class="fw-bold text-dark mb-1">No snacks found</h4>
+                        <p class="text-muted small mb-3">Try adjusting your filters, search term, or select "All Conditions".</p>
+                        <button type="button" class="btn btn-outline-success rounded-pill px-4" id="btnResetFilters">Reset All Filters</button>
+                    </div>
+                `;
+                document.getElementById('btnResetFilters')?.addEventListener('click', () => {
+                    currentCondition = 'all';
+                    currentCategory = 'all';
+                    searchInput.value = '';
+                    storeSelect.value = 'all';
+                    document.querySelectorAll('.condition-btn').forEach((b, i) => b.className = i === 0 ? 'btn btn-sm btn-dark rounded-pill px-3 condition-btn active' : 'btn btn-sm btn-outline-secondary rounded-pill px-3 condition-btn');
+                    document.querySelectorAll('.cat-btn').forEach((b, i) => b.className = i === 0 ? 'btn btn-sm btn-success rounded-pill px-3 cat-btn active' : 'btn btn-sm btn-outline-success rounded-pill px-3 cat-btn');
+                    renderSnacks();
+                });
+                return;
+            }
+
+            // Render cards
+            grid.innerHTML = list.map(snack => {
+                const savings = NomReNom.calculateSavings(snack.original_value, snack.price);
+                const conditionBadge = NomReNom.getConditionBadge(snack.condition_grade);
+                return `
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-white d-flex flex-column transition-hover">
+                            <div class="position-relative" style="height: 230px; background-color: #F8FAFC;">
+                                <img src="${snack.image_url}" alt="${snack.name}" class="w-100 h-100 object-fit-cover">
+                                <div class="position-absolute top-0 end-0 m-2">
+                                    <span class="badge bg-danger rounded-pill px-2 py-1 fw-bold">-${savings}%</span>
+                                </div>
+                                <div class="position-absolute top-0 start-0 m-2">
+                                    ${conditionBadge}
+                                </div>
+                                <div class="position-absolute bottom-0 start-0 w-100 p-2 text-white small" style="background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);">
+                                    <i class="bi bi-calendar2-check me-1 text-warning"></i> Exp: ${snack.expiry_date}
+                                </div>
+                            </div>
+                            <div class="p-3 d-flex flex-column flex-grow-1">
+                                <div class="small text-muted mb-1">
+                                    <i class="bi bi-shop text-success me-1"></i> ${snack.store_name} • ${snack.district}
+                                </div>
+                                <h6 class="fw-bold text-dark mb-1">
+                                    <a href="box_details.html?id=${snack.id}" class="text-decoration-none text-dark hover-green">
+                                        ${snack.name}
+                                    </a>
+                                </h6>
+                                <p class="small text-muted mb-2" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
+                                    ${snack.defect_notes}
+                                </p>
+                                <div class="d-flex align-items-center gap-2 mb-3">
+                                    <span class="badge bg-light text-dark border small fw-normal">
+                                        <i class="bi bi-box2 text-success me-1"></i> Stock: ${snack.available_qty} packs
+                                    </span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-auto">
+                                    <div>
+                                        <div class="fs-5 fw-bold text-green-dark">${NomReNom.formatVnd(snack.price)}</div>
+                                        <div class="small text-muted text-decoration-line-through">${NomReNom.formatVnd(snack.original_value)}</div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button type="button" class="btn btn-outline-success btn-sm rounded-pill px-3 fw-bold btn-quick-add" data-id="${snack.id}" data-name="${snack.name}" onclick="nomrenomAddToCart(event, this)">
+                                            <i class="bi bi-cart-plus me-1"></i> Add
+                                        </button>
+                                        <a href="box_details.html?id=${snack.id}" class="btn btn-nrn-primary btn-sm rounded-pill px-3 fw-bold">
+                                            Reserve
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Event listeners
+        document.querySelectorAll('.condition-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.condition-btn').forEach(b => {
+                    b.classList.remove('btn-dark');
+                    b.classList.add('btn-outline-secondary');
+                });
+                this.classList.remove('btn-outline-secondary');
+                this.classList.add('btn-dark');
+                currentCondition = this.getAttribute('data-condition');
+                renderSnacks();
+            });
+        });
+
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.cat-btn').forEach(b => {
+                    b.classList.remove('btn-success');
+                    b.classList.add('btn-outline-success');
+                });
+                this.classList.remove('btn-outline-success');
+                this.classList.add('btn-success');
+                currentCategory = this.getAttribute('data-cat');
+                renderSnacks();
+            });
+        });
+
+        searchInput.addEventListener('input', renderSnacks);
+        storeSelect.addEventListener('change', renderSnacks);
+        sortSelect.addEventListener('change', renderSnacks);
+
+        // Initial render
+        renderSnacks();
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserve &amp; VietQR Checkout – NomReNom</title>
+    
+    <!-- Bootstrap 5 CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Custom Theme Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- Clean Modern Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-nomrenom sticky-top">
+        <div class="container-xl">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-icon">
+                    <i class="bi bi-basket2-fill"></i>
+                </span>
+                <span class="brand-text">NomReNom</span>
+            </a>
+
+            <button class="navbar-toggler border-0 p-2 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNomReNom" aria-controls="navbarNomReNom" aria-label="Toggle navigation">
+                <i class="bi bi-list fs-2 text-dark"></i>
+            </button>
+
+            <!-- Responsive Navigation Drawer -->
+            <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="navbarNomReNom" aria-labelledby="navbarNomReNomLabel">
+                <div class="offcanvas-header border-bottom bg-white">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="brand-icon">
+                            <i class="bi bi-basket2-fill"></i>
+                        </span>
+                        <h5 class="offcanvas-title text-dark fw-bold m-0" id="navbarNomReNomLabel">NomReNom</h5>
+                    </div>
+                    <button type="button" class="btn-close text-reset shadow-none" data-bs-dismiss="offcanvas" data-bs-target="#navbarNomReNom" aria-label="Close"></button>
+                </div>
+                
+                <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between p-4 p-lg-0">
+                    <ul class="navbar-nav mx-lg-auto mb-3 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="boxes.html">Browse Snacks</a></li>
+                        <li class="nav-item"><a class="nav-link" href="track.html">Track Pickup</a></li>
+                        <li class="nav-item"><a class="nav-link" href="how_it_works.html">How It Works</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+
+                    <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2 pt-3 pt-lg-0 border-top border-lg-0 flex-shrink-0">
+                        <a href="cart.html" class="btn-nrn-nav-cart position-relative" title="Shopping Cart">
+                            <i class="bi bi-cart3 cart-icon"></i>
+                            <span class="cart-label d-none d-sm-inline">Cart</span>
+                            <span id="nav-cart-badge" class="badge rounded-pill bg-danger nav-cart-badge" style="display:none;">0</span>
+                        </a>
+
+                        <a href="boxes.html" class="btn btn-nrn-nav-cta">
+                            <i class="bi bi-bag-check"></i> <span>Reserve Snacks</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="py-4">
+        <div class="container-xl">
+
+            <!-- Title & Progress Bar -->
+            <div class="mb-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-1">
+                        <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted">Home</a></li>
+                        <li class="breadcrumb-item"><a href="cart.html" class="text-decoration-none text-muted">Cart</a></li>
+                        <li class="breadcrumb-item active text-dark" aria-current="page">Counter Pickup Reservation</li>
+                    </ol>
+                </nav>
+                <h1 class="h3 fw-bold text-dark m-0">Store Counter Pickup &amp; VietQR Payment</h1>
+                <p class="text-muted small">Zero shipping fees • 100% store counter inspection before taking items home</p>
+            </div>
+
+            <form id="checkoutForm">
+                <div class="row g-4">
+                    <!-- Left Column: Pickup Details & Payment -->
+                    <div class="col-lg-7">
+                        
+                        <!-- 1. Pickup Store & Slot Selection -->
+                        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+                            <h5 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
+                                <span class="p-2 rounded-circle bg-success text-white small d-inline-flex align-items-center justify-content-center" style="width:28px;height:28px;">1</span>
+                                Store Counter Pickup Window
+                            </h5>
+
+                            <div class="p-3 rounded-3 bg-light border mb-3">
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <i class="bi bi-shop text-success fs-5"></i>
+                                    <strong class="text-dark" id="checkoutStoreName">Circle K – Campus Hub</strong>
+                                </div>
+                                <div class="small text-muted" id="checkoutStoreAddress">
+                                    Khu pho 6, Linh Trung Ward, Thu Duc City (Opposite University Dorm A)
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Select Pickup Time Window: <span class="text-danger">*</span></label>
+                                <select class="form-select rounded-3" id="checkoutSlotSelect" required>
+                                    <option value="Today (11:00 - 14:00)">Today (11:00 - 14:00) — Counter Open</option>
+                                    <option value="Today (17:00 - 21:00)" selected>Today (17:00 - 21:00) — Evening Peak</option>
+                                    <option value="Tomorrow (11:00 - 14:00)">Tomorrow (11:00 - 14:00) — Lunch Pickup</option>
+                                    <option value="Tomorrow (17:00 - 21:00)">Tomorrow (17:00 - 21:00) — Evening Pickup</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="form-label fw-bold small">Special Instructions for Counter Staff (Optional):</label>
+                                <input type="text" id="specialNotes" class="form-control rounded-3" placeholder="e.g. Will pick up after 6 PM class, please keep in air-conditioned rack">
+                            </div>
+                        </div>
+
+                        <!-- 2. Student Contact Information -->
+                        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+                            <h5 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
+                                <span class="p-2 rounded-circle bg-success text-white small d-inline-flex align-items-center justify-content-center" style="width:28px;height:28px;">2</span>
+                                Student Contact Information
+                            </h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small">Full Name: <span class="text-danger">*</span></label>
+                                    <input type="text" id="custName" class="form-control rounded-3" placeholder="e.g. Alex Nguyen" value="Alex Nguyen" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small">Phone (for SMS code): <span class="text-danger">*</span></label>
+                                    <input type="tel" id="custPhone" class="form-control rounded-3" placeholder="0912345678" value="0912345678" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold small">Email (for pickup ticket &amp; refund receipt): <span class="text-danger">*</span></label>
+                                    <input type="email" id="custEmail" class="form-control rounded-3" placeholder="alex@student.edu.vn" value="alex@student.edu.vn" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Payment Method: VietQR Instant Transfer -->
+                        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+                            <h5 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
+                                <span class="p-2 rounded-circle bg-success text-white small d-inline-flex align-items-center justify-content-center" style="width:28px;height:28px;">3</span>
+                                Payment Method
+                            </h5>
+
+                            <!-- VietQR Option (Selected) -->
+                            <div class="p-3 rounded-4 border border-success bg-light mb-3">
+                                <div class="form-check d-flex align-items-center gap-3">
+                                    <input class="form-check-input fs-5" type="radio" name="paymentMethod" id="payVietQR" value="VietQR" checked>
+                                    <label class="form-check-label w-100" for="payVietQR">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong class="d-block text-dark">VietQR Instant Transfer</strong>
+                                                <small class="text-muted">Zero transaction fee • Auto-confirmed in 3 seconds</small>
+                                            </div>
+                                            <span class="badge bg-success rounded-pill px-3 py-1">Recommended</span>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <!-- Dynamic QR Code Display -->
+                                <div class="mt-3 p-3 bg-white rounded-3 border text-center">
+                                    <div class="row align-items-center g-3">
+                                        <div class="col-sm-5 text-center">
+                                            <img id="vietQrImg" src="" alt="VietQR Code" class="img-fluid rounded-3 border p-1" style="max-width: 170px;">
+                                        </div>
+                                        <div class="col-sm-7 text-start">
+                                            <h6 class="fw-bold text-dark mb-1"><i class="bi bi-qr-code-scan text-success me-1"></i> Scan to Pay</h6>
+                                            <ul class="list-unstyled small text-muted mb-0">
+                                                <li><strong>Bank:</strong> MB Bank (Quân Đội)</li>
+                                                <li><strong>Account:</strong> 0912345678</li>
+                                                <li><strong>Name:</strong> NOMRENOM PILOT</li>
+                                                <li><strong>Amount:</strong> <span class="fw-bold text-success fs-6" id="qrAmountDisplay">0 ₫</span></li>
+                                                <li><strong>Content:</strong> <code id="qrCodeContent">NRN-ORDER</code></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- MoMo & VNPay Options -->
+                            <div class="p-3 rounded-3 border mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" id="payMoMo" value="MoMo">
+                                    <label class="form-check-label text-dark fw-semibold" for="payMoMo">
+                                        MoMo E-Wallet
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="p-3 rounded-3 border">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" id="payVNPay" value="VNPay">
+                                    <label class="form-check-label text-dark fw-semibold" for="payVNPay">
+                                        VNPay QR
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column: Order Summary & Confirmation Button -->
+                    <div class="col-lg-5">
+                        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white sticky-top" style="top: 90px;">
+                            <h5 class="fw-bold text-dark mb-3">Order Review</h5>
+
+                            <div id="checkoutItemsList" class="mb-3 d-flex flex-column gap-2">
+                                <!-- Populated by JS -->
+                            </div>
+
+                            <hr class="my-3">
+
+                            <div class="d-flex justify-content-between text-muted mb-2">
+                                <span>Subtotal</span>
+                                <span class="fw-semibold text-dark" id="orderSubtotal">0 ₫</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between text-muted mb-2">
+                                <span>Store Pickup Fee</span>
+                                <span class="text-success fw-semibold">FREE (0 ₫)</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between text-muted mb-3">
+                                <span>Shipping Fee</span>
+                                <span class="text-success fw-semibold">0 ₫ (Counter Pickup)</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-4 pt-2 border-top">
+                                <span class="fw-bold text-dark fs-5">Total To Pay</span>
+                                <span class="fw-bold text-green-dark fs-3" id="orderTotal">0 ₫</span>
+                            </div>
+
+                            <button type="submit" id="btnSubmitReservation" class="btn btn-nrn-primary w-100 py-3 fs-5 fw-bold rounded-pill shadow">
+                                <i class="bi bi-shield-check me-2"></i> Confirm &amp; Get Pickup Code
+                            </button>
+
+                            <div class="mt-4 pt-3 border-top text-muted small text-center">
+                                <p class="mb-0">
+                                    <i class="bi bi-patch-check-fill text-success me-1"></i>
+                                    <strong>Real Photo Inspection Guarantee:</strong> If the snack package at the counter differs from the listing photo, tap "Refuse at Counter" for an instant 100% refund.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item"><i class="bi bi-house-door"></i><span>Home</span></a>
+        <a href="boxes.html" class="mobile-nav-item"><i class="bi bi-grid"></i><span>Browse</span></a>
+        <a href="cart.html" class="mobile-nav-item active"><i class="bi bi-cart"></i><span>Cart</span></a>
+        <a href="track.html" class="mobile-nav-item"><i class="bi bi-geo-alt"></i><span>Track</span></a>
+        <a href="how_it_works.html" class="mobile-nav-item"><i class="bi bi-info-circle"></i><span>Guide</span></a>
+    </nav>
+
+    <!-- Standard NomReNom Footer -->
+    <footer class="footer-nomrenom">
+        <div class="container text-center">
+            <p class="text-light-50 small mb-0">© 2026 NomReNom. Built for GitHub Pages.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Static Catalog & Reactive Engine -->
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <!-- Checkout Controller -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const cart = NomReNom.getCart();
+
+        // If cart is empty, redirect to boxes.html
+        if (cart.length === 0) {
+            alert('Your snack cart is empty. Please select a snack item first.');
+            window.location.href = 'boxes.html';
+            return;
+        }
+
+        const total = NomReNom.getCartTotal();
+        const firstItem = cart[0];
+        const store = NOMRENOM_DATA.stores.find(s => s.id === firstItem.bakery_id) || NOMRENOM_DATA.stores[0];
+
+        // Store info
+        document.getElementById('checkoutStoreName').textContent = store.name;
+        document.getElementById('checkoutStoreAddress').textContent = store.address;
+
+        // Order code for QR transfer memo
+        const tempOrderCode = NomReNom.generateOrderCode();
+        document.getElementById('qrCodeContent').textContent = tempOrderCode;
+        document.getElementById('qrAmountDisplay').textContent = NomReNom.formatVnd(total);
+
+        // Public VietQR QuickLink image generator
+        const vietQrUrl = `https://img.vietqr.io/image/MB-0912345678-compact2.png?amount=${total}&addInfo=${tempOrderCode}&accountName=NOMRENOM%20PILOT`;
+        document.getElementById('vietQrImg').src = vietQrUrl;
+
+        // Render items list
+        const itemsList = document.getElementById('checkoutItemsList');
+        itemsList.innerHTML = cart.map(item => `
+            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                <div class="d-flex align-items-center gap-2">
+                    <img src="${item.image_url}" alt="${item.name}" class="rounded-2 object-fit-cover" style="width:44px;height:44px;">
+                    <div>
+                        <strong class="d-block text-dark small">${item.name}</strong>
+                        <span class="text-muted small">${NomReNom.formatVnd(item.price)} × ${item.qty}</span>
+                    </div>
+                </div>
+                <span class="fw-bold text-dark small">${NomReNom.formatVnd(item.price * item.qty)}</span>
+            </div>
+        `).join('');
+
+        document.getElementById('orderSubtotal').textContent = NomReNom.formatVnd(total);
+        document.getElementById('orderTotal').textContent = NomReNom.formatVnd(total);
+
+        // Checkout submit handler
+        document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const btn = document.getElementById('btnSubmitReservation');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Processing Reservation...';
+
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'VietQR';
+            const slot = document.getElementById('checkoutSlotSelect').value;
+            const customerName = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+            const notes = document.getElementById('specialNotes').value.trim();
+
+            const order = {
+                code: tempOrderCode,
+                customerName,
+                email,
+                phone,
+                storeName: store.name,
+                storeAddress: store.address,
+                slot,
+                notes,
+                paymentMethod,
+                items: cart.map(i => ({
+                    id: i.id,
+                    name: i.name,
+                    price: i.price,
+                    qty: i.qty,
+                    subtotal: i.price * i.qty,
+                    image_url: i.image_url
+                })),
+                total,
+                status: 'Ready for Inspection',
+                createdAt: new Date().toLocaleString()
+            };
+
+            // Save order into localStorage
+            NomReNom.saveReservation(order);
+
+            // Clear the cart
+            NomReNom.clearCart();
+
+            // Redirect to track page
+            setTimeout(() => {
+                window.location.href = `track.html?code=${tempOrderCode}`;
+            }, 600);
+        });
+    });
+    </script>
+</body>
+</html>

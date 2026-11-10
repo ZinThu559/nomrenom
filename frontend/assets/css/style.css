@@ -1325,62 +1325,85 @@ html, body {
     }
 }
 
-/* 5. Mobile Horizontal Category Scroll (iOS Food App Style) */
+/* 5. Mobile & Desktop Category Discovery (iOS Food App Style) */
+.category-strip-container,
 .mobile-category-scroll {
-    display: flex;
-    gap: 0.75rem;
-    overflow-x: auto;
-    padding: 0.5rem 0.25rem 0.85rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    display: flex !important;
+    gap: 0.75rem !important;
+    overflow-x: auto !important;
+    padding: 0.5rem 0.25rem 0.85rem !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
 }
 
+.category-strip-container::-webkit-scrollbar,
 .mobile-category-scroll::-webkit-scrollbar {
-    display: none;
+    display: none !important;
 }
 
+.category-card-pill,
 .mobile-cat-pill {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 66px;
-    text-decoration: none;
-    color: #475569;
-    transition: transform 0.15s ease;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 80px !important;
+    padding: 10px 8px !important;
+    background: #ffffff !important;
+    border: 1.5px solid #E2E8F0 !important;
+    border-radius: 16px !important;
+    text-decoration: none !important;
+    color: #1E293B !important;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+    transition: all 0.2s ease !important;
+    flex-shrink: 0 !important;
+    cursor: pointer;
 }
 
+.category-card-pill:hover,
+.category-card-pill.active,
 .mobile-cat-pill:hover,
 .mobile-cat-pill.active {
-    color: #0F4C3A;
-    transform: translateY(-2px);
+    border-color: #0F4C3A !important;
+    background: #F0FDF4 !important;
+    color: #0F4C3A !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(15, 76, 58, 0.12) !important;
+    text-decoration: none !important;
 }
 
+.category-card-icon,
 .mobile-cat-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
-    margin-bottom: 0.35rem;
-    transition: all 0.2s ease;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    background: #F8FAFC !important;
+    border: 1px solid #EEF2F6 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.35rem !important;
+    margin-bottom: 0.35rem !important;
+    transition: all 0.2s ease !important;
 }
 
+.category-card-pill:hover .category-card-icon,
+.category-card-pill.active .category-card-icon,
 .mobile-cat-pill.active .mobile-cat-icon {
-    background: #E8F5E9;
-    border-color: #0F4C3A;
-    box-shadow: 0 4px 12px rgba(15, 76, 58, 0.15);
+    background: #DCFCE7 !important;
+    border-color: #0F4C3A !important;
+    box-shadow: 0 4px 12px rgba(15, 76, 58, 0.15) !important;
 }
 
+.category-card-label,
 .mobile-cat-lbl {
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-align: center;
-    line-height: 1.15;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: inherit !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    line-height: 1.2 !important;
 }
 
 /* 6. Mobile 2-Column Product Grid (iPhone Optimized) */

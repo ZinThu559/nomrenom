@@ -9,8 +9,74 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <!-- Custom Theme Stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Custom Theme Stylesheet (with cache-buster) -->
+    <link rel="stylesheet" href="assets/css/style.css?v=2.2">
+    
+    <!-- Critical Inline Styles to Guarantee Pristine UI on All Devices & Network Caches -->
+    <style>
+        .category-strip-container {
+            display: flex !important;
+            gap: 12px !important;
+            overflow-x: auto !important;
+            padding: 6px 2px 14px !important;
+            -webkit-overflow-scrolling: touch !important;
+            scrollbar-width: none !important;
+        }
+        .category-strip-container::-webkit-scrollbar {
+            display: none !important;
+        }
+        .category-card-pill {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-width: 80px !important;
+            padding: 10px 8px !important;
+            background: #ffffff !important;
+            border: 1.5px solid #E2E8F0 !important;
+            border-radius: 16px !important;
+            text-decoration: none !important;
+            color: #1E293B !important;
+            box-shadow: 0 2px 6px rgba(15,23,42,0.04) !important;
+            transition: all 0.2s ease !important;
+            flex-shrink: 0 !important;
+        }
+        .category-card-pill:hover,
+        .category-card-pill.active {
+            border-color: #0F4C3A !important;
+            background: #F0FDF4 !important;
+            color: #0F4C3A !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(15, 76, 58, 0.12) !important;
+            text-decoration: none !important;
+        }
+        .category-card-icon {
+            width: 46px !important;
+            height: 46px !important;
+            border-radius: 50% !important;
+            background: #F8FAFC !important;
+            border: 1px solid #EEF2F6 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 1.35rem !important;
+            margin-bottom: 5px !important;
+            transition: all 0.2s ease !important;
+        }
+        .category-card-pill:hover .category-card-icon {
+            background: #DCFCE7 !important;
+            transform: scale(1.05) !important;
+        }
+        .category-card-label {
+            font-size: 0.75rem !important;
+            font-weight: 700 !important;
+            color: inherit !important;
+            text-decoration: none !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+            line-height: 1.2 !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -180,44 +246,6 @@
                             <a href="boxes.html?grade=melted_reset" class="badge bg-light text-dark border text-decoration-none px-2 py-1 rounded-pill">🍫 Melted &amp; Re-set</a>
                             <a href="boxes.html?grade=near_expiry" class="badge bg-light text-dark border text-decoration-none px-2 py-1 rounded-pill">⏳ 7–30 Days Left</a>
                         </div>
-
-                        <!-- Mobile & Tablet Category Quick-Pills (iOS Food App Style) -->
-                        <div class="mt-4 pt-2">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fw-bold small text-dark text-uppercase tracking-wider">Browse by Category</span>
-                                <a href="boxes.html" class="text-success small fw-bold text-decoration-none">See All <i class="bi bi-arrow-right"></i></a>
-                            </div>
-                            <div class="mobile-category-scroll">
-                                <a href="boxes.html?cat=1" class="mobile-cat-pill">
-                                    <div class="mobile-cat-icon">🍪</div>
-                                    <span class="mobile-cat-lbl">Biscuits</span>
-                                </a>
-                                <a href="boxes.html?cat=2" class="mobile-cat-pill">
-                                    <div class="mobile-cat-icon">🍫</div>
-                                    <span class="mobile-cat-lbl">Chocolates</span>
-                                </a>
-                                <a href="boxes.html?cat=3" class="mobile-cat-pill">
-                                    <div class="mobile-cat-icon">🥨</div>
-                                    <span class="mobile-cat-lbl">Chips</span>
-                                </a>
-                                <a href="boxes.html?q=ramyun" class="mobile-cat-pill">
-                                    <div class="mobile-cat-icon">🍜</div>
-                                    <span class="mobile-cat-lbl">Ramyun</span>
-                                </a>
-                                <a href="boxes.html?q=seaweed" class="mobile-cat-pill">
-                                    <div class="mobile-cat-icon">🍙</div>
-                                    <span class="mobile-cat-lbl">Seaweed</span>
-                                </a>
-                                <a href="boxes.html?cat=5" class="mobile-cat-pill">
-                                    <div class="mobile-cat-icon">🍞</div>
-                                    <span class="mobile-cat-lbl">Breads</span>
-                                </a>
-                                <a href="boxes.html" class="mobile-cat-pill">
-                                    <div class="mobile-cat-icon">🏷️</div>
-                                    <span class="mobile-cat-lbl">All Deals</span>
-                                </a>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Right Hero Column: Visual Showcase Card -->
@@ -315,6 +343,51 @@
         <!-- 3. FEATURED RESCUED SNACKS GRID -->
         <section class="py-5" style="background-color: #FAFAF9;">
             <div class="container-xl">
+                <!-- Category Discovery Bar (iOS Food App Style & Desktop Grid) -->
+                <div class="mb-5 pb-2">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-success bg-opacity-10 text-success p-2 rounded-3">
+                                <i class="bi bi-grid-fill"></i>
+                            </span>
+                            <span class="fw-bold small text-dark text-uppercase tracking-wider">Browse by Category</span>
+                        </div>
+                        <a href="boxes.html" class="text-success small fw-bold text-decoration-none">
+                            See All <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="category-strip-container" style="display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 14px; scrollbar-width: none; -webkit-overflow-scrolling: touch;">
+                        <a href="boxes.html" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
+                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #F0FDF4; border: 1px solid #DCFCE7; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🏷️</div>
+                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">All Deals</span>
+                        </a>
+                        <a href="boxes.html?cat=1" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
+                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #FFFBEB; border: 1px solid #FEF3C7; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🍪</div>
+                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">Biscuits</span>
+                        </a>
+                        <a href="boxes.html?cat=2" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
+                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #FDF2F8; border: 1px solid #FCE7F3; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🍫</div>
+                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">Chocolates</span>
+                        </a>
+                        <a href="boxes.html?cat=3" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
+                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #EFF6FF; border: 1px solid #DBEAFE; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🥨</div>
+                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">Chips</span>
+                        </a>
+                        <a href="boxes.html?q=ramyun" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
+                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #FFF1F2; border: 1px solid #FFE4E6; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🍜</div>
+                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">Ramyun</span>
+                        </a>
+                        <a href="boxes.html?q=seaweed" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
+                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #F0FDF4; border: 1px solid #DCFCE7; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🍙</div>
+                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">Seaweed</span>
+                        </a>
+                        <a href="boxes.html?cat=5" class="category-card-pill" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 82px; padding: 12px 8px; background: #ffffff; border: 1.5px solid #E2E8F0; border-radius: 16px; text-decoration: none !important; color: #1E293B !important; box-shadow: 0 2px 6px rgba(15,23,42,0.04); flex-shrink: 0;">
+                            <div class="category-card-icon" style="width: 48px; height: 48px; border-radius: 50%; background: #FEF3C7; border: 1px solid #FDE68A; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 6px;">🍞</div>
+                            <span class="category-card-label" style="font-size: 0.75rem; font-weight: 700; color: #1E293B !important; text-decoration: none !important; text-align: center; white-space: nowrap;">Breads</span>
+                        </a>
+                    </div>
+                </div>
+
                 <div class="d-flex justify-content-between align-items-end mb-4">
                     <div>
                         <div class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-1 mb-2 text-uppercase">

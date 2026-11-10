@@ -259,12 +259,18 @@ CREATE TABLE `pilot_surveys` (
 -- Clearly labelled demonstration records for initial testing and university evaluation
 -- ==============================================================================
 
--- 1. SEED USERS (Admin & Verified Test Customer)
--- Password for admin: Admin@12345
+-- 1. SEED USERS (Admins & Verified Test Customer)
+-- Password for admin.alex: NomAdmin2026!Alex
+-- Password for admin.linh: NomAdmin2026!Linh
+-- Password for admin.minh: NomAdmin2026!Minh
+-- Password for admin (master): Admin@12345
 -- Password for student: Student@12345
 INSERT INTO `users` (`id`, `full_name`, `email`, `phone`, `password_hash`, `role`, `is_email_verified`, `is_phone_verified`) VALUES
-(1, 'NomReNom System Administrator', 'admin@nomrenom.vn', '0901234567', '$2y$10$nfpzuSZyUVtZk6SH6jXYdOpcW.s0Z1L6Y6XEC2icsGwflSd7pSTPm', 'admin', 1, 1),
-(2, 'Alex Nguyen (Student Account)', 'student@university.edu.vn', '0912345678', '$2y$10$CXW.gac6zn4nWEJbL2f2COyrA13aPwJJDhISqxL0jiAiuqMyBfMyy', 'customer', 1, 1);
+(1, 'Alex Nguyen (Lead Administrator)', 'admin.alex@nomrenom.vn', '0901234561', '$2y$10$EWFB9c6Ib5ZUwMgYeLiqgOYKDPNAt/dS9x/Hjg4li1PnSk499o8hK', 'admin', 1, 1),
+(2, 'Linh Tran (Store & Inventory Admin)', 'admin.linh@nomrenom.vn', '0901234562', '$2y$10$UqkHVc7dWGzQp8C5fFzHfevZZO.WIQfwEXSLnMEgHsUTdWR0TF1oS', 'admin', 1, 1),
+(3, 'Minh Vo (Quality & Refunds Admin)', 'admin.minh@nomrenom.vn', '0901234563', '$2y$10$ryiJiVX9s5MLX/GrJp8q0.k5gTf4G7sz.YFtSzDa/kuwj.MLuSo6u', 'admin', 1, 1),
+(4, 'NomReNom System Administrator', 'admin@nomrenom.vn', '0901234567', '$2y$10$nfpzuSZyUVtZk6SH6jXYdOpcW.s0Z1L6Y6XEC2icsGwflSd7pSTPm', 'admin', 1, 1),
+(5, 'Alex Nguyen (Student Account)', 'student@university.edu.vn', '0912345678', '$2y$10$CXW.gac6zn4nWEJbL2f2COyrA13aPwJJDhISqxL0jiAiuqMyBfMyy', 'customer', 1, 1);
 
 -- 1B. SEED GUEST CUSTOMERS
 INSERT INTO `guest_customers` (`id`, `full_name`, `email`, `phone`, `is_email_verified`) VALUES

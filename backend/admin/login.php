@@ -17,23 +17,52 @@ if (isAdmin()) {
 $pdo = getDbConnection();
 $error = null;
 
-// Auto-heal / provision admin account if missing or if credentials desynced
+// Auto-heal / provision 3 primary admin accounts if missing or if credentials desynced
 try {
-    $adminCheck = $pdo->prepare("SELECT id, password_hash FROM users WHERE email = 'admin@nomrenom.vn' AND role = 'admin' LIMIT 1");
-    $adminCheck->execute();
-    $existingAdmin = $adminCheck->fetch();
+    $adminList = [
+        [
+            'name' => 'Alex Nguyen (Lead Administrator)',
+            'email' => 'admin.alex@nomrenom.vn',
+            'phone' => '0901234561',
+            'password' => 'NomAdmin2026!Alex'
+        ],
+        [
+            'name' => 'Linh Tran (Store & Inventory Admin)',
+            'email' => 'admin.linh@nomrenom.vn',
+            'phone' => '0901234562',
+            'password' => 'NomAdmin2026!Linh'
+        ],
+        [
+            'name' => 'Minh Vo (Quality & Refunds Admin)',
+            'email' => 'admin.minh@nomrenom.vn',
+            'phone' => '0901234563',
+            'password' => 'NomAdmin2026!Minh'
+        ],
+        [
+            'name' => 'NomReNom Administrator (Master)',
+            'email' => 'admin@nomrenom.vn',
+            'phone' => '0901234567',
+            'password' => 'Admin@12345'
+        ]
+    ];
 
-    if (!$existingAdmin) {
-        $defaultAdminPass = password_hash('Admin@12345', PASSWORD_DEFAULT);
-        $pdo->prepare("INSERT INTO users (full_name, email, phone, password_hash, role, is_email_verified, is_phone_verified, created_at) VALUES ('NomReNom Administrator', 'admin@nomrenom.vn', '0901234567', ?, 'admin', 1, 1, NOW())")
-            ->execute([$defaultAdminPass]);
-    } elseif (!password_verify('Admin@12345', $existingAdmin['password_hash'])) {
-        $defaultAdminPass = password_hash('Admin@12345', PASSWORD_DEFAULT);
-        $pdo->prepare("UPDATE users SET password_hash = ? WHERE id = ?")
-            ->execute([$defaultAdminPass, $existingAdmin['id']]);
+    foreach ($adminList as $adm) {
+        $stmt = $pdo->prepare("SELECT id, password_hash FROM users WHERE email = ? LIMIT 1");
+        $stmt->execute([$adm['email']]);
+        $row = $stmt->fetch();
+
+        if (!$row) {
+            $hash = password_hash($adm['password'], PASSWORD_DEFAULT);
+            $pdo->prepare("INSERT INTO users (full_name, email, phone, password_hash, role, is_email_verified, is_phone_verified, created_at) VALUES (?, ?, ?, ?, 'admin', 1, 1, NOW())")
+                ->execute([$adm['name'], $adm['email'], $adm['phone'], $hash]);
+        } elseif (!password_verify($adm['password'], $row['password_hash'])) {
+            $hash = password_hash($adm['password'], PASSWORD_DEFAULT);
+            $pdo->prepare("UPDATE users SET password_hash = ?, role = 'admin' WHERE id = ?")
+                ->execute([$hash, $row['id']]);
+        }
     }
 } catch (Exception $e) {
-    error_log("Failed to auto-provision admin: " . $e->getMessage());
+    error_log("Failed to auto-provision admins: " . $e->getMessage());
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -98,18 +127,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="mb-3">
                             <label class="form-label small fw-bold">Administrator Email</label>
-                            <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" placeholder="admin@nomrenom.vn" required autocomplete="email">
+                            <input type="email" id="adminEmail" name="email" class="form-control" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" placeholder="admin.alex@nomrenom.vn" required autocomplete="email">
                         </div>
 
-                        <div class="mb-4">
+                        <div class="mb-3">
                             <label class="form-label small fw-bold">Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                            <input type="password" id="adminPassword" name="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                        </div>
+
+                        <!-- 3 Quick Admin Login Selectors -->
+                        <div class="p-3 bg-light rounded-3 mb-3 border">
+                            <div class="small fw-bold text-dark mb-2"><i class="bi bi-shield-check text-success me-1"></i> Quick Test: Choose 1 of 3 Admins</div>
+                            <div class="d-flex flex-column gap-1">
+                                <button type="button" onclick="fillAdmin('admin.alex@nomrenom.vn', 'NomAdmin2026!Alex')" class="btn btn-sm btn-outline-success text-start py-1 px-2 d-flex justify-content-between align-items-center">
+                                    <span><strong>Admin 1:</strong> Alex (Operations Lead)</span>
+                                    <span class="badge bg-success bg-opacity-10 text-success">Click to Fill</span>
+                                </button>
+                                <button type="button" onclick="fillAdmin('admin.linh@nomrenom.vn', 'NomAdmin2026!Linh')" class="btn btn-sm btn-outline-success text-start py-1 px-2 d-flex justify-content-between align-items-center">
+                                    <span><strong>Admin 2:</strong> Linh (Store Inventory)</span>
+                                    <span class="badge bg-success bg-opacity-10 text-success">Click to Fill</span>
+                                </button>
+                                <button type="button" onclick="fillAdmin('admin.minh@nomrenom.vn', 'NomAdmin2026!Minh')" class="btn btn-sm btn-outline-success text-start py-1 px-2 d-flex justify-content-between align-items-center">
+                                    <span><strong>Admin 3:</strong> Minh (Quality &amp; Refunds)</span>
+                                    <span class="badge bg-success bg-opacity-10 text-success">Click to Fill</span>
+                                </button>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-nrn-primary btn-lg w-100 py-3 shadow-sm">
                             <i class="bi bi-box-arrow-in-right me-2"></i> Log In to Admin
                         </button>
                     </form>
+
+                    <script>
+                        function fillAdmin(email, pass) {
+                            document.getElementById('adminEmail').value = email;
+                            document.getElementById('adminPassword').value = pass;
+                        }
+                    </script>
 
                     <div class="text-center mt-4 pt-3 border-top">
                         <a href="<?= BASE_URL ?>/index.php" class="text-muted small text-decoration-none">

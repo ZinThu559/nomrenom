@@ -4,12 +4,12 @@
  * Surplus-Food Marketplace Platform
  */
 
-if (session_status() === PHP_SESSION_NONE) {
-    ini_set('session.cookie_httponly', 1);
-    ini_set('session.use_only_cookies', 1);
-    ini_set('session.cookie_samesite', 'Lax');
-    session_name('NOMRENOM_SESSID');
-    session_start();
+if (php_sapi_name() !== 'cli' && session_status() === PHP_SESSION_NONE) {
+    @ini_set('session.cookie_httponly', 1);
+    @ini_set('session.use_only_cookies', 1);
+    @ini_set('session.cookie_samesite', 'Lax');
+    @session_name('NOMRENOM_SESSID');
+    @session_start();
 }
 
 // Environment & Base Paths

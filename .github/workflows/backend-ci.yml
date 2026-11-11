@@ -1,0 +1,30 @@
+name: NomReNom Backend CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate-php:
+    name: Validate PHP Syntax & APIs
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP 8.2
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: pdo, pdo_mysql, mysqli, zip
+
+    - name: Syntax Check PHP Files
+      run: |
+        find backend -name "*.php" -print0 | xargs -0 -n1 -P4 php -l
+
+    - name: Validate API Health Endpoint
+      run: |
+        php backend/api/index.php

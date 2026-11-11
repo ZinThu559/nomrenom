@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # NomReNom PHP 8.2 & Apache Backend Server
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nomrenom_backend
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=nomrenom_db
+      - DB_USER=nomrenom_user
+      - DB_PASS=nomrenom_pass2026
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  # MariaDB 10.11 Database Service pre-seeded with nomrenom_db.sql
+  db:
+    image: mariadb:10.11
+    container_name: nomrenom_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=nomrenom_root_pass
+      - MYSQL_DATABASE=nomrenom_db
+      - MYSQL_USER=nomrenom_user
+      - MYSQL_PASSWORD=nomrenom_pass2026
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./backend/database/nomrenom_db.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+
+volumes:
+  mariadb_data:

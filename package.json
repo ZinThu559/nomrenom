@@ -1,0 +1,18 @@
+{
+  "name": "nomrenom",
+  "version": "1.0.0",
+  "description": "NomReNom - Near-Expiry & Imperfect Snacks Marketplace for Students",
+  "main": "api/health.js",
+  "scripts": {
+    "start": "node -e \"console.log('NomReNom server running!')\"",
+    "build": "echo 'Vercel build completed'"
+  },
+  "keywords": [
+    "nomrenom",
+    "snack-marketplace",
+    "vietnam",
+    "student-deals"
+  ],
+  "author": "NomReNom Team",
+  "license": "MIT"
+}

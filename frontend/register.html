@@ -191,7 +191,14 @@
 
             // 1. Send customer directly to live Supabase Cloud Database!
             if (window.NomReNomSupabase) {
-                await NomReNomSupabase.register(name, email, phone, pass);
+                const spRes = await NomReNomSupabase.register(name, email, phone, pass);
+                if (spRes && !spRes.success) {
+                    alertBox.textContent = spRes.message || 'Registration failed. Please check your information.';
+                    alertBox.classList.remove('d-none');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="bi bi-check2-circle me-2"></i> Complete Registration';
+                    return;
+                }
             }
 
             // 2. Also save to local storage for fast access

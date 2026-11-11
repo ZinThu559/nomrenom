@@ -15,6 +15,8 @@
     { "source": "/track.html", "destination": "/frontend/track.html" },
     { "source": "/login", "destination": "/frontend/login.html" },
     { "source": "/login.html", "destination": "/frontend/login.html" },
+    { "source": "/admin", "destination": "/frontend/admin.html" },
+    { "source": "/admin.html", "destination": "/frontend/admin.html" },
     { "source": "/register", "destination": "/frontend/register.html" },
     { "source": "/register.html", "destination": "/frontend/register.html" },
     { "source": "/how-it-works", "destination": "/frontend/how_it_works.html" },

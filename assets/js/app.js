@@ -119,6 +119,7 @@ const NomReNomSupabase = {
         }
     }
 };
+window.NomReNomSupabase = NomReNomSupabase;
 
 const NomReNom = {
     // 1. Currency Formatter
@@ -456,6 +457,8 @@ window.nomrenomAddToCart = function(event, btn) {
         }, 1500);
     }, 150);
 };
+
+window.NomReNom = NomReNom;
 
 document.addEventListener('DOMContentLoaded', () => {
     NomReNom.init();

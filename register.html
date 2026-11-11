@@ -146,9 +146,15 @@
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/data.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script src="assets/js/data.js?v=2"></script>
+    <script src="assets/js/app.js?v=2"></script>
     <script>
+        // Supabase Cloud Configuration
+        const SUPABASE_CONFIG = {
+            url: 'https://mguszjsjiqkpoqebzivv.supabase.co',
+            key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ndXN6anNqaXFrcG9xZWJ6aXZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ0MDAwMDcsImV4cCI6MjEwOTk3NjAwN30.YnX9b_wxLVqyQ7WH2rQ3Wyhosi_oT4oSv3_qEEBZ0Ro'
+        };
+
         function togglePasswordVisibility(fieldId, btn) {
             const input = document.getElementById(fieldId);
             const icon = btn.querySelector('i');
@@ -167,12 +173,14 @@
             e.preventDefault();
             const name = document.getElementById('regName').value.trim();
             const email = document.getElementById('regEmail').value.trim().toLowerCase();
-            const phone = document.getElementById('regPhone').value.trim();
+            const phone = document.getElementById('regPhone').value.trim() || '0901234567';
             const hub = document.getElementById('regHub').value;
             const pass = document.getElementById('regPassword').value;
             const passConfirm = document.getElementById('regPasswordConfirm').value;
             const alertBox = document.getElementById('registerAlert');
             const submitBtn = document.getElementById('btnSubmitRegister');
+
+            alertBox.classList.add('d-none');
 
             if (pass !== passConfirm) {
                 alertBox.textContent = 'Passwords do not match. Please verify.';
@@ -187,47 +195,78 @@
             }
 
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Creating Account...';
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Saving to Supabase Database...';
 
-            // 1. Send customer directly to live Supabase Cloud Database!
-            if (window.NomReNomSupabase) {
-                const spRes = await NomReNomSupabase.register(name, email, phone, pass);
-                if (spRes && !spRes.success) {
-                    alertBox.textContent = spRes.message || 'Registration failed. Please check your information.';
+            try {
+                // 1. Direct POST to live Supabase users table
+                console.log('NomReNom: Registering customer in Supabase...', email);
+                const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/users`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_CONFIG.key,
+                        'Authorization': 'Bearer ' + SUPABASE_CONFIG.key,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify({
+                        full_name: name,
+                        email: email,
+                        phone: phone,
+                        password_hash: pass,
+                        role: 'customer',
+                        is_email_verified: 1,
+                        is_phone_verified: 1,
+                        created_at: new Date().toISOString(),
+                        last_login_at: new Date().toISOString()
+                    })
+                });
+
+                const data = await res.json();
+                console.log('NomReNom: Supabase response status:', res.status, data);
+
+                if (!res.ok) {
+                    if (res.status === 409 || (data.message && data.message.includes('unique constraint'))) {
+                        alertBox.textContent = 'This email is already registered in the database. Please sign in instead.';
+                    } else {
+                        alertBox.textContent = data.message || 'Database error while saving account.';
+                    }
                     alertBox.classList.remove('d-none');
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = '<i class="bi bi-check2-circle me-2"></i> Complete Registration';
                     return;
                 }
+
+                // 2. Successful database insertion! Save session locally
+                const userRow = Array.isArray(data) ? data[0] : data;
+                const userData = {
+                    id: userRow ? userRow.id : null,
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    preferredHub: hub,
+                    role: 'customer',
+                    signedInAt: new Date().toISOString()
+                };
+
+                if (window.NomReNom && typeof NomReNom.saveUser === 'function') {
+                    NomReNom.saveUser(userData);
+                    NomReNom.showToast('Account Created!', `Welcome, ${name}! Your profile is saved in the database.`, 'success');
+                } else {
+                    localStorage.setItem('nomrenom_user_v1', JSON.stringify(userData));
+                }
+
+                submitBtn.innerHTML = '<i class="bi bi-check-circle me-2"></i> Account Created!';
+                setTimeout(() => {
+                    window.location.href = 'boxes.html';
+                }, 600);
+
+            } catch (err) {
+                console.error('NomReNom: Supabase connection failed:', err);
+                alertBox.textContent = 'Failed to reach Supabase database. Please check your internet connection.';
+                alertBox.classList.remove('d-none');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="bi bi-check2-circle me-2"></i> Complete Registration';
             }
-
-            // 2. Also save to local storage for fast access
-            const registeredUsers = JSON.parse(localStorage.getItem('nomrenom_registered_users') || '[]');
-            const existingIdx = registeredUsers.findIndex(u => u.email.toLowerCase() === email);
-            const userData = {
-                name: name,
-                email: email,
-                phone: phone,
-                password: pass,
-                preferredHub: hub,
-                role: 'student',
-                createdAt: new Date().toISOString()
-            };
-
-            if (existingIdx >= 0) {
-                registeredUsers[existingIdx] = userData;
-            } else {
-                registeredUsers.push(userData);
-            }
-            localStorage.setItem('nomrenom_registered_users', JSON.stringify(registeredUsers));
-
-            // Sign in the new customer
-            NomReNom.saveUser(userData);
-            NomReNom.showToast('Account Created!', `Welcome, ${name}! Your password is created and your account is active.`, 'success');
-
-            setTimeout(() => {
-                window.location.href = 'boxes.html';
-            }, 600);
         }
     </script>
 </body>

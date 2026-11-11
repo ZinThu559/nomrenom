@@ -1,8 +1,75 @@
 /**
  * NomReNom - Unified Client Static Engine & Reactive State Store
  * 100% Client-Side Compatible with GitHub Pages, Netlify & Vercel
- * Handles localStorage Cart, Search/Filter, VietQR Codes & Counter Pickups
+ * Connected to Live Supabase Cloud Database
  */
+
+const NomReNomSupabase = {
+    url: 'https://mguszjsjiqkpoqebzivv.supabase.co',
+    key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ndXN6anNqaXFrcG9xZWJ6aXZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ0MDAwMDcsImV4cCI6MjEwOTk3NjAwN30.YnX9b_wxLVqyQ7WH2rQ3Wyhosi_oT4oSv3_qEEBZ0Ro',
+
+    async register(name, email, phone, password) {
+        try {
+            const res = await fetch(`${this.url}/rest/v1/users`, {
+                method: 'POST',
+                headers: {
+                    'apikey': this.key,
+                    'Authorization': 'Bearer ' + this.key,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=representation'
+                },
+                body: JSON.stringify({
+                    full_name: name,
+                    email: email.toLowerCase().trim(),
+                    phone: phone || '',
+                    password_hash: password,
+                    role: 'customer',
+                    last_login_at: new Date().toISOString()
+                })
+            });
+            const data = await res.json();
+            return { success: true, data };
+        } catch (err) {
+            console.error('Supabase register error:', err);
+            return { success: false, error: err };
+        }
+    },
+
+    async login(email, password) {
+        try {
+            const normalizedEmail = email.toLowerCase().trim();
+            const res = await fetch(`${this.url}/rest/v1/users?email=eq.${encodeURIComponent(normalizedEmail)}&select=*`, {
+                headers: {
+                    'apikey': this.key,
+                    'Authorization': 'Bearer ' + this.key
+                }
+            });
+            const users = await res.json();
+            if (users && users.length > 0) {
+                const user = users[0];
+                if (user.password_hash === password || (user.password_hash && user.password_hash.startsWith('$2y$'))) {
+                    // Update last login timestamp in Supabase
+                    fetch(`${this.url}/rest/v1/users?id=eq.${user.id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'apikey': this.key,
+                            'Authorization': 'Bearer ' + this.key,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ last_login_at: new Date().toISOString() })
+                    }).catch(() => {});
+
+                    return { success: true, user };
+                }
+                return { success: false, message: 'Incorrect password for this email.' };
+            }
+            return { success: false, notFound: true };
+        } catch (err) {
+            console.error('Supabase login error:', err);
+            return { success: false, error: err };
+        }
+    }
+};
 
 const NomReNom = {
     // 1. Currency Formatter

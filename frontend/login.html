@@ -137,7 +137,7 @@
             }
         }
 
-        function handleLoginSubmit(e) {
+        async function handleLoginSubmit(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value.trim().toLowerCase();
             const password = document.getElementById('loginPassword').value;
@@ -153,8 +153,35 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Signing In...';
 
+            // 1. Authenticate against Live Supabase Database & update last_login_at
+            if (window.NomReNomSupabase) {
+                const spRes = await NomReNomSupabase.login(email, password);
+                if (spRes.success && spRes.user) {
+                    const u = spRes.user;
+                    const userData = {
+                        name: u.full_name,
+                        email: u.email,
+                        phone: u.phone,
+                        role: u.role,
+                        signedInAt: new Date().toISOString()
+                    };
+                    NomReNom.saveUser(userData);
+                    NomReNom.showToast('Signed In!', `Welcome back, ${u.full_name}!`, 'success');
+                    setTimeout(() => {
+                        window.location.href = new URLSearchParams(window.location.search).get('redirect') || 'boxes.html';
+                    }, 500);
+                    return;
+                } else if (spRes.message) {
+                    alertBox.textContent = spRes.message;
+                    alertBox.classList.remove('d-none');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="bi bi-box-arrow-in-right me-2"></i> Sign In to NomReNom';
+                    return;
+                }
+            }
+
             setTimeout(() => {
-                // 1. Check registered users who created an account
+                // 2. Check local fallback storage
                 const registeredUsers = JSON.parse(localStorage.getItem('nomrenom_registered_users') || '[]');
                 const matchedUser = registeredUsers.find(u => u.email.toLowerCase() === email);
 

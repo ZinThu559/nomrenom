@@ -163,7 +163,7 @@
             }
         }
 
-        function handleRegisterSubmit(e) {
+        async function handleRegisterSubmit(e) {
             e.preventDefault();
             const name = document.getElementById('regName').value.trim();
             const email = document.getElementById('regEmail').value.trim().toLowerCase();
@@ -189,34 +189,37 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Creating Account...';
 
+            // 1. Send customer directly to live Supabase Cloud Database!
+            if (window.NomReNomSupabase) {
+                await NomReNomSupabase.register(name, email, phone, pass);
+            }
+
+            // 2. Also save to local storage for fast access
+            const registeredUsers = JSON.parse(localStorage.getItem('nomrenom_registered_users') || '[]');
+            const existingIdx = registeredUsers.findIndex(u => u.email.toLowerCase() === email);
+            const userData = {
+                name: name,
+                email: email,
+                phone: phone,
+                password: pass,
+                preferredHub: hub,
+                role: 'student',
+                createdAt: new Date().toISOString()
+            };
+
+            if (existingIdx >= 0) {
+                registeredUsers[existingIdx] = userData;
+            } else {
+                registeredUsers.push(userData);
+            }
+            localStorage.setItem('nomrenom_registered_users', JSON.stringify(registeredUsers));
+
+            // Sign in the new customer
+            NomReNom.saveUser(userData);
+            NomReNom.showToast('Account Created!', `Welcome, ${name}! Your password is created and your account is active.`, 'success');
+
             setTimeout(() => {
-                // Save customer to persistent registered accounts in localStorage
-                const registeredUsers = JSON.parse(localStorage.getItem('nomrenom_registered_users') || '[]');
-                const existingIdx = registeredUsers.findIndex(u => u.email.toLowerCase() === email);
-                const userData = {
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    password: pass,
-                    preferredHub: hub,
-                    role: 'student',
-                    createdAt: new Date().toISOString()
-                };
-
-                if (existingIdx >= 0) {
-                    registeredUsers[existingIdx] = userData;
-                } else {
-                    registeredUsers.push(userData);
-                }
-                localStorage.setItem('nomrenom_registered_users', JSON.stringify(registeredUsers));
-
-                // Sign in the new customer
-                NomReNom.saveUser(userData);
-                NomReNom.showToast('Account Created!', `Welcome, ${name}! Your password is created and your account is active.`, 'success');
-
-                setTimeout(() => {
-                    window.location.href = 'boxes.html';
-                }, 800);
+                window.location.href = 'boxes.html';
             }, 600);
         }
     </script>

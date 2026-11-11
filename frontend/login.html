@@ -84,33 +84,6 @@
                                 <i class="bi bi-box-arrow-in-right me-2"></i> Sign In to NomReNom
                             </button>
 
-                            <!-- Quick 3 Admin Login Selectors -->
-                            <div class="p-3 bg-light rounded-3 mb-3 border">
-                                <div class="small fw-bold text-dark mb-2 d-flex justify-content-between align-items-center">
-                                    <span><i class="bi bi-shield-lock-fill text-success me-1"></i> Quick Test: Choose 1 of 3 Admins</span>
-                                    <span class="badge bg-success bg-opacity-10 text-success">3 Accounts</span>
-                                </div>
-                                <div class="d-flex flex-column gap-1">
-                                    <button type="button" onclick="fillAdmin('admin.alex@nomrenom.vn', 'NomAdmin2026!Alex', 'Alex Nguyen (Lead Admin)', 'admin')" class="btn btn-sm btn-outline-success text-start py-1 px-2 d-flex justify-content-between align-items-center bg-white">
-                                        <span class="small"><strong>Admin 1:</strong> Alex (Operations Lead)</span>
-                                        <span class="badge bg-success text-white small" style="font-size:0.65rem;">Fill</span>
-                                    </button>
-                                    <button type="button" onclick="fillAdmin('admin.linh@nomrenom.vn', 'NomAdmin2026!Linh', 'Linh Tran (Store Inventory)', 'admin')" class="btn btn-sm btn-outline-success text-start py-1 px-2 d-flex justify-content-between align-items-center bg-white">
-                                        <span class="small"><strong>Admin 2:</strong> Linh (Store Inventory)</span>
-                                        <span class="badge bg-success text-white small" style="font-size:0.65rem;">Fill</span>
-                                    </button>
-                                    <button type="button" onclick="fillAdmin('admin.minh@nomrenom.vn', 'NomAdmin2026!Minh', 'Minh Vo (Quality & Refunds)', 'admin')" class="btn btn-sm btn-outline-success text-start py-1 px-2 d-flex justify-content-between align-items-center bg-white">
-                                        <span class="small"><strong>Admin 3:</strong> Minh (Quality &amp; Refunds)</span>
-                                        <span class="badge bg-success text-white small" style="font-size:0.65rem;">Fill</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Quick Student Account Fill Button -->
-                            <button type="button" onclick="fillDemoStudent()" class="btn btn-sm btn-outline-secondary w-100 py-1 rounded-pill mb-3">
-                                <i class="bi bi-lightning-charge me-1"></i> Quick Test: Demo Student Account
-                            </button>
-
                             <div class="text-center my-3 position-relative">
                                 <hr class="my-0">
                                 <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small" style="font-size:0.8rem;">or</span>
@@ -147,23 +120,6 @@
     <script src="assets/js/data.js"></script>
     <script src="assets/js/app.js"></script>
     <script>
-        let selectedRole = 'student';
-        let selectedFullName = null;
-
-        function fillAdmin(email, pass, name, role) {
-            document.getElementById('loginEmail').value = email;
-            document.getElementById('loginPassword').value = pass;
-            selectedRole = role || 'admin';
-            selectedFullName = name || 'Admin';
-        }
-
-        function fillDemoStudent() {
-            document.getElementById('loginEmail').value = 'student@university.edu.vn';
-            document.getElementById('loginPassword').value = 'Student2026!';
-            selectedRole = 'student';
-            selectedFullName = 'Demo Student';
-        }
-
         function handleLoginSubmit(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value.trim();
@@ -181,9 +137,9 @@
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Signing In...';
 
             setTimeout(() => {
-                const isAdmin = email.startsWith('admin') || selectedRole === 'admin';
-                const namePart = email.split('@')[0].replace('admin.', '');
-                const capitalized = selectedFullName || (namePart.charAt(0).toUpperCase() + namePart.slice(1));
+                const isAdmin = email.toLowerCase().startsWith('admin');
+                const namePart = email.split('@')[0].replace(/^admin\./i, '');
+                const capitalized = namePart.charAt(0).toUpperCase() + namePart.slice(1);
 
                 const user = {
                     name: capitalized,

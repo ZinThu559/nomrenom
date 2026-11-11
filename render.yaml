@@ -1,36 +1,13 @@
 services:
   - type: web
-    name: nomrenom-backend
-    runtime: docker
+    name: nomrenom
+    runtime: node
     plan: free
     region: singapore
     branch: main
-    healthCheckPath: /api/index.php
+    buildCommand: echo "Ready"
+    startCommand: node server.js
+    healthCheckPath: /api/health
     envVars:
-      - key: DB_HOST
-        fromDatabase:
-          name: nomrenom-mariadb
-          property: host
-      - key: DB_PORT
-        fromDatabase:
-          name: nomrenom-mariadb
-          property: port
-      - key: DB_NAME
-        fromDatabase:
-          name: nomrenom-mariadb
-          property: database
-      - key: DB_USER
-        fromDatabase:
-          name: nomrenom-mariadb
-          property: user
-      - key: DB_PASS
-        fromDatabase:
-          name: nomrenom-mariadb
-          property: password
-
-databases:
-  - name: nomrenom-mariadb
-    databaseName: nomrenom_db
-    user: nomrenom_user
-    plan: free
-    region: singapore
+      - key: NODE_ENV
+        value: production

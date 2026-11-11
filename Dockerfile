@@ -13,10 +13,6 @@ RUN apt-get update && apt-get install -y \
 # Enable Apache modules
 RUN a2enmod rewrite headers
 
-# Copy startup entrypoint script
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
 # Copy backend PHP application into web root
 COPY backend/ /var/www/html/
 
@@ -30,6 +26,5 @@ RUN chown -R www-data:www-data /var/www/html \
 # Expose HTTP port
 EXPOSE 80
 
-# Use dynamic entrypoint to support $PORT on cloud platforms (Render, Railway, Heroku)
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["apache2-foreground"]
+# Dynamically bind to cloud $PORT (Render, Railway, Heroku) or default to 80
+CMD ["sh", "-c", "sed -i \"s/Listen 80/Listen ${PORT:-80}/g\" /etc/apache2/ports.conf && sed -i \"s/:80/:${PORT:-80}/g\" /etc/apache2/sites-available/000-default.conf && apache2-foreground"]

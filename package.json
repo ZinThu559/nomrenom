@@ -2,10 +2,10 @@
   "name": "nomrenom",
   "version": "1.0.0",
   "description": "NomReNom - Near-Expiry & Imperfect Snacks Marketplace for Students",
-  "main": "api/health.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node -e \"console.log('NomReNom server running!')\"",
-    "build": "echo 'Vercel build completed'"
+    "start": "node server.js",
+    "build": "echo 'Build completed'"
   },
   "keywords": [
     "nomrenom",

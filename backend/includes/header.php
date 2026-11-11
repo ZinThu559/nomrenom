@@ -25,6 +25,119 @@ $user = currentUser();
     
     <!-- Custom Theme Stylesheet -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css?v=<?= time() ?>">
+
+    <!-- Critical Responsive Category Styles (Mobile App Touch Scroller + Laptop 100% Full-Width Grid) -->
+    <style>
+        /* Mobile (Phones): Smooth Touch Swipe Carousel */
+        .category-strip-container {
+            display: flex !important;
+            gap: 12px !important;
+            overflow-x: auto !important;
+            padding: 6px 2px 14px !important;
+            -webkit-overflow-scrolling: touch !important;
+            scrollbar-width: none !important;
+        }
+        .category-strip-container::-webkit-scrollbar {
+            display: none !important;
+        }
+        .category-card-pill {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-width: 78px !important;
+            padding: 10px 6px !important;
+            background: #ffffff !important;
+            border: 1.5px solid #E2E8F0 !important;
+            border-radius: 16px !important;
+            text-decoration: none !important;
+            color: #1E293B !important;
+            box-shadow: 0 2px 6px rgba(15,23,42,0.04) !important;
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            flex-shrink: 0 !important;
+            cursor: pointer;
+        }
+        .category-card-pill:hover,
+        .category-card-pill.active {
+            border-color: #0F4C3A !important;
+            background: #F0FDF4 !important;
+            color: #0F4C3A !important;
+            transform: translateY(-3px) !important;
+            box-shadow: 0 8px 18px rgba(15, 76, 58, 0.12) !important;
+            text-decoration: none !important;
+        }
+        .category-card-icon {
+            width: 48px !important;
+            height: 48px !important;
+            border-radius: 50% !important;
+            background: #F8FAFC !important;
+            border: 1px solid #EEF2F6 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 1.4rem !important;
+            margin-bottom: 6px !important;
+            transition: all 0.2s ease !important;
+        }
+        .category-card-pill:hover .category-card-icon {
+            background: #DCFCE7 !important;
+            transform: scale(1.06) !important;
+        }
+        .category-card-label {
+            font-size: 0.78rem !important;
+            font-weight: 700 !important;
+            color: inherit !important;
+            text-decoration: none !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+            line-height: 1.2 !important;
+        }
+        .category-card-subtitle {
+            display: none !important;
+        }
+
+        /* Laptop & Desktop (md screens and up): Full Width 7-Card Grid with zero empty gaps! */
+        @media (min-width: 768px) {
+            .category-strip-container {
+                display: grid !important;
+                grid-template-columns: repeat(7, 1fr) !important;
+                gap: 14px !important;
+                overflow-x: visible !important;
+                padding: 4px 0 16px !important;
+                width: 100% !important;
+            }
+            .category-card-pill {
+                min-width: 0 !important;
+                width: 100% !important;
+                padding: 18px 10px 16px !important;
+                flex-shrink: 1 !important;
+                border-radius: 18px !important;
+                box-shadow: 0 4px 12px rgba(15,23,42,0.05) !important;
+            }
+            .category-card-icon {
+                width: 60px !important;
+                height: 60px !important;
+                font-size: 1.8rem !important;
+                margin-bottom: 10px !important;
+            }
+            .category-card-label {
+                font-size: 0.85rem !important;
+                font-weight: 700 !important;
+                margin-bottom: 2px !important;
+            }
+            .category-card-subtitle {
+                display: inline-block !important;
+                font-size: 0.70rem !important;
+                font-weight: 600 !important;
+                color: #64748B !important;
+                margin-top: 2px !important;
+                white-space: nowrap !important;
+            }
+            .category-card-pill:hover .category-card-subtitle {
+                color: #0F4C3A !important;
+            }
+        }
+    </style>
 </head>
 <body>
 

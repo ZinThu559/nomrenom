@@ -107,7 +107,7 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
             </div>
 
-            <!-- Right Hero Column: Visual Showcase -->
+            <!-- Right Hero Column: Visual Showcase Card -->
             <div class="col-lg-5">
                 <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white p-4">
                     <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -120,33 +120,34 @@ require_once __DIR__ . '/includes/header.php';
                                 <small class="text-muted">What you see is what you inspect</small>
                             </div>
                         </div>
-                        <span class="badge bg-success text-white">100% Sealed</span>
+                        <span class="badge bg-danger rounded-pill px-3 py-2">-63% OFF</span>
                     </div>
 
-                    <div class="p-3 rounded-3 bg-light mb-3">
-                        <div class="d-flex justify-content-between text-muted small mb-1">
-                            <span>Condition: <strong>Dented Box (Corner Crease)</strong></span>
-                            <span class="text-success fw-bold">18 Days Left</span>
+                    <div class="position-relative mb-3 rounded-3 overflow-hidden bg-light" style="max-height: 280px;">
+                        <img src="<?= BASE_URL ?>/assets/img/snacks/pocky_strawberry_dented.jpg" alt="Pocky Dented Box Preview" class="w-100 object-fit-cover" style="height: 260px;">
+                        <div class="position-absolute top-0 start-0 m-2">
+                            <span class="badge bg-dark bg-opacity-75 text-white">📦 Dented Corner on Outer Box</span>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="text-dark fw-bold">Glico Pocky Strawberry Sticks</span>
-                            <span class="fs-5 fw-bold text-success">14,000 ₫ <small class="text-muted text-decoration-line-through fs-6">38,000 ₫</small></span>
+                        <div class="position-absolute bottom-0 start-0 w-100 p-2 text-white small" style="background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);">
+                            <i class="bi bi-check-circle-fill text-success me-1"></i> Inner Foil Packet 100% Airtight &amp; Crisp
                         </div>
                     </div>
 
-                    <div class="row g-2 text-center text-muted small pt-2 border-top">
-                        <div class="col-4">
-                            <i class="bi bi-check2-circle text-success fs-5 d-block mb-1"></i>
-                            <span>7-30 Days Only</span>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <h6 class="fw-bold mb-0 text-dark">Glico Pocky Strawberry (Family Pack)</h6>
+                            <small class="text-muted"><i class="bi bi-shop text-success me-1"></i> Circle K – Campus Hub</small>
                         </div>
-                        <div class="col-4">
-                            <i class="bi bi-shop text-success fs-5 d-block mb-1"></i>
-                            <span>Store Pickup</span>
+                        <div class="text-end">
+                            <div class="fs-5 fw-bold text-success">14.000 ₫</div>
+                            <div class="small text-muted text-decoration-line-through">38.000 ₫</div>
                         </div>
-                        <div class="col-4">
-                            <i class="bi bi-arrow-counterclockwise text-success fs-5 d-block mb-1"></i>
-                            <span>Counter Refund</span>
-                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <a href="<?= BASE_URL ?>/box_details.php?id=1" class="btn btn-nrn-primary rounded-pill py-2 fw-bold">
+                            <i class="bi bi-qr-code-scan me-2"></i> Inspect &amp; Reserve Deal
+                        </a>
                     </div>
                 </div>
             </div>
@@ -218,6 +219,58 @@ require_once __DIR__ . '/includes/header.php';
 <!-- 3. FEATURED SNACK LISTINGS -->
 <section class="py-5" style="background-color: #FAF7F2;">
     <div class="container-xl">
+        <!-- Category Discovery Bar (iOS Food App Style & Desktop Grid) -->
+        <div class="mb-5 pb-2">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-success bg-opacity-10 text-success p-2 rounded-3">
+                        <i class="bi bi-grid-fill"></i>
+                    </span>
+                    <span class="fw-bold small text-dark text-uppercase tracking-wider">Browse by Category</span>
+                </div>
+                <a href="<?= BASE_URL ?>/boxes.php" class="text-success small fw-bold text-decoration-none">
+                    See All <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+            <div class="category-strip-container">
+                <a href="<?= BASE_URL ?>/boxes.php" class="category-card-pill">
+                    <div class="category-card-icon" style="background: #F0FDF4; border: 1px solid #DCFCE7;">🏷️</div>
+                    <span class="category-card-label">All Deals</span>
+                    <span class="category-card-subtitle badge rounded-pill bg-success bg-opacity-10 text-success">Up to 70% Off</span>
+                </a>
+                <a href="<?= BASE_URL ?>/boxes.php?cat=1" class="category-card-pill">
+                    <div class="category-card-icon" style="background: #FFFBEB; border: 1px solid #FEF3C7;">🍪</div>
+                    <span class="category-card-label">Biscuits</span>
+                    <span class="category-card-subtitle text-muted">From 12.000 ₫</span>
+                </a>
+                <a href="<?= BASE_URL ?>/boxes.php?cat=2" class="category-card-pill">
+                    <div class="category-card-icon" style="background: #FDF2F8; border: 1px solid #FCE7F3;">🍫</div>
+                    <span class="category-card-label">Chocolates</span>
+                    <span class="category-card-subtitle text-muted">Melted &amp; Reset</span>
+                </a>
+                <a href="<?= BASE_URL ?>/boxes.php?cat=3" class="category-card-pill">
+                    <div class="category-card-icon" style="background: #EFF6FF; border: 1px solid #DBEAFE;">🥨</div>
+                    <span class="category-card-label">Chips</span>
+                    <span class="category-card-subtitle text-muted">Dented Box</span>
+                </a>
+                <a href="<?= BASE_URL ?>/boxes.php?q=ramyun" class="category-card-pill">
+                    <div class="category-card-icon" style="background: #FFF1F2; border: 1px solid #FFE4E6;">🍜</div>
+                    <span class="category-card-label">Ramyun</span>
+                    <span class="category-card-subtitle text-muted">Near Expiry</span>
+                </a>
+                <a href="<?= BASE_URL ?>/boxes.php?q=seaweed" class="category-card-pill">
+                    <div class="category-card-icon" style="background: #F0FDF4; border: 1px solid #DCFCE7;">🍙</div>
+                    <span class="category-card-label">Seaweed</span>
+                    <span class="category-card-subtitle text-muted">Crispy Sheets</span>
+                </a>
+                <a href="<?= BASE_URL ?>/boxes.php?cat=5" class="category-card-pill">
+                    <div class="category-card-icon" style="background: #FEF3C7; border: 1px solid #FDE68A;">🍞</div>
+                    <span class="category-card-label">Breads</span>
+                    <span class="category-card-subtitle text-muted">Bakery Items</span>
+                </a>
+            </div>
+        </div>
+
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
             <div>
                 <span class="text-success fw-bold text-uppercase small letter-spacing-1">Today's Store Stock</span>

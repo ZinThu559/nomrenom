@@ -122,16 +122,45 @@ require_once __DIR__ . '/includes/header.php';
         </a>
     </div>
 
-    <!-- Category Filter Tabs -->
-    <div class="category-tabs-bar mb-4 pb-2 d-flex gap-2 overflow-auto text-nowrap">
-        <a href="<?= BASE_URL ?>/boxes.php<?= !empty($gradeFilter) ? '?grade=' . urlencode($gradeFilter) : '' ?>" class="btn btn-sm <?= $catFilter === 0 ? 'btn-success' : 'btn-light border' ?> rounded-pill px-3 py-2 fw-semibold">
-            <i class="bi bi-grid-fill me-1"></i> All Categories
-        </a>
-        <?php foreach ($categories as $cat): ?>
-            <a href="<?= BASE_URL ?>/boxes.php?cat=<?= $cat['id'] ?><?= !empty($gradeFilter) ? '&grade=' . urlencode($gradeFilter) : '' ?>" class="btn btn-sm <?= $catFilter === (int)$cat['id'] ? 'btn-success' : 'btn-light border' ?> rounded-pill px-3 py-2 fw-semibold">
-                <i class="bi <?= htmlspecialchars($cat['icon'] ?? 'bi-cup-hot') ?> me-1"></i> <?= htmlspecialchars($cat['name']) ?>
+    <!-- Category Filter Strip (Mobile Touch Scroller + Laptop 7-Col Grid) -->
+    <div class="mb-4">
+        <div class="category-strip-container">
+            <a href="<?= BASE_URL ?>/boxes.php<?= !empty($gradeFilter) ? '?grade=' . urlencode($gradeFilter) : '' ?>" class="category-card-pill <?= $catFilter === 0 && empty($search) ? 'active' : '' ?>">
+                <div class="category-card-icon" style="background: #F0FDF4; border: 1px solid #DCFCE7;">🏷️</div>
+                <span class="category-card-label">All Deals</span>
+                <span class="category-card-subtitle badge rounded-pill bg-success bg-opacity-10 text-success">Up to 70% Off</span>
             </a>
-        <?php endforeach; ?>
+            <a href="<?= BASE_URL ?>/boxes.php?cat=1<?= !empty($gradeFilter) ? '&grade=' . urlencode($gradeFilter) : '' ?>" class="category-card-pill <?= $catFilter === 1 ? 'active' : '' ?>">
+                <div class="category-card-icon" style="background: #FFFBEB; border: 1px solid #FEF3C7;">🍪</div>
+                <span class="category-card-label">Biscuits</span>
+                <span class="category-card-subtitle text-muted">From 12.000 ₫</span>
+            </a>
+            <a href="<?= BASE_URL ?>/boxes.php?cat=2<?= !empty($gradeFilter) ? '&grade=' . urlencode($gradeFilter) : '' ?>" class="category-card-pill <?= $catFilter === 2 ? 'active' : '' ?>">
+                <div class="category-card-icon" style="background: #FDF2F8; border: 1px solid #FCE7F3;">🍫</div>
+                <span class="category-card-label">Chocolates</span>
+                <span class="category-card-subtitle text-muted">Melted &amp; Reset</span>
+            </a>
+            <a href="<?= BASE_URL ?>/boxes.php?cat=3<?= !empty($gradeFilter) ? '&grade=' . urlencode($gradeFilter) : '' ?>" class="category-card-pill <?= $catFilter === 3 ? 'active' : '' ?>">
+                <div class="category-card-icon" style="background: #EFF6FF; border: 1px solid #DBEAFE;">🥨</div>
+                <span class="category-card-label">Chips</span>
+                <span class="category-card-subtitle text-muted">Dented Box</span>
+            </a>
+            <a href="<?= BASE_URL ?>/boxes.php?q=ramyun<?= !empty($gradeFilter) ? '&grade=' . urlencode($gradeFilter) : '' ?>" class="category-card-pill <?= strtolower($search) === 'ramyun' ? 'active' : '' ?>">
+                <div class="category-card-icon" style="background: #FFF1F2; border: 1px solid #FFE4E6;">🍜</div>
+                <span class="category-card-label">Ramyun</span>
+                <span class="category-card-subtitle text-muted">Near Expiry</span>
+            </a>
+            <a href="<?= BASE_URL ?>/boxes.php?q=seaweed<?= !empty($gradeFilter) ? '&grade=' . urlencode($gradeFilter) : '' ?>" class="category-card-pill <?= strtolower($search) === 'seaweed' ? 'active' : '' ?>">
+                <div class="category-card-icon" style="background: #F0FDF4; border: 1px solid #DCFCE7;">🍙</div>
+                <span class="category-card-label">Seaweed</span>
+                <span class="category-card-subtitle text-muted">Crispy Sheets</span>
+            </a>
+            <a href="<?= BASE_URL ?>/boxes.php?cat=5<?= !empty($gradeFilter) ? '&grade=' . urlencode($gradeFilter) : '' ?>" class="category-card-pill <?= $catFilter === 5 ? 'active' : '' ?>">
+                <div class="category-card-icon" style="background: #FEF3C7; border: 1px solid #FDE68A;">🍞</div>
+                <span class="category-card-label">Breads</span>
+                <span class="category-card-subtitle text-muted">Bakery Items</span>
+            </a>
+        </div>
     </div>
 
     <!-- Search & Filter Toolbar -->

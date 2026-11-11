@@ -74,6 +74,10 @@ function getDbConnection(): PDO {
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
                 ]);
 
+                // Register standard MySQL functions in SQLite for complete query compatibility
+                $pdo->sqliteCreateFunction('CURDATE', fn() => date('Y-m-d'));
+                $pdo->sqliteCreateFunction('NOW', fn() => date('Y-m-d H:i:s'));
+
                 if ($isNew) {
                     initSqliteFallbackDatabase($pdo);
                 }

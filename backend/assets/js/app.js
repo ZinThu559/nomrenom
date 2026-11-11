@@ -234,10 +234,75 @@ const NomReNom = {
         }
     },
 
-    // 8. Global Initialization
+    // 8. User Authentication State (localStorage)
+    userKey: 'nomrenom_user_v1',
+
+    getUser() {
+        try {
+            return JSON.parse(localStorage.getItem(this.userKey));
+        } catch (e) {
+            return null;
+        }
+    },
+
+    saveUser(user) {
+        localStorage.setItem(this.userKey, JSON.stringify(user));
+        this.updateUserUI();
+    },
+
+    logout(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        localStorage.removeItem(this.userKey);
+        this.updateUserUI();
+        this.showToast('Signed Out', 'You have been signed out successfully.', 'info');
+        setTimeout(() => {
+            window.location.reload();
+        }, 500);
+    },
+
+    updateUserUI() {
+        const user = this.getUser();
+        const loginContainers = document.querySelectorAll('.nav-auth-login');
+        const userDropdowns = document.querySelectorAll('.nav-auth-user');
+        const nameDisplays = document.querySelectorAll('.nav-user-displayname');
+        const emailDisplays = document.querySelectorAll('.nav-user-email');
+
+        if (user && user.email) {
+            let rawName = user.name || user.email.split('@')[0];
+            // If the name has dots (like zthh.mlm), take the first part
+            let shortName = rawName.includes('.') ? rawName.split('.')[0] : rawName;
+            if (shortName.length > 7) {
+                shortName = shortName.substring(0, 6) + '…';
+            }
+            // Capitalize first letter
+            shortName = shortName.charAt(0).toUpperCase() + shortName.slice(1);
+
+            nameDisplays.forEach(el => el.textContent = shortName);
+            emailDisplays.forEach(el => el.textContent = user.email);
+            loginContainers.forEach(btn => btn.style.setProperty('display', 'none', 'important'));
+            userDropdowns.forEach(dd => dd.style.setProperty('display', 'inline-block', 'important'));
+
+            // Prefill checkout fields if on checkout.html
+            const nameInput = document.getElementById('custName');
+            const emailInput = document.getElementById('custEmail');
+            const phoneInput = document.getElementById('custPhone');
+            if (nameInput && !nameInput.value) nameInput.value = user.name || '';
+            if (emailInput && !emailInput.value) emailInput.value = user.email || '';
+            if (phoneInput && !phoneInput.value) phoneInput.value = user.phone || '';
+        } else {
+            loginContainers.forEach(btn => btn.style.setProperty('display', 'inline-block', 'important'));
+            userDropdowns.forEach(dd => dd.style.setProperty('display', 'none', 'important'));
+        }
+    },
+
+    // 9. Global Initialization
     init() {
         this.seedInitialData();
         this.updateCartBadges();
+        this.updateUserUI();
 
         // Delegate quick-add buttons
         document.addEventListener('click', (e) => {

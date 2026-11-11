@@ -8,17 +8,23 @@
 
 require_once __DIR__ . '/config.php';
 
-// Parse DATABASE_URL or cloud environment variables (Render, Railway, Docker, Heroku)
+// Parse DATABASE_URL or cloud environment variables (Supabase, Render, Railway, Docker, Heroku)
 $dbHost = getenv('DB_HOST') ?: '127.0.0.1';
 $dbPort = getenv('DB_PORT') ?: '3306';
 $dbName = getenv('DB_NAME') ?: 'nomrenom_db';
 $dbUser = getenv('DB_USER') ?: 'root';
 $dbPass = getenv('DB_PASS') !== false ? getenv('DB_PASS') : '';
+$dbDriver = 'mysql';
 
-$databaseUrl = getenv('DATABASE_URL') ?: getenv('CLEARDB_DATABASE_URL') ?: getenv('JAWSDB_URL');
+$databaseUrl = getenv('DATABASE_URL') ?: getenv('SUPABASE_DB_URL') ?: getenv('CLEARDB_DATABASE_URL') ?: getenv('JAWSDB_URL');
 if ($databaseUrl) {
     $parts = parse_url($databaseUrl);
     if ($parts) {
+        $scheme = strtolower($parts['scheme'] ?? '');
+        if ($scheme === 'postgres' || $scheme === 'postgresql') {
+            $dbDriver = 'pgsql';
+            $dbPort = $parts['port'] ?? '5432';
+        }
         $dbHost = $parts['host'] ?? $dbHost;
         $dbPort = $parts['port'] ?? $dbPort;
         $dbUser = $parts['user'] ?? $dbUser;
@@ -27,6 +33,7 @@ if ($databaseUrl) {
     }
 }
 
+defined('DB_DRIVER') or define('DB_DRIVER', $dbDriver);
 defined('DB_HOST') or define('DB_HOST', $dbHost);
 defined('DB_PORT') or define('DB_PORT', $dbPort);
 defined('DB_NAME') or define('DB_NAME', $dbName);
@@ -35,21 +42,30 @@ defined('DB_PASS') or define('DB_PASS', $dbPass);
 defined('DB_CHARSET') or define('DB_CHARSET', 'utf8mb4');
 
 /**
- * Returns a shared PDO instance (MySQL or Automatic SQLite Fallback)
+ * Returns a shared PDO instance (PostgreSQL / Supabase, MySQL, or Automatic SQLite Fallback)
  * @return PDO
  */
 function getDbConnection(): PDO {
     static $pdo = null;
 
     if ($pdo === null) {
-        // 1. First, attempt connection to MySQL / MariaDB (Local XAMPP or Cloud DB)
-        $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;
-        $options = [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
-            PDO::ATTR_TIMEOUT            => 2
-        ];
+        // 1. First, attempt connection to Cloud Database (Supabase PostgreSQL or MySQL)
+        if (DB_DRIVER === 'pgsql') {
+            $dsn = "pgsql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";sslmode=require";
+            $options = [
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_TIMEOUT            => 5
+            ];
+        } else {
+            $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;
+            $options = [
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES   => false,
+                PDO::ATTR_TIMEOUT            => 2
+            ];
+        }
 
         try {
             $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);

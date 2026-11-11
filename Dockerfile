@@ -1,15 +1,16 @@
 # NomReNom - Cloud Backend Server Dockerfile
 FROM php:8.2-apache
 
-# Install system dependencies and PHP extensions for MySQL, PDO, SQLite, and ZIP
+# Install system dependencies and PHP extensions for MySQL, PostgreSQL, SQLite, and ZIP
 RUN apt-get update && apt-get install -y \
     libzip-dev \
+    libpq-dev \
     sqlite3 \
     libsqlite3-dev \
     zip \
     unzip \
     curl \
-    && docker-php-ext-install pdo pdo_mysql mysqli pdo_sqlite zip \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mysqli pdo_sqlite zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Enable Apache modules

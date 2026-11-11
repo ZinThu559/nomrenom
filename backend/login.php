@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             setFlash('success', 'Welcome back, <strong>' . htmlspecialchars($user['full_name']) . '</strong>! A security login notification has been sent to your email (<strong>' . htmlspecialchars($user['email']) . '</strong>).');
 
-            $targetUrl = $_SESSION['intended_url'] ?? (BASE_URL . '/index.php');
+            $targetUrl = $_SESSION['intended_url'] ?? (($user['role'] === 'admin') ? (BASE_URL . '/admin/index.php') : (BASE_URL . '/index.php'));
             unset($_SESSION['intended_url']);
             header('Location: ' . $targetUrl);
             exit;

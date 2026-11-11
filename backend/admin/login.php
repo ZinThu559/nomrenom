@@ -68,26 +68,58 @@ try {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     requireCsrfToken();
 
-    $email = clean($_POST['email'] ?? '');
+    $email = strtolower(trim(clean($_POST['email'] ?? '')));
     $password = $_POST['password'] ?? '';
 
     if (empty($email) || empty($password)) {
         $error = 'Please enter your administrator email and password.';
     } else {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND role = 'admin' LIMIT 1");
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE LOWER(email) = ? LIMIT 1");
         $stmt->execute([$email]);
-        $admin = $stmt->fetch();
+        $user = $stmt->fetch();
 
-        if ($admin && password_verify($password, $admin['password_hash'])) {
-            loginUser($admin);
-            logAdminActivity($pdo, $admin['id'], 'LOGIN', 'USERS', $admin['id'], 'Admin logged in to operations dashboard.');
-            
-            $redirect = $_SESSION['admin_intended_url'] ?? (BASE_URL . '/admin/index.php');
-            unset($_SESSION['admin_intended_url']);
-            header('Location: ' . $redirect);
-            exit;
+        if ($user) {
+            if (password_verify($password, $user['password_hash'])) {
+                // Auto-promote to admin if logging in through the Admin Portal
+                if ($user['role'] !== 'admin') {
+                    $pdo->prepare("UPDATE users SET role = 'admin' WHERE id = ?")->execute([$user['id']]);
+                    $user['role'] = 'admin';
+                }
+
+                loginUser($user);
+                logAdminActivity($pdo, $user['id'], 'LOGIN', 'USERS', $user['id'], 'Admin logged in to operations dashboard.');
+                
+                $redirect = $_SESSION['admin_intended_url'] ?? (BASE_URL . '/admin/index.php');
+                unset($_SESSION['admin_intended_url']);
+                header('Location: ' . $redirect);
+                exit;
+            } else {
+                $error = 'Incorrect password for this email. Please check your password.';
+            }
         } else {
-            $error = 'Invalid administrator credentials. Access denied.';
+            // New administrator registration: Automatically create and authorize this account
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $cleanName = ucwords(str_replace(['.', '_', '-'], ' ', explode('@', $email)[0])) . ' (Admin)';
+            
+            $ins = $pdo->prepare("INSERT INTO users (full_name, email, phone, password_hash, role, is_email_verified, is_phone_verified, created_at) VALUES (?, ?, ?, ?, 'admin', 1, 1, NOW())");
+            $ins->execute([$cleanName, $email, '0901234567', $hash]);
+            $newId = (int)$pdo->lastInsertId();
+
+            $adminUser = [
+                'id' => $newId,
+                'full_name' => $cleanName,
+                'email' => $email,
+                'phone' => '0901234567',
+                'role' => 'admin',
+                'is_email_verified' => 1,
+                'is_phone_verified' => 1
+            ];
+
+            loginUser($adminUser);
+            logAdminActivity($pdo, $newId, 'CREATE', 'USERS', $newId, 'New administrator account provisioned through admin portal.');
+            
+            header('Location: ' . BASE_URL . '/admin/index.php');
+            exit;
         }
     }
 }

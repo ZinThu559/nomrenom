@@ -16,7 +16,7 @@ $dbUser = getenv('DB_USER') ?: 'root';
 $dbPass = getenv('DB_PASS') !== false ? getenv('DB_PASS') : '';
 $dbDriver = 'mysql';
 
-$databaseUrl = getenv('DATABASE_URL') ?: getenv('SUPABASE_DB_URL') ?: getenv('CLEARDB_DATABASE_URL') ?: getenv('JAWSDB_URL');
+$databaseUrl = getenv('DATABASE_URL') ?: getenv('SUPABASE_DB_URL') ?: getenv('CLEARDB_DATABASE_URL') ?: 'postgresql://postgres.mguszjsjiqkpoqebzivv:Zin%403459ool@aws-0-ap-southeast-2.pooler.supabase.com:6543/postgres';
 if ($databaseUrl) {
     $parts = parse_url($databaseUrl);
     if ($parts) {
@@ -27,8 +27,8 @@ if ($databaseUrl) {
         }
         $dbHost = $parts['host'] ?? $dbHost;
         $dbPort = $parts['port'] ?? $dbPort;
-        $dbUser = $parts['user'] ?? $dbUser;
-        $dbPass = $parts['pass'] ?? $dbPass;
+        $dbUser = isset($parts['user']) ? urldecode($parts['user']) : $dbUser;
+        $dbPass = isset($parts['pass']) ? urldecode($parts['pass']) : $dbPass;
         $dbName = ltrim($parts['path'] ?? '', '/') ?: $dbName;
     }
 }

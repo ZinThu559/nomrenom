@@ -70,6 +70,9 @@
                                 <div class="input-group mt-1">
                                     <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-key"></i></span>
                                     <input type="password" class="form-control border-start-0 ps-0" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+                                    <button class="btn btn-outline-secondary border-start-0 bg-white" type="button" onclick="toggleLoginPassword(this)" title="Show/Hide Password">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
                                 </div>
                             </div>
 
@@ -120,9 +123,23 @@
     <script src="assets/js/data.js"></script>
     <script src="assets/js/app.js"></script>
     <script>
+        function toggleLoginPassword(btn) {
+            const input = document.getElementById('loginPassword');
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+
         function handleLoginSubmit(e) {
             e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
             const password = document.getElementById('loginPassword').value;
             const alertBox = document.getElementById('loginAlert');
             const submitBtn = document.getElementById('btnSubmitLogin');
@@ -137,7 +154,49 @@
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Signing In...';
 
             setTimeout(() => {
-                const isAdmin = email.toLowerCase().startsWith('admin');
+                // 1. Check registered users who created an account
+                const registeredUsers = JSON.parse(localStorage.getItem('nomrenom_registered_users') || '[]');
+                const matchedUser = registeredUsers.find(u => u.email.toLowerCase() === email);
+
+                if (matchedUser) {
+                    if (matchedUser.password && matchedUser.password !== password) {
+                        alertBox.textContent = 'Incorrect password for this email. Please try again.';
+                        alertBox.classList.remove('d-none');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="bi bi-box-arrow-in-right me-2"></i> Sign In to NomReNom';
+                        return;
+                    }
+
+                    NomReNom.saveUser(matchedUser);
+                    NomReNom.showToast('Signed In!', `Welcome back, ${matchedUser.name}!`, 'success');
+
+                    setTimeout(() => {
+                        const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || 'boxes.html';
+                        window.location.href = redirectUrl;
+                    }, 700);
+                    return;
+                }
+
+                // 2. Administrator credentials check
+                const adminPasswords = {
+                    'admin.alex@nomrenom.vn': 'NomAdmin2026!Alex',
+                    'admin.linh@nomrenom.vn': 'NomAdmin2026!Linh',
+                    'admin.minh@nomrenom.vn': 'NomAdmin2026!Minh',
+                    'admin@nomrenom.vn': 'Admin@12345'
+                };
+
+                const isAdmin = email.startsWith('admin');
+                if (isAdmin && adminPasswords[email]) {
+                    if (password !== adminPasswords[email]) {
+                        alertBox.textContent = 'Invalid administrator password.';
+                        alertBox.classList.remove('d-none');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="bi bi-box-arrow-in-right me-2"></i> Sign In to NomReNom';
+                        return;
+                    }
+                }
+
+                // 3. General student login
                 const namePart = email.split('@')[0].replace(/^admin\./i, '');
                 const capitalized = namePart.charAt(0).toUpperCase() + namePart.slice(1);
 
@@ -155,7 +214,7 @@
                 setTimeout(() => {
                     const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || 'boxes.html';
                     window.location.href = redirectUrl;
-                }, 800);
+                }, 700);
             }, 500);
         }
 

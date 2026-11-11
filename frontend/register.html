@@ -92,12 +92,24 @@
 
                             <div class="row g-2 mb-3">
                                 <div class="col-sm-6">
-                                    <label for="regPassword" class="form-label small fw-bold text-dark">Password</label>
-                                    <input type="password" class="form-control" id="regPassword" placeholder="At least 6 chars" minlength="6" required>
+                                    <label for="regPassword" class="form-label small fw-bold text-dark">Create Password</label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" id="regPassword" placeholder="Min. 6 characters" minlength="6" required autocomplete="new-password">
+                                        <button class="btn btn-outline-secondary border-start-0 bg-white" type="button" onclick="togglePasswordVisibility('regPassword', this)" title="Show/Hide Password">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-text text-muted small" style="font-size:0.72rem;">Choose your own secret password.</div>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="regPasswordConfirm" class="form-label small fw-bold text-dark">Confirm Password</label>
-                                    <input type="password" class="form-control" id="regPasswordConfirm" placeholder="Repeat password" minlength="6" required>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" id="regPasswordConfirm" placeholder="Repeat your password" minlength="6" required autocomplete="new-password">
+                                        <button class="btn btn-outline-secondary border-start-0 bg-white" type="button" onclick="togglePasswordVisibility('regPasswordConfirm', this)" title="Show/Hide Password">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-text text-muted small" style="font-size:0.72rem;">Must match password on left.</div>
                                 </div>
                             </div>
 
@@ -137,10 +149,24 @@
     <script src="assets/js/data.js"></script>
     <script src="assets/js/app.js"></script>
     <script>
+        function togglePasswordVisibility(fieldId, btn) {
+            const input = document.getElementById(fieldId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+
         function handleRegisterSubmit(e) {
             e.preventDefault();
             const name = document.getElementById('regName').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
+            const email = document.getElementById('regEmail').value.trim().toLowerCase();
             const phone = document.getElementById('regPhone').value.trim();
             const hub = document.getElementById('regHub').value;
             const pass = document.getElementById('regPassword').value;
@@ -154,21 +180,39 @@
                 return;
             }
 
+            if (pass.length < 6) {
+                alertBox.textContent = 'Password must be at least 6 characters.';
+                alertBox.classList.remove('d-none');
+                return;
+            }
+
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Creating Account...';
 
             setTimeout(() => {
-                const user = {
+                // Save customer to persistent registered accounts in localStorage
+                const registeredUsers = JSON.parse(localStorage.getItem('nomrenom_registered_users') || '[]');
+                const existingIdx = registeredUsers.findIndex(u => u.email.toLowerCase() === email);
+                const userData = {
                     name: name,
                     email: email,
                     phone: phone,
+                    password: pass,
                     preferredHub: hub,
                     role: 'student',
                     createdAt: new Date().toISOString()
                 };
 
-                NomReNom.saveUser(user);
-                NomReNom.showToast('Account Created!', `Welcome, ${name}! Your account with ${email} is active.`, 'success');
+                if (existingIdx >= 0) {
+                    registeredUsers[existingIdx] = userData;
+                } else {
+                    registeredUsers.push(userData);
+                }
+                localStorage.setItem('nomrenom_registered_users', JSON.stringify(registeredUsers));
+
+                // Sign in the new customer
+                NomReNom.saveUser(userData);
+                NomReNom.showToast('Account Created!', `Welcome, ${name}! Your password is created and your account is active.`, 'success');
 
                 setTimeout(() => {
                     window.location.href = 'boxes.html';

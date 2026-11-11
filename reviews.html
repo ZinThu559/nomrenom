@@ -198,17 +198,50 @@
     <script src="assets/js/app.js"></script>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', async function () {
         const container = document.getElementById('reviewsContainer');
-        const storageKey = 'nomrenom_custom_reviews_v1';
+        const form = document.getElementById('newReviewForm');
+        const submitBtn = form.querySelector('button[type="submit"]');
 
-        function getReviews() {
-            const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
-            return [...saved, ...NOMRENOM_DATA.reviews];
+        const SUPABASE_CONFIG = {
+            url: 'https://mguszjsjiqkpoqebzivv.supabase.co',
+            key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ndXN6anNqaXFrcG9xZWJ6aXZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ0MDAwMDcsImV4cCI6MjEwOTk3NjAwN30.YnX9b_wxLVqyQ7WH2rQ3Wyhosi_oT4oSv3_qEEBZ0Ro'
+        };
+
+        let cloudReviews = [];
+
+        async function fetchCloudReviews() {
+            try {
+                const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/feedback?select=*&order=id.desc`, {
+                    headers: {
+                        'apikey': SUPABASE_CONFIG.key,
+                        'Authorization': 'Bearer ' + SUPABASE_CONFIG.key
+                    }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (Array.isArray(data)) {
+                        cloudReviews = data.map(f => ({
+                            customer_name: f.customer_name,
+                            snack_name: 'Verified Snack Rescue',
+                            rating: f.rating || 5,
+                            comment: f.comment,
+                            date: f.created_at ? new Date(f.created_at).toLocaleDateString() : 'Recent'
+                        }));
+                    }
+                }
+            } catch (err) {
+                console.warn('Could not fetch cloud reviews:', err);
+            }
         }
 
         function renderReviews() {
-            const list = getReviews();
+            const staticReviews = NOMRENOM_DATA.reviews || [];
+            const list = [...cloudReviews, ...staticReviews];
+            if (list.length === 0) {
+                container.innerHTML = '<div class="p-4 text-center text-muted">No reviews yet. Be the first to review!</div>';
+                return;
+            }
             container.innerHTML = list.map(r => `
                 <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
                     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -229,29 +262,60 @@
             `).join('');
         }
 
-        document.getElementById('newReviewForm').addEventListener('submit', function (e) {
+        // Initial Load
+        await fetchCloudReviews();
+        renderReviews();
+
+        // Submit Review to Live Supabase feedback table
+        form.addEventListener('submit', async function (e) {
             e.preventDefault();
             const name = document.getElementById('revName').value.trim();
             const snack = document.getElementById('revSnack').value;
             const rating = Number(document.getElementById('revRating').value);
             const comment = document.getElementById('revComment').value.trim();
 
-            const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
-            saved.unshift({
-                customer_name: name,
-                snack_name: snack,
-                rating,
-                comment,
-                date: 'Just now'
-            });
-            localStorage.setItem(storageKey, JSON.stringify(saved));
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Posting to Database...';
 
-            this.reset();
-            renderReviews();
-            alert('Thank you! Your verified student review was posted.');
+            try {
+                const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/feedback`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_CONFIG.key,
+                        'Authorization': 'Bearer ' + SUPABASE_CONFIG.key,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify({
+                        customer_name: `${name} (${snack})`,
+                        rating: rating,
+                        comment: comment,
+                        is_public: 1
+                    })
+                });
+
+                if (res.ok) {
+                    cloudReviews.unshift({
+                        customer_name: `${name} (${snack})`,
+                        snack_name: snack,
+                        rating: rating,
+                        comment: comment,
+                        date: 'Just now'
+                    });
+                    renderReviews();
+                    form.reset();
+                    alert('Thank you! Your review has been saved to the database.');
+                } else {
+                    alert('Could not save review. Please try again.');
+                }
+            } catch (err) {
+                console.error('Failed to submit review:', err);
+                alert('Connection error. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Post Review';
+            }
         });
-
-        renderReviews();
     });
     </script>
 </body>

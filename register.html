@@ -198,7 +198,7 @@
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Saving to Supabase Database...';
 
             try {
-                // 1. Direct POST to live Supabase users table
+                // 1. Direct POST to live Supabase users table (Visible in Table Editor -> users)
                 console.log('NomReNom: Registering customer in Supabase...', email);
                 const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/users`, {
                     method: 'POST',
@@ -220,6 +220,20 @@
                         last_login_at: new Date().toISOString()
                     })
                 });
+
+                // 2. Also register in Supabase Authentication (Visible in Authentication -> Users)
+                fetch(`${SUPABASE_CONFIG.url}/auth/v1/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_CONFIG.key,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: pass,
+                        data: { full_name: name, phone: phone }
+                    })
+                }).catch(() => {});
 
                 const data = await res.json();
                 console.log('NomReNom: Supabase response status:', res.status, data);

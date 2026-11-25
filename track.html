@@ -310,8 +310,40 @@
 
         trackInput.value = code;
 
-        function loadOrder(targetCode) {
-            const order = NomReNom.getReservation(targetCode);
+        async function loadOrder(targetCode) {
+            let order = NomReNom.getReservation(targetCode);
+            if (!order) {
+                // Cloud fallback: fetch directly from Supabase
+                try {
+                    const res = await fetch(`https://mguszjsjiqkpoqebzivv.supabase.co/rest/v1/reservations?reservation_code=eq.${encodeURIComponent(targetCode)}`, {
+                        headers: {
+                            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ndXN6anNqaXFrcG9xZWJ6aXZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ0MDAwMDcsImV4cCI6MjEwOTk3NjAwN30.YnX9b_wxLVqyQ7WH2rQ3Wyhosi_oT4oSv3_qEEBZ0Ro'
+                        }
+                    });
+                    const rows = await res.json();
+                    if (rows && rows.length > 0) {
+                        const r = rows[0];
+                        order = {
+                            code: r.reservation_code,
+                            customerName: r.customer_name || 'Student',
+                            email: r.customer_email || '',
+                            phone: r.customer_phone || '',
+                            storeName: r.store_name || 'Siêu thị Luxy – Điện Biên Phủ Hub',
+                            storeAddress: r.store_name || '475A Điện Biên Phủ, Phường 25, Bình Thạnh',
+                            slot: r.pickup_slot || 'Today (17:00 - 21:00)',
+                            paymentMethod: r.payment_method || 'VietQR',
+                            total: parseFloat(r.total_amount || 0),
+                            status: r.reservation_status || 'Ready for Inspection',
+                            items: r.items_json || [],
+                            createdAt: r.created_at
+                        };
+                        NomReNom.saveReservation(order);
+                    }
+                } catch (e) {
+                    console.warn('Cloud order fetch error:', e);
+                }
+            }
+
             if (!order) {
                 ticketView.style.display = 'none';
                 notFoundView.style.display = 'block';

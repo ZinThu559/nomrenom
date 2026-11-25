@@ -5,6 +5,9 @@
  */
 
 const NOMRENOM_DATA = {
+    // Optional Google Apps Script Webhook URL for instant Google Sheet sync
+    sheetWebhook: "",
+
     categories: [
         {
             id: 1,

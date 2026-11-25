@@ -351,13 +351,21 @@
         document.getElementById('orderSubtotal').textContent = NomReNom.formatVnd(total);
         document.getElementById('orderTotal').textContent = NomReNom.formatVnd(total);
 
+        // Pre-fill user details if logged in
+        const loggedUser = NomReNom.getUser();
+        if (loggedUser) {
+            if (loggedUser.full_name) document.getElementById('custName').value = loggedUser.full_name;
+            if (loggedUser.email) document.getElementById('custEmail').value = loggedUser.email;
+            if (loggedUser.phone) document.getElementById('custPhone').value = loggedUser.phone;
+        }
+
         // Checkout submit handler
-        document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+        document.getElementById('checkoutForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const btn = document.getElementById('btnSubmitReservation');
             btn.disabled = true;
-            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Processing Reservation...';
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Reserving & Saving Order...';
 
             const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'VietQR';
             const slot = document.getElementById('checkoutSlotSelect').value;
@@ -365,6 +373,8 @@
             const phone = document.getElementById('custPhone').value.trim();
             const email = document.getElementById('custEmail').value.trim();
             const notes = document.getElementById('specialNotes').value.trim();
+
+            const itemsSummary = cart.map(i => `${i.name} (x${i.qty})`).join('; ');
 
             const order = {
                 code: tempOrderCode,
@@ -376,6 +386,7 @@
                 slot,
                 notes,
                 paymentMethod,
+                itemsSummary,
                 items: cart.map(i => ({
                     id: i.id,
                     name: i.name,
@@ -389,13 +400,76 @@
                 createdAt: new Date().toLocaleString()
             };
 
-            // Save order into localStorage
+            // 1. Post directly to live Supabase database (public.reservations)
+            const SUPABASE_CONFIG = {
+                url: 'https://mguszjsjiqkpoqebzivv.supabase.co',
+                key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ndXN6anNqaXFrcG9xZWJ6aXZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ0MDAwMDcsImV4cCI6MjEwOTk3NjAwN30.YnX9b_wxLVqyQ7WH2rQ3Wyhosi_oT4oSv3_qEEBZ0Ro'
+            };
+
+            try {
+                await fetch(`${SUPABASE_CONFIG.url}/rest/v1/reservations`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_CONFIG.key,
+                        'Authorization': 'Bearer ' + SUPABASE_CONFIG.key,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify({
+                        reservation_code: tempOrderCode,
+                        customer_name: customerName,
+                        customer_email: email,
+                        customer_phone: phone,
+                        store_name: store.name,
+                        bakery_id: store.id || 1,
+                        pickup_slot: slot,
+                        items_summary: itemsSummary,
+                        items_json: cart,
+                        total_amount: total,
+                        payment_method: paymentMethod,
+                        payment_status: 'Paid',
+                        reservation_status: 'Ready for Inspection',
+                        special_instructions: notes,
+                        created_at: new Date().toISOString()
+                    })
+                });
+            } catch (err) {
+                console.warn('Supabase reservation sync error:', err);
+            }
+
+            // 2. Optional: Post directly to Google Sheets via Webhook
+            const sheetWebhook = (typeof NOMRENOM_DATA !== 'undefined' && NOMRENOM_DATA.sheetWebhook) || window.NOMRENOM_SHEET_WEBHOOK || '';
+            if (sheetWebhook) {
+                try {
+                    fetch(sheetWebhook, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            order_code: tempOrderCode,
+                            customer_name: customerName,
+                            email: email,
+                            phone: phone,
+                            store_name: store.name,
+                            pickup_slot: slot,
+                            items_summary: itemsSummary,
+                            total_amount: total,
+                            payment_method: paymentMethod,
+                            status: 'Ready for Inspection'
+                        })
+                    }).catch(() => {});
+                } catch (err) {
+                    console.warn('Google Sheet webhook error:', err);
+                }
+            }
+
+            // 3. Save order into localStorage for instant offline access
             NomReNom.saveReservation(order);
 
-            // Clear the cart
+            // 3. Clear the cart
             NomReNom.clearCart();
 
-            // Redirect to track page
+            // 4. Redirect to track page
             setTimeout(() => {
                 window.location.href = `track.html?code=${tempOrderCode}`;
             }, 600);

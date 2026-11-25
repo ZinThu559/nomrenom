@@ -53,14 +53,14 @@ const NOMRENOM_DATA = {
     stores: [
         {
             id: 1,
-            name: "Circle K – University Campus Hub",
-            slug: "circle-k-campus-hub",
-            description: "Partner convenience store located directly across the university dorms. Provides express counter pickup for near-expiry and dented packaged snacks.",
-            address: "Khu pho 6, Linh Trung Ward, Thu Duc City (Opposite University Dorm A)",
-            district: "Thu Duc City",
+            name: "Siêu thị Luxy – Điện Biên Phủ Hub",
+            slug: "sieu-thi-luxy-binh-thanh",
+            description: "Partner supermarket on Điện Biên Phủ corridor near HUTECH & UEF. Provides express counter pickup for near-expiry packs, dented packaging snacks, and pantry items at 50% off.",
+            address: "475A Điện Biên Phủ, Phường 25, Bình Thạnh (Near HUTECH & UEF)",
+            district: "Bình Thạnh District",
             city: "Ho Chi Minh City",
-            phone: "028 3724 5566",
-            email: "circlek.dorm@nomrenom.vn",
+            phone: "028 3512 0789",
+            email: "luxy.binhthanh@nomrenom.vn",
             opening_time: "07:00",
             closing_time: "23:00",
             logo_url: "assets/img/bakeries/bakery-logo-1.svg",
@@ -68,29 +68,29 @@ const NOMRENOM_DATA = {
         },
         {
             id: 2,
-            name: "FamilyMart – Student District 1",
-            slug: "familymart-d1",
-            description: "Downtown student-friendly convenience mart stocking near-expiry Japanese treats, dented cookie packs, and discounted imported snacks.",
-            address: "88 Nguyen Thi Minh Khai, Ben Nghe Ward, District 1",
-            district: "District 1",
+            name: "Hashiko Mart – Ung Văn Khiêm Hub",
+            slug: "hashiko-mart-binh-thanh",
+            description: "Specialty Asian grocery & snack mart on Ung Văn Khiêm near UTH & FTU2. Stocks discounted surplus near-expiry snacks, confectionery, and savory packs.",
+            address: "82 Ung Văn Khiêm, Phường 25, Bình Thạnh (Near UTH & FTU2)",
+            district: "Bình Thạnh District",
             city: "Ho Chi Minh City",
-            phone: "028 3822 1199",
-            email: "familymart.d1@nomrenom.vn",
+            phone: "028 3899 4455",
+            email: "hashiko.binhthanh@nomrenom.vn",
             opening_time: "06:30",
-            closing_time: "23:30",
+            closing_time: "23:00",
             logo_url: "assets/img/bakeries/bakery-logo-2.svg",
             image_url: "assets/img/bakeries/bakery-store-2.jpg"
         },
         {
             id: 3,
-            name: "Tokyo Snack Corner – Binh Thanh Hub",
-            slug: "tokyo-snack-binh-thanh",
-            description: "Specialty importer store for Asian confectionery. Stocks melted-and-set chocolates, cracked wafer biscuits, and dented canister snacks.",
-            address: "420 Dien Bien Phu, Ward 25, Binh Thanh District (near HUTECH & UEF)",
-            district: "Binh Thanh District",
+            name: "Siêu thị Genshai – Bình Thạnh Hub",
+            slug: "sieu-thi-genshai-binh-thanh",
+            description: "Supermarket partner near Hồng Bàng (HIU) & Văn Lang campuses. Specializes in damaged packaging packs, dented outer cartons, and shelf clearances at half price.",
+            address: "215 Điện Biên Phủ, Phường 15, Bình Thạnh (Near Hồng Bàng & Văn Lang)",
+            district: "Bình Thạnh District",
             city: "Ho Chi Minh City",
-            phone: "028 3512 8877",
-            email: "tokyosnack.bt@nomrenom.vn",
+            phone: "028 3514 6622",
+            email: "genshai.binhthanh@nomrenom.vn",
             opening_time: "08:00",
             closing_time: "22:00",
             logo_url: "assets/img/bakeries/bakery-logo-3.svg",
@@ -116,10 +116,10 @@ const NOMRENOM_DATA = {
             image_url: "assets/img/snacks/pocky_strawberry_dented.jpg",
             available_qty: 6,
             category_name: "Biscuits & Cookies",
-            store_name: "Circle K – University Campus Hub",
-            district: "Thu Duc City",
-            store_address: "Khu pho 6, Linh Trung Ward, Thu Duc City (Opposite University Dorm A)",
-            store_phone: "028 3724 5566"
+            store_name: "Siêu thị Luxy – Điện Biên Phủ Hub",
+            district: "Bình Thạnh District",
+            store_address: "475A Điện Biên Phủ, Phường 25, Bình Thạnh (Near HUTECH & UEF)",
+            store_phone: "028 3512 0789"
         },
         {
             id: 2,
@@ -138,10 +138,10 @@ const NOMRENOM_DATA = {
             image_url: "assets/img/snacks/oreo_crumbled_cookies.jpg",
             available_qty: 12,
             category_name: "Biscuits & Cookies",
-            store_name: "FamilyMart – Student District 1",
-            district: "District 1",
-            store_address: "88 Nguyen Thi Minh Khai, Ben Nghe Ward, District 1",
-            store_phone: "028 3822 1199"
+            store_name: "Hashiko Mart – Ung Văn Khiêm Hub",
+            district: "Bình Thạnh District",
+            store_address: "82 Ung Văn Khiêm, Phường 25, Bình Thạnh (Near UTH & FTU2)",
+            store_phone: "028 3899 4455"
         },
         {
             id: 3,
@@ -160,10 +160,10 @@ const NOMRENOM_DATA = {
             image_url: "assets/img/snacks/kitkat_melted_set.jpg",
             available_qty: 6,
             category_name: "Chocolates & Sweets",
-            store_name: "Tokyo Snack Corner – Binh Thanh Hub",
-            district: "Binh Thanh District",
-            store_address: "420 Dien Bien Phu, Ward 25, Binh Thanh District (near HUTECH & UEF)",
-            store_phone: "028 3512 8877"
+            store_name: "Siêu thị Genshai – Bình Thạnh Hub",
+            district: "Bình Thạnh District",
+            store_address: "215 Điện Biên Phủ, Phường 15, Bình Thạnh (Near Hồng Bàng & Văn Lang)",
+            store_phone: "028 3514 6622"
         },
         {
             id: 4,
@@ -182,10 +182,10 @@ const NOMRENOM_DATA = {
             image_url: "assets/img/snacks/lays_magic_masala.jpg",
             available_qty: 5,
             category_name: "Chips & Savory Snacks",
-            store_name: "Circle K – University Campus Hub",
-            district: "Thu Duc City",
-            store_address: "Khu pho 6, Linh Trung Ward, Thu Duc City (Opposite University Dorm A)",
-            store_phone: "028 3724 5566"
+            store_name: "Siêu thị Luxy – Điện Biên Phủ Hub",
+            district: "Bình Thạnh District",
+            store_address: "475A Điện Biên Phủ, Phường 25, Bình Thạnh (Near HUTECH & UEF)",
+            store_phone: "028 3512 0789"
         },
         {
             id: 5,
@@ -204,10 +204,10 @@ const NOMRENOM_DATA = {
             image_url: "assets/img/snacks/meltykiss_box.jpg",
             available_qty: 8,
             category_name: "Chocolates & Sweets",
-            store_name: "Tokyo Snack Corner – Binh Thanh Hub",
-            district: "Binh Thanh District",
-            store_address: "420 Dien Bien Phu, Ward 25, Binh Thanh District (near HUTECH & UEF)",
-            store_phone: "028 3512 8877"
+            store_name: "Siêu thị Genshai – Bình Thạnh Hub",
+            district: "Bình Thạnh District",
+            store_address: "215 Điện Biên Phủ, Phường 15, Bình Thạnh (Near Hồng Bàng & Văn Lang)",
+            store_phone: "028 3514 6622"
         },
         {
             id: 6,
@@ -226,10 +226,10 @@ const NOMRENOM_DATA = {
             image_url: "assets/img/snacks/choco_pie_dented.jpg",
             available_qty: 9,
             category_name: "Packaged Breads & Buns",
-            store_name: "FamilyMart – Student District 1",
-            district: "District 1",
-            store_address: "88 Nguyen Thi Minh Khai, Ben Nghe Ward, District 1",
-            store_phone: "028 3822 1199"
+            store_name: "Hashiko Mart – Ung Văn Khiêm Hub",
+            district: "Bình Thạnh District",
+            store_address: "82 Ung Văn Khiêm, Phường 25, Bình Thạnh (Near UTH & FTU2)",
+            store_phone: "028 3899 4455"
         },
         {
             id: 7,
@@ -248,10 +248,10 @@ const NOMRENOM_DATA = {
             image_url: "assets/img/snacks/hokkaido_cheese_wafers.jpg",
             available_qty: 4,
             category_name: "Biscuits & Cookies",
-            store_name: "Tokyo Snack Corner – Binh Thanh Hub",
-            district: "Binh Thanh District",
-            store_address: "420 Dien Bien Phu, Ward 25, Binh Thanh District (near HUTECH & UEF)",
-            store_phone: "028 3512 8877"
+            store_name: "Siêu thị Genshai – Bình Thạnh Hub",
+            district: "Bình Thạnh District",
+            store_address: "215 Điện Biên Phủ, Phường 15, Bình Thạnh (Near Hồng Bàng & Văn Lang)",
+            store_phone: "028 3514 6622"
         },
         {
             id: 8,
@@ -270,10 +270,10 @@ const NOMRENOM_DATA = {
             image_url: "assets/img/snacks/nongshim_crispy_noodles.jpg",
             available_qty: 15,
             category_name: "Chips & Savory Snacks",
-            store_name: "Circle K – University Campus Hub",
-            district: "Thu Duc City",
-            store_address: "Khu pho 6, Linh Trung Ward, Thu Duc City (Opposite University Dorm A)",
-            store_phone: "028 3724 5566"
+            store_name: "Siêu thị Luxy – Điện Biên Phủ Hub",
+            district: "Bình Thạnh District",
+            store_address: "475A Điện Biên Phủ, Phường 25, Bình Thạnh (Near HUTECH & UEF)",
+            store_phone: "028 3512 0789"
         },
         {
             id: 9,
@@ -292,10 +292,10 @@ const NOMRENOM_DATA = {
             image_url: "assets/img/snacks/pepero_almond_dented.jpg",
             available_qty: 8,
             category_name: "Biscuits & Cookies",
-            store_name: "FamilyMart – Student District 1",
-            district: "District 1",
-            store_address: "88 Nguyen Thi Minh Khai, Ben Nghe Ward, District 1",
-            store_phone: "028 3822 1199"
+            store_name: "Hashiko Mart – Ung Văn Khiêm Hub",
+            district: "Bình Thạnh District",
+            store_address: "82 Ung Văn Khiêm, Phường 25, Bình Thạnh (Near UTH & FTU2)",
+            store_phone: "028 3899 4455"
         },
         {
             id: 10,
@@ -314,10 +314,10 @@ const NOMRENOM_DATA = {
             image_url: "assets/img/snacks/seaweed_bulgogi_pack.jpg",
             available_qty: 10,
             category_name: "Chips & Savory Snacks",
-            store_name: "Tokyo Snack Corner – Binh Thanh Hub",
-            district: "Binh Thanh District",
-            store_address: "420 Dien Bien Phu, Ward 25, Binh Thanh District (near HUTECH & UEF)",
-            store_phone: "028 3512 8877"
+            store_name: "Siêu thị Genshai – Bình Thạnh Hub",
+            district: "Bình Thạnh District",
+            store_address: "215 Điện Biên Phủ, Phường 15, Bình Thạnh (Near Hồng Bàng & Văn Lang)",
+            store_phone: "028 3514 6622"
         }
     ],
 
@@ -341,28 +341,28 @@ const NOMRENOM_DATA = {
             id: 1,
             customer_name: "Zin Thu Hein Htet",
             rating: 5,
-            comment: "Picked up at Tokyo Snack Corner near HUTECH. Inspected the KitKat box right at the counter — chocolate had melted and set again just as described in the photo, but taste was 100% crispy and delicious! Saved 63%.",
+            comment: "Picked up at Siêu thị Genshai near Hồng Bàng. Inspected the KitKat box right at the counter — chocolate had melted and set again just as described in the photo, but taste was 100% crispy and delicious! Saved 63%.",
             date: "Yesterday",
             snack_name: "Nestle KitKat Chunky Milk Chocolate",
-            store_name: "Tokyo Snack Corner – Binh Thanh Hub"
+            store_name: "Siêu thị Genshai – Bình Thạnh Hub"
         },
         {
             id: 2,
-            customer_name: "Minh Anh (VNU Student)",
+            customer_name: "Minh Anh (HUTECH Student)",
             rating: 5,
-            comment: "Reserved 2 packs of Pocky Strawberry at Circle K dorm counter. Dented corner on carton was clearly photographed, foil sealed bag inside was airtight and super crisp. Paid via VietQR in 5 seconds with zero shipping fee!",
+            comment: "Reserved 2 packs of Pocky Strawberry at Siêu thị Luxy on Điện Biên Phủ. Dented corner on outer box was clearly photographed, foil sealed bag inside was airtight and super crisp. Paid via VietQR in 5 seconds with zero shipping fee!",
             date: "2 days ago",
             snack_name: "Glico Pocky Strawberry Biscuit Sticks",
-            store_name: "Circle K – University Campus Hub"
+            store_name: "Siêu thị Luxy – Điện Biên Phủ Hub"
         },
         {
             id: 3,
-            customer_name: "Hoang Nam (UEF)",
+            customer_name: "Hoang Nam (UEF Student)",
             rating: 5,
-            comment: "Crumbled Oreos were awesome for milkshakes. Loved the fact that I could check the condition at the store before taking it home. No shipping wait at all.",
+            comment: "Grabbed crumbled Oreos from Hashiko Mart on Ung Văn Khiêm right after class. Loved that I could check the condition at the store counter before taking it home. No delivery wait at all.",
             date: "3 days ago",
             snack_name: "Oreo Vanilla Creme Cookies",
-            store_name: "FamilyMart – Student District 1"
+            store_name: "Hashiko Mart – Ung Văn Khiêm Hub"
         }
     ]
 };

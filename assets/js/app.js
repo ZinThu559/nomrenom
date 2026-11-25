@@ -337,8 +337,8 @@ const NomReNom = {
                 customerName: "Alex Nguyen",
                 email: "alex@student.edu.vn",
                 phone: "0912345678",
-                storeName: "Circle K – University Campus Hub",
-                storeAddress: "Khu pho 6, Linh Trung Ward, Thu Duc City (Opposite University Dorm A)",
+                storeName: "Siêu thị Luxy – Điện Biên Phủ Hub",
+                storeAddress: "475A Điện Biên Phủ, Phường 25, Bình Thạnh (Near HUTECH & UEF)",
                 slot: "Today (11:00 - 14:00)",
                 items: [
                     { id: 1, name: "Glico Pocky Strawberry Biscuit Sticks (Family Pack)", qty: 2, price: 14000, subtotal: 28000, image_url: "assets/img/snacks/pocky_strawberry_dented.jpg" }

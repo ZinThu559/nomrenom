@@ -39,7 +39,9 @@ nomrenom/
 All customer accounts and activity are stored in real-time in Supabase:
 - **Project Ref:** `mguszjsjiqkpoqebzivv`
 - **Users Table:** `public.users` (stores `full_name`, `email`, `phone`, `password_hash`, `role`, `created_at`, `last_login_at`)
+- **Waitlist Table:** `public.waitlist` (stores early-access student emails & preferred campus hubs)
+- **Feedback Table:** `public.feedback` (stores verified counter inspection reviews & star ratings)
 - **Snack Inventory:** `public.food_boxes` (10 curated snack deals)
 - **Reservations:** `public.reservations` (Store pickup reservations)
 
-When a customer signs up or signs in on Vercel, their profile and login timestamp (`last_login_at`) are saved directly to your Supabase PostgreSQL database.
+When a customer signs up, joins the waitlist, or submits a review on Vercel, their data is saved directly to your Supabase PostgreSQL database.

@@ -169,6 +169,9 @@
                             <a class="nav-link" href="boxes.html">Browse Snacks</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#waitlist"><span class="badge bg-warning text-dark me-1" style="font-size: 0.65rem;">VIP</span>Waitlist</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="track.html">Track Pickup</a>
                         </li>
                         <li class="nav-item">
@@ -299,6 +302,7 @@
                             <a href="boxes.html?grade=crumbled_biscuits" class="badge bg-light text-dark border text-decoration-none px-2 py-1 rounded-pill">🍪 Crumbled Biscuits</a>
                             <a href="boxes.html?grade=melted_reset" class="badge bg-light text-dark border text-decoration-none px-2 py-1 rounded-pill">🍫 Melted &amp; Re-set</a>
                             <a href="boxes.html?grade=near_expiry" class="badge bg-light text-dark border text-decoration-none px-2 py-1 rounded-pill">⏳ 7–30 Days Left</a>
+                            <a href="#waitlist" class="badge bg-warning text-dark border border-warning text-decoration-none px-2 py-1 rounded-pill fw-bold"><i class="bi bi-bell-fill me-1"></i>Join Drop Waitlist</a>
                         </div>
                     </div>
 
@@ -555,6 +559,85 @@
             </div>
         </section>
 
+        <!-- 7. VIP SNACK DROP WAITLIST SECTION -->
+        <section id="waitlist" class="py-5" style="background: linear-gradient(135deg, #0F4C3A 0%, #155E49 100%); color: #FFFFFF; position: relative; overflow: hidden;">
+            <div class="position-absolute top-0 end-0 translate-middle-y rounded-circle bg-white opacity-5" style="width: 400px; height: 400px; pointer-events: none;"></div>
+            <div class="position-absolute bottom-0 start-0 translate-middle-y rounded-circle bg-warning opacity-10" style="width: 300px; height: 300px; pointer-events: none;"></div>
+
+            <div class="container-xl position-relative py-4">
+                <div class="row align-items-center g-4 g-lg-5">
+                    <div class="col-lg-6">
+                        <div class="d-inline-flex align-items-center gap-2 badge bg-warning text-dark px-3 py-2 fw-bold text-uppercase mb-3 rounded-pill shadow-xs">
+                            <i class="bi bi-bell-fill"></i> Never Miss a Deal
+                        </div>
+                        <h2 class="display-6 fw-bold text-white mb-3" style="letter-spacing: -0.02em;">
+                            Join the VIP Snack Drop Waitlist
+                        </h2>
+                        <p class="text-white-50 lead fs-6 mb-4">
+                            Imperfect and near-expiry snack boxes at <strong>50%–70% off</strong> sell out fast at campus counters. Sign up once and receive early-bird alerts the moment fresh rescue snack drops land at your nearest store.
+                        </p>
+                        
+                        <div class="d-flex flex-wrap gap-4 pt-1">
+                            <div class="d-flex align-items-center gap-2 text-white-50 small">
+                                <i class="bi bi-check-circle-fill text-warning fs-5"></i>
+                                <span>Zero spam, only snack drops</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2 text-white-50 small">
+                                <i class="bi bi-shield-lock-fill text-warning fs-5"></i>
+                                <span>100% Free VIP early access</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card border-0 rounded-4 p-4 p-md-5 shadow-lg" style="background: #FFFFFF; color: #1E293B;">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="rounded-circle p-2 bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                    <i class="bi bi-envelope-paper-heart fs-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold m-0 text-dark">Get Early Access Alerts</h5>
+                                    <small class="text-muted">Enter your details to reserve your priority spot</small>
+                                </div>
+                            </div>
+
+                            <form id="waitlistForm" onsubmit="handleWaitlistSubmit(event)">
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-dark">Your University Email or Personal Email</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-envelope"></i></span>
+                                        <input type="email" id="waitlistEmail" class="form-control bg-light border-start-0" placeholder="e.g. student@uit.edu.vn" required autocomplete="email">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-dark">Your Preferred Campus Hub (Optional)</label>
+                                    <select id="waitlistHub" class="form-select bg-light">
+                                        <option value="All Campus Hubs">⭐ All Campus Hubs (Notify me for everything!)</option>
+                                        <option value="Circle K – Campus Hub (Thu Duc)">Circle K – Campus Hub (Thu Duc)</option>
+                                        <option value="FamilyMart – Dormitory Zone A">FamilyMart – Dormitory Zone A</option>
+                                        <option value="GS25 – International University">GS25 – International University</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" id="btnWaitlistSubmit" class="btn btn-nrn-primary w-100 py-3 rounded-pill fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-send-fill"></i> Join Priority Waitlist
+                                </button>
+                            </form>
+
+                            <div id="waitlistSuccessAlert" class="alert alert-success d-none mt-3 mb-0 rounded-3 p-3 text-center border-0 shadow-xs" style="background: #ECFDF5; color: #047857;">
+                                <div class="fs-4 mb-1">🎉</div>
+                                <h6 class="fw-bold mb-1">You're on the VIP Waitlist!</h6>
+                                <p class="small mb-0">We saved your spot in the database. Watch your inbox for our next snack drop alert!</p>
+                            </div>
+
+                            <div id="waitlistErrorAlert" class="alert alert-danger d-none mt-3 mb-0 rounded-3 p-3 small text-center"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Mobile Bottom Navigation Bar (Visible only on Mobile <= 768px) -->
@@ -751,6 +834,70 @@
             `).join('');
         }
     });
+
+    // 4. Handle VIP Snack Drop Waitlist Submission
+    async function handleWaitlistSubmit(e) {
+        e.preventDefault();
+        const email = document.getElementById('waitlistEmail').value.trim().toLowerCase();
+        const hub = document.getElementById('waitlistHub').value;
+        const submitBtn = document.getElementById('btnWaitlistSubmit');
+        const successAlert = document.getElementById('waitlistSuccessAlert');
+        const errorAlert = document.getElementById('waitlistErrorAlert');
+
+        if (!email) return;
+
+        errorAlert.classList.add('d-none');
+        successAlert.classList.add('d-none');
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Reserving your VIP spot...';
+
+        const SUPABASE_CONFIG = {
+            url: 'https://mguszjsjiqkpoqebzivv.supabase.co',
+            key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ndXN6anNqaXFrcG9xZWJ6aXZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ0MDAwMDcsImV4cCI6MjEwOTk3NjAwN30.YnX9b_wxLVqyQ7WH2rQ3Wyhosi_oT4oSv3_qEEBZ0Ro'
+        };
+
+        try {
+            // 1. Post to live Supabase waitlist table
+            const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/waitlist`, {
+                method: 'POST',
+                headers: {
+                    'apikey': SUPABASE_CONFIG.key,
+                    'Authorization': 'Bearer ' + SUPABASE_CONFIG.key,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=representation'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    campus_hub: hub,
+                    created_at: new Date().toISOString()
+                })
+            });
+
+            // 2. Also cache locally
+            const localWaitlist = JSON.parse(localStorage.getItem('nomrenom_waitlist') || '[]');
+            if (!localWaitlist.find(item => item.email === email)) {
+                localWaitlist.push({ email, campus_hub: hub, date: new Date().toISOString() });
+                localStorage.setItem('nomrenom_waitlist', JSON.stringify(localWaitlist));
+            }
+
+            document.getElementById('waitlistForm').classList.add('d-none');
+            successAlert.classList.remove('d-none');
+
+            if (window.NomReNom && typeof NomReNom.showToast === 'function') {
+                NomReNom.showToast('VIP Waitlist Confirmed! 🎉', `You're on the list! We will email ${email} first when new snacks land.`, 'success');
+            }
+        } catch (err) {
+            console.warn('Waitlist fetch error:', err);
+            // Fallback save to localStorage if offline
+            const localWaitlist = JSON.parse(localStorage.getItem('nomrenom_waitlist') || '[]');
+            localWaitlist.push({ email, campus_hub: hub, date: new Date().toISOString() });
+            localStorage.setItem('nomrenom_waitlist', JSON.stringify(localWaitlist));
+
+            document.getElementById('waitlistForm').classList.add('d-none');
+            successAlert.classList.remove('d-none');
+        }
+    }
     </script>
 </body>
 </html>

@@ -25,7 +25,9 @@ try {
         if ($code -and ($existing -notcontains $code)) {
             $name = if ($o.customer_name) { $o.customer_name.Replace(',', ' ') } else { "Customer" }
             $email = if ($o.customer_email) { $o.customer_email } else { "N/A" }
-            $phone = if ($o.customer_phone) { $o.customer_phone } else { "N/A" }
+            $phone = if ($o.customer_phone) { 
+                if ($o.customer_phone.StartsWith('0')) { "'$($o.customer_phone)" } else { $o.customer_phone }
+            } else { "N/A" }
             $store = if ($o.store_name) { $o.store_name.Replace(',', ' ') } else { "Bình Thạnh Store" }
             $slot = if ($o.pickup_slot) { $o.pickup_slot.Replace(',', ' ') } else { "Today" }
             $items = if ($o.items_summary) { $o.items_summary.Replace(',', ';') } else { "Snacks" }
@@ -53,7 +55,9 @@ try {
         $email = $w.email
         if ($email -and ($existingW -notcontains $email)) {
             $name = if ($w.name) { $w.name.Replace(',', ' ') } elseif ($w.full_name) { $w.full_name.Replace(',', ' ') } else { "Student" }
-            $phone = if ($w.phone) { $w.phone.Replace(',', ' ') } else { "N/A" }
+            $phone = if ($w.phone) { 
+                if ($w.phone.StartsWith('0')) { "'$($w.phone)" } else { $w.phone }
+            } else { "N/A" }
             $date = if ($w.created_at) { $w.created_at.Substring(0, 16) } else { (Get-Date).ToString("yyyy-MM-dd HH:mm") }
             $row = "$name,$phone,$email,$date"
             gsheets mutate append $sheetId "Waitlist" $row | Out-Null

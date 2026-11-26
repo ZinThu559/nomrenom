@@ -197,14 +197,15 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>#</th>
+                                        <th>Student Name</th>
+                                        <th>Phone Number</th>
                                         <th>Email Address</th>
-                                        <th>Preferred Campus Hub</th>
                                         <th>Joined At</th>
                                     </tr>
                                 </thead>
                                 <tbody id="waitlistTableBody">
                                     <tr>
-                                        <td colspan="4" class="text-center py-4 text-muted">Loading waitlist entries...</td>
+                                        <td colspan="5" class="text-center py-4 text-muted">Loading waitlist entries...</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -364,8 +365,9 @@
             tbodyWaitlist.innerHTML = waitlist.map((w, idx) => `
                 <tr>
                     <td>${idx + 1}</td>
-                    <td><strong class="text-dark">${w.email}</strong></td>
-                    <td><span class="badge bg-light text-dark border">${w.campus_hub || 'All Bình Thạnh'}</span></td>
+                    <td><strong class="text-dark">${w.name || w.full_name || 'Student'}</strong></td>
+                    <td><span class="badge bg-light text-dark border">${w.phone || 'N/A'}</span></td>
+                    <td>${w.email}</td>
                     <td class="text-muted small">${w.created_at ? w.created_at.substring(0, 16) : ''}</td>
                 </tr>
             `).join('');

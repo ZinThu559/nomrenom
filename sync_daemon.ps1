@@ -56,14 +56,14 @@ while ($true) {
         foreach ($w in $waitlist) {
             $email = $w.email
             if ($email -and (-not $seenWaitlist.ContainsKey($email))) {
-                $hub = if ($w.campus_hub) { $w.campus_hub.Replace(',', ' ') } else { "All Bình Thạnh" }
-                $source = if ($w.source) { $w.source } else { "Website Form" }
+                $name = if ($w.name) { $w.name.Replace(',', ' ') } elseif ($w.full_name) { $w.full_name.Replace(',', ' ') } else { "Student" }
+                $phone = if ($w.phone) { $w.phone.Replace(',', ' ') } else { "N/A" }
                 $date = if ($w.created_at) { $w.created_at.Substring(0, 16) } else { (Get-Date).ToString("yyyy-MM-dd HH:mm") }
 
-                $row = "$email,$hub,$source,$date"
+                $row = "$name,$phone,$email,$date"
                 gsheets mutate append $sheetId "Waitlist" $row | Out-Null
                 $seenWaitlist[$email] = $true
-                Write-Host "[LIVE] Appended New Waitlist to Google Sheets: $email" -ForegroundColor Green
+                Write-Host "[LIVE] Appended New Waitlist to Google Sheets: $name ($email)" -ForegroundColor Green
             }
         }
     } catch {}

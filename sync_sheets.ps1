@@ -47,17 +47,17 @@ try {
 try {
     Write-Host "[2/4] Syncing Waitlist..." -ForegroundColor Yellow
     $waitlist = Invoke-RestMethod -Uri "$supabaseUrl/rest/v1/waitlist?select=*" -Headers $headers -Method Get
-    $existingW = (gsheets readonly read $sheetId "Waitlist!A2:A100" 2>$null) -split "`n" | ForEach-Object { $_.Trim() }
+    $existingW = (gsheets readonly read $sheetId "Waitlist!C2:C100" 2>$null) -split "`n" | ForEach-Object { $_.Trim() }
 
     foreach ($w in $waitlist) {
         $email = $w.email
         if ($email -and ($existingW -notcontains $email)) {
-            $hub = if ($w.campus_hub) { $w.campus_hub.Replace(',', ' ') } else { "All Bình Thạnh" }
-            $source = if ($w.source) { $w.source } else { "Website Form" }
+            $name = if ($w.name) { $w.name.Replace(',', ' ') } elseif ($w.full_name) { $w.full_name.Replace(',', ' ') } else { "Student" }
+            $phone = if ($w.phone) { $w.phone.Replace(',', ' ') } else { "N/A" }
             $date = if ($w.created_at) { $w.created_at.Substring(0, 16) } else { (Get-Date).ToString("yyyy-MM-dd HH:mm") }
-            $row = "$email,$hub,$source,$date"
+            $row = "$name,$phone,$email,$date"
             gsheets mutate append $sheetId "Waitlist" $row | Out-Null
-            Write-Host "  -> Appended Waitlist: $email ($hub)" -ForegroundColor Green
+            Write-Host "  -> Appended Waitlist: $name ($email)" -ForegroundColor Green
         }
     }
 } catch {

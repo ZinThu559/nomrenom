@@ -227,13 +227,14 @@
                                         <th>Full Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Campus Hub</th>
                                         <th>Role</th>
                                         <th>Joined At</th>
                                     </tr>
                                 </thead>
                                 <tbody id="customersTableBody">
                                     <tr>
-                                        <td colspan="6" class="text-center py-4 text-muted">Loading customer accounts...</td>
+                                        <td colspan="7" class="text-center py-4 text-muted">Loading customer accounts...</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -378,7 +379,7 @@
         document.getElementById('tabCustomerCount').textContent = customers.length;
         const tbodyCust = document.getElementById('customersTableBody');
         if (customers.length === 0) {
-            tbodyCust.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">No registered users yet.</td></tr>';
+            tbodyCust.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-muted">No registered users yet.</td></tr>';
         } else {
             tbodyCust.innerHTML = customers.map(c => `
                 <tr>
@@ -386,6 +387,7 @@
                     <td><strong class="text-dark">${c.full_name || 'Student'}</strong></td>
                     <td>${c.email}</td>
                     <td>${c.phone || 'N/A'}</td>
+                    <td><small class="text-muted"><i class="bi bi-geo-alt me-1 text-success"></i>${c.preferred_hub || 'Bình Thạnh'}</small></td>
                     <td><span class="badge bg-secondary">${c.role || 'customer'}</span></td>
                     <td class="text-muted small">${c.created_at ? c.created_at.substring(0, 16) : ''}</td>
                 </tr>

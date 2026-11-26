@@ -49,10 +49,10 @@ try {
 try {
     Write-Host "[2/4] Syncing Waitlist..." -ForegroundColor Yellow
     $waitlist = Invoke-RestMethod -Uri "$supabaseUrl/rest/v1/waitlist?select=*" -Headers $headers -Method Get
-    $existingW = (gsheets readonly read $sheetId "Waitlist!C2:C100" 2>$null) -split "`n" | ForEach-Object { $_.Trim() }
+    $existingW = (gsheets readonly read $sheetId "Waitlist!C2:C100" 2>$null) -split "`n" | ForEach-Object { $_.Trim().ToLower() }
 
     foreach ($w in $waitlist) {
-        $email = $w.email
+        $email = if ($w.email) { $w.email.Trim().ToLower() } else { "" }
         if ($email -and ($existingW -notcontains $email)) {
             $name = if ($w.name) { $w.name.Replace(',', ' ') } elseif ($w.full_name) { $w.full_name.Replace(',', ' ') } else { "Student" }
             $phone = if ($w.phone) { 
@@ -66,6 +66,33 @@ try {
     }
 } catch {
     Write-Host "Waitlist sync warning: $_" -ForegroundColor Red
+}
+
+# 3. Sync Customers / Registered Users
+try {
+    Write-Host "[3/4] Syncing Customers (Registered Users)..." -ForegroundColor Yellow
+    $users = Invoke-RestMethod -Uri "$supabaseUrl/rest/v1/users?select=*" -Headers $headers -Method Get
+    $existingC = (gsheets readonly read $sheetId "Customers!C2:C100" 2>$null) -split "`n" | ForEach-Object { $_.Trim().ToLower() }
+
+    foreach ($u in $users) {
+        $email = if ($u.email) { $u.email.Trim().ToLower() } else { "" }
+        if ($email -and ($existingC -notcontains $email)) {
+            $id = $u.id
+            $name = if ($u.full_name) { $u.full_name.Replace(',', ' ') } else { "Customer" }
+            $phone = if ($u.phone) { 
+                if ($u.phone.StartsWith('0')) { "'$($u.phone)" } else { $u.phone }
+            } else { "N/A" }
+            $hub = if ($u.preferred_hub) { $u.preferred_hub.Replace(',', ' ') } else { "Bình Thạnh Store" }
+            $role = if ($u.role) { $u.role } else { "customer" }
+            $date = if ($u.created_at) { $u.created_at.Substring(0, 16) } else { (Get-Date).ToString("yyyy-MM-dd HH:mm") }
+
+            $row = "$id,$name,$email,$phone,$hub,$role,$date"
+            gsheets mutate append $sheetId "Customers" $row | Out-Null
+            Write-Host "  -> Appended Customer: $name ($email)" -ForegroundColor Green
+        }
+    }
+} catch {
+    Write-Host "Customers sync warning: $_" -ForegroundColor Red
 }
 
 Write-Host "=== Sync Complete! Everything is updated on Google Sheets. ===" -ForegroundColor Green

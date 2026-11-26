@@ -12,6 +12,7 @@ Write-Host "NomReNom Live Google Sheets Sync Daemon started." -ForegroundColor G
 
 $seenOrders = @{}
 $seenWaitlist = @{}
+$seenCustomers = @{}
 
 try {
     $existingOrders = (gsheets readonly read $sheetId "Orders!A2:A200" 2>$null) -split "`n"
@@ -19,10 +20,15 @@ try {
         $code = $line.Trim()
         if ($code) { $seenOrders[$code] = $true }
     }
-    $existingW = (gsheets readonly read $sheetId "Waitlist!A2:A200" 2>$null) -split "`n"
+    $existingW = (gsheets readonly read $sheetId "Waitlist!C2:C200" 2>$null) -split "`n"
     foreach ($line in $existingW) {
-        $em = $line.Trim()
+        $em = $line.Trim().ToLower()
         if ($em) { $seenWaitlist[$em] = $true }
+    }
+    $existingC = (gsheets readonly read $sheetId "Customers!C2:C200" 2>$null) -split "`n"
+    foreach ($line in $existingC) {
+        $em = $line.Trim().ToLower()
+        if ($em) { $seenCustomers[$em] = $true }
     }
 } catch {}
 
@@ -56,7 +62,7 @@ while ($true) {
         # 2. Sync Waitlist
         $waitlist = Invoke-RestMethod -Uri "$supabaseUrl/rest/v1/waitlist?select=*" -Headers $headers -Method Get
         foreach ($w in $waitlist) {
-            $email = $w.email
+            $email = if ($w.email) { $w.email.Trim().ToLower() } else { "" }
             if ($email -and (-not $seenWaitlist.ContainsKey($email))) {
                 $name = if ($w.name) { $w.name.Replace(',', ' ') } elseif ($w.full_name) { $w.full_name.Replace(',', ' ') } else { "Student" }
                 $phone = if ($w.phone) { 
@@ -68,6 +74,27 @@ while ($true) {
                 gsheets mutate append $sheetId "Waitlist" $row | Out-Null
                 $seenWaitlist[$email] = $true
                 Write-Host "[LIVE] Appended New Waitlist to Google Sheets: $name ($email)" -ForegroundColor Green
+            }
+        }
+
+        # 3. Sync Customers / Registered Users
+        $users = Invoke-RestMethod -Uri "$supabaseUrl/rest/v1/users?select=*" -Headers $headers -Method Get
+        foreach ($u in $users) {
+            $email = if ($u.email) { $u.email.Trim().ToLower() } else { "" }
+            if ($email -and (-not $seenCustomers.ContainsKey($email))) {
+                $id = $u.id
+                $name = if ($u.full_name) { $u.full_name.Replace(',', ' ') } else { "Customer" }
+                $phone = if ($u.phone) { 
+                    if ($u.phone.StartsWith('0')) { "'$($u.phone)" } else { $u.phone }
+                } else { "N/A" }
+                $hub = if ($u.preferred_hub) { $u.preferred_hub.Replace(',', ' ') } else { "Bình Thạnh Store" }
+                $role = if ($u.role) { $u.role } else { "customer" }
+                $date = if ($u.created_at) { $u.created_at.Substring(0, 16) } else { (Get-Date).ToString("yyyy-MM-dd HH:mm") }
+
+                $row = "$id,$name,$email,$phone,$hub,$role,$date"
+                gsheets mutate append $sheetId "Customers" $row | Out-Null
+                $seenCustomers[$email] = $true
+                Write-Host "[LIVE] Appended New Customer to Google Sheets: $name ($email)" -ForegroundColor Green
             }
         }
     } catch {}

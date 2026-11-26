@@ -101,7 +101,7 @@
                     <div class="col-md-9 col-sm-8">
                         <div class="input-group">
                             <span class="input-group-text bg-light border-0"><i class="bi bi-search text-muted"></i></span>
-                            <input type="text" id="trackCodeInput" class="form-control border-0 bg-light" placeholder="Enter pickup code (e.g. NRN-20261110-620B)...">
+                            <input type="text" id="trackCodeInput" class="form-control border-0 bg-light" placeholder="Enter order code (NRN-YYYYMMDD-XXXX)...">
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-4">
@@ -413,7 +413,7 @@
 
             // Refuse at Counter & Refund Action
             document.getElementById('btnRefuseCounter').onclick = function () {
-                const reason = prompt('Please specify why the snack did not match the photo (e.g. package damaged more than shown, opened seal, wrong item):', 'Packaging had tears not visible in photos');
+                const reason = prompt('Please specify why the snack did not match the photo (damaged packaging, opened seal, or wrong item):', 'Packaging had tears not visible in photos');
                 if (reason) {
                     NomReNom.updateReservationStatus(order.code, 'Refunded', reason);
                     loadOrder(order.code);
